@@ -1,0 +1,5 @@
+.vscode/
+src
+tsconfig.json
+lib/test
+.travis.yml
