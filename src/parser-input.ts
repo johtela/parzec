@@ -8,7 +8,7 @@ export interface ParserInput<S> extends Iterator<S> {
 }
 
 class StringInput implements ParserInput<string> {
-    position: number 
+    position: number
     direction: ParseDirection
     state: object | null
 
@@ -16,20 +16,22 @@ class StringInput implements ParserInput<string> {
 
     constructor(text: string) {
         this.text = text
-        this.position = 0
+        this.position = -1
         this.direction = ParseDirection.Forward
         this.state = null
     }
 
     next(): IteratorResult<string> {
-        return this.position >= this.text.length ?
-            { done: true, value: "" } :
-            { done: false, value: this.text[this.position++] }
+        let pos = this.position + this.direction
+        if (pos < 0 || pos >= this.text.length)
+            return { done: true, value: "" }
+        this.position = pos
+        return { done: false, value: this.text[pos] }
     }
 }
 
 class ArrayInput<S> implements ParserInput<S> {
-    position: number 
+    position: number
     direction: ParseDirection
     state: object | null
 
@@ -37,15 +39,17 @@ class ArrayInput<S> implements ParserInput<S> {
 
     constructor(array: S[]) {
         this.array = array
-        this.position = 0
+        this.position = -1
         this.direction = ParseDirection.Forward
         this.state = null
     }
 
     next(): IteratorResult<S> {
-        return this.position >= this.array.length ?
-            { done: true, value: undefined as unknown as S } :
-            { done: false, value: this.array[this.position++] }
+        let pos = this.position + this.direction
+        if (pos < 0 || pos >= this.array.length)
+            return { done: true, value: undefined as unknown as S }
+        this.position = pos
+        return { done: false, value: this.array[pos] }
     }
 }
 
