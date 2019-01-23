@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/johtela/parzec/issues"
   },
-  "homepage": "https://github.com/johtela/parzec#readme"
+  "homepage": "https://github.com/johtela/parzec#readme",
+  "devDependencies": {
+    "typescript": "^3.2.4"
+  }
 }
