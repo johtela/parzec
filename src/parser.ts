@@ -16,10 +16,21 @@ export type Parser<T, S> = (input: ParserInput<S>) => ParseResult<T>
  * errorMessages flag is turned off, the expected information will not be 
  * available in parse errors. This speeds up the parsing nominally.
  */
-export var parserSettings = {
+export var parserDebug = {
     debugging: false,
     errorMessages: true,
-    rulesEvaluated: 0
+    rulesEvaluated: 0,
+    indentation: 0,
+    indent() {
+        this.indentation++
+    },
+    unindent() {
+        this.indentation--
+    },
+    write(text: string) {
+        let tabs = "  ".repeat(this.indentation)
+        console.log(tabs + text)
+    }
 }
 
 /**
@@ -29,10 +40,10 @@ export var parserSettings = {
  */
 export function tryParse<T, S>(parser: Parser<T, S>, input: ParserInput<S>):
     ParseResult<T> {
-    parserSettings.rulesEvaluated = 0
+    parserDebug.rulesEvaluated = 0
     let res = parser(input)
-    if (parserSettings.debugging)
-        console.info("Number of rules evaluated: " + parserSettings.rulesEvaluated)
+    if (parserDebug.debugging)
+        console.info("Number of rules evaluated: " + parserDebug.rulesEvaluated)
     return res
 }
 
@@ -84,7 +95,7 @@ export function satisfy<T>(predicate: (value: T) => boolean): Parser<T, T> {
         let item = next.value
         if (predicate(item))
             return succeeded(input.position, item)
-        let res = failed<T>(input.position, JSON.stringify(item))
+        let res = failed<T>(input.position, `${item}`)
         input.position = pos
         return res
     }
@@ -159,7 +170,7 @@ export function or<T, U, S>(parser: Parser<T, S>, other: Parser<U, S>): Parser<T
  * @param expected Name of the symbol or nonterminal that the parser matches.
  */
 export function expect<T, S>(parser: Parser<T, S>, expected: string): Parser<T, S> {
-    if (!parserSettings.errorMessages)
+    if (!parserDebug.errorMessages)
         return parser
     return input => {
         let res = parser(input)
@@ -180,7 +191,7 @@ export function where<T, S>(parser: Parser<T, S>, predicate: (value: T) => boole
     return bind(parser, x =>
         predicate(x) ?
             toParser(x) :
-            fail(JSON.stringify(x), "predicate"))
+            fail(`${x}`, "predicate"))
 }
 
 /**
@@ -279,7 +290,7 @@ export function not<T, S>(parser: Parser<T, S>): Parser<T, S> {
         let res = parser(input)
         input.position = pos
         if (res.success) {
-            let found = JSON.stringify(res.result)
+            let found = `${res.result}`
             return failed(input.position, found, ["not " + found])
         }
         return succeeded(input.position, <T><unknown>undefined)
@@ -346,3 +357,109 @@ export function lookBack<T, S>(parser: Parser<T, S>): Parser<T, S> {
     }
 }
 
+/**
+ * A parser that returns the current position of the input. This is useful
+ * when binding parsers together and you want to know the position where you
+ * currently are. The position can be also used for backtracking.
+ */
+export function position<S>(): Parser<number, S> {
+    return input => succeeded(input.position, input.position)
+}
+
+/**
+ * Perform explicit backtracking, that is, move the input position to a specified
+ * place, and try to run the given parser there. After parsing the position is 
+ * resetted back to its original value. This operation is needed rarely but it
+ * is handy in situations where the parsing is context-sensitive and it is not 
+ * feasible to store the context in the satellite state.
+ * @param parser The parser to be run in the specified position.
+ * @param position The position where to backtrack.
+ */
+export function backtrack<T, S>(parser: Parser<T, S>, position: number): Parser<T, S> {
+    return input => {
+        let pos = input.position
+        input.position = position
+        let res = parser(input)
+        input.position = pos
+        return res
+    }
+}
+
+/**
+ * Attach debugging information to a parser. To trace which rules are triggered 
+ * during parsing, you can add debugging info to any parser. This combinator
+ * produces a hierarchical tree of parser invocations which includes information 
+ * about input symbol and its position. If debugging is disabled, this function 
+ * does nothing.
+ * @param parser The parser to be decorated with debug info.
+ * @param ruleName The name of the parsing rule.
+ */
+export function trace<T, S>(parser: Parser<T, S>, ruleName: string): Parser<T, S> {
+    if (!parserDebug.debugging)
+        return parser;
+    return input => {
+        parserDebug.write(`${ruleName} called with input '${input.current}' ` +
+            `at position ${input.position}`)
+        parserDebug.indent()
+        let res = parser(input)
+        parserDebug.rulesEvaluated++
+        parserDebug.unindent()
+        parserDebug.write(`${ruleName} ${res.success ? "SUCCEEDED" : "FAILED"} ` +
+            `at position ${input.position}`)
+        return res
+    }
+}
+
+/**
+ * Get the current satellite state stored in the input.
+ */
+export function getState<T, S>(): Parser<T, S> {
+    return input => succeeded(input.position, <T>input.state)
+}
+
+/**
+ * Set the current satellite state stored in the input.
+ * @param newValue The function that returns the new state.
+ */
+export function setState<T, S>(newValue: () => T): Parser<T, S> {
+    return input => succeeded(input.position, input.state = newValue())
+}
+
+/**
+ * Mutate the satellite state stored in the input.
+ * @param mutate The function that mutates the state. It gets the current
+ * state as a parameter.
+ */
+export function mutateState<T, S>(mutate: (state: T) => void): Parser<T, S> {
+    return input => {
+        mutate(input.state)
+        return succeeded(input.position, input.state)
+    }
+}
+
+/**
+ * Check that the current state matches a predicate. If not, the result parser 
+ * fails.
+ * @param predicate The predicate that gets current state as input. It should
+ * return true for parsing to continue, and false to fail the parser.
+ */
+export function checkState<T, S>(predicate: (state: T) => boolean): Parser<T, S> {
+    return input => predicate(input.state) ?
+        succeeded(input.position, input.state) :
+        failed(input.position, "Matching predicate.")
+}
+
+/**
+ * Clean up the current state after a parser has been executed. The clean-up function
+ * is run regardless of whether the parser succeeds or fails.
+ * @param parser The parser to be executed.
+ * @param cleanup The function that cleans up the state after the parser has run.
+ */
+export function cleanupState<T, U, S>(parser: Parser<T, S>, cleanup: (state: U) => void):
+    Parser<T, S> {
+    return input => {
+        let res = parser(input)
+        cleanup(input.state)
+        return res
+    }
+}
