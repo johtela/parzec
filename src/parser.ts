@@ -1,5 +1,5 @@
-import { ParserInput, ParseDirection } from "./parser-input"
-import { ParseResult, succeeded, failed } from "./parse-result";
+import { ParserInput, ParseDirection } from "./parserinput"
+import { ParseResult, succeeded, failed } from "./parseresult";
 
 /**
  * Parser type wraps a parsing function. It takes an ParserInput as
@@ -16,7 +16,7 @@ export type Parser<T, S> = (input: ParserInput<S>) => ParseResult<T>
  * errorMessages flag is turned off, the expected information will not be 
  * available in parse errors. This speeds up the parsing nominally.
  */
-export var parserDebug = {
+export const parserDebug = {
     debugging: false,
     errorMessages: true,
     rulesEvaluated: 0,
@@ -462,4 +462,20 @@ export function cleanupState<T, U, S>(parser: Parser<T, S>, cleanup: (state: U) 
         cleanup(input.state)
         return res
     }
+}
+
+/**
+ * The catch-all parser that will match any symbol read from the input.
+ */
+export function anything<T>(): Parser<T, T> {
+    return satisfy<T>(_ => true)
+}
+
+/**
+ * Parser that succeeds if the symbol read from the input is equal (===) to
+ * given parameter; otherwise parsing fails.
+ * @param value The value expected to be read from the input.
+ */
+export function is<T>(value: T) {
+    return satisfy<T>(x => x === value)
 }
