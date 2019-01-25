@@ -1,4 +1,4 @@
-import { ParserInput } from "./parser-input"
+import { ParserInput, ParseDirection } from "./parser-input"
 import { ParseResult, succeeded, failed } from "./parse-result";
 
 /**
@@ -237,25 +237,110 @@ export function occurrences<T, S>(parser: Parser<T, S>, min: number, max: number
 }
 
 /**
- * Optionally parses an input, if the parser fails then the default value is returned.
- * @param parser The optional parser to be converted optional.
- * @param defaultValue The value returned if parser fails. If no parameter given,
- *                     null is returned.
+ * Parse an optional value, if the parser fails then the default value is returned.
+ * @param parser The parser to be converted optional.
+ * @param defaultValue The value returned if parser fails.
  */
-export function optional<T, S>(parser: Parser<T, S>, defaultValue: T | null = null): 
-    Parser<T | null, S> {
+export function optional<T, S>(parser: Parser<T, S>, defaultValue: T):
+    Parser<T, S> {
     return or(parser, toParser(defaultValue))
 }
 
 /**
+ * Parse an optional reference value, if the parser fails then null is returned.
+ * @param parser The parser to be converted optional.
+ */
+export function optionalRef<T, S>(parser: Parser<T, S>): Parser<T | null, S> {
+    return or(parser, toParser(null))
+}
+
+/**
  * Check that the given parser succeeds without consuming any input. Corresponds 
- * to the & operator in the PEG grammars.
- * @param parser The parser that matches the required input.
+ * to the & operator in PEG grammars.
+ * @param parser The parser that should match the input.
  */
 export function and<T, S>(parser: Parser<T, S>): Parser<T, S> {
     return input => {
         let pos = input.position
         let res = parser(input)
+        input.position = pos
+        return res
+    }
+}
+
+/**
+ * Check that the given parser fails without consuming any input. Corresponds 
+ * to the ! operator in PEG grammars.
+ * @param parser The parser which should not match the input.
+ */
+export function not<T, S>(parser: Parser<T, S>): Parser<T, S> {
+    return input => {
+        let pos = input.position
+        let res = parser(input)
+        input.position = pos
+        if (res.success) {
+            let found = JSON.stringify(res.result)
+            return failed(input.position, found, ["not " + found])
+        }
+        return succeeded(input.position, <T><unknown>undefined)
+    }
+}
+
+/**
+ * Any of the given parsers must succeed. The operation is the same 
+ * as the "or" combinator generalized to arbitrary number of choices.
+ * @param parsers The list of parser to be tried.
+ */
+export function any<T, S>(...parsers: Parser<T, S>[]): Parser<T, S> {
+    if (parsers.length == 0)
+        throw Error("At least one parser must be given.")
+    return input => {
+        let res: ParseResult<T>
+        let i = 0
+        do {
+            res = parsers[i++](input)
+        }
+        while (i < parsers.length && !res.success)
+        return res
+    }
+}
+
+/** 
+ * Peek next symbol in the input stream without changing the position.
+ */
+export function peek<S>(): Parser<S, S> {
+    return input => {
+        let pos = input.position
+        let next = input.next()
+        input.position = pos
+        return next.done ?
+            failed(input.position, "end of input") :
+            succeeded(input.position, next.value)
+    }
+}
+
+/**
+ * Select a parser to be used based on the next symbol in the input. This function
+ * is an alternative to the the "any" combinator. It reduces backtracking when the
+ * parser to be applied can be deduced from the next symbol.
+ * @param selector The function which returns the parser to be applied.
+ */
+export function choose<T, S>(selector: (input: S) => Parser<T, S>): Parser<T, S> {
+    return bind(peek<S>(), selector)
+}
+
+/**
+ * Perform backward lookup without changing the input position. The operation is 
+ * equivalent to the "and" combinator with the difference that it checks input 
+ * backward instead of forward.
+ * @param parser The parser to be applied.
+ */
+export function lookBack<T, S>(parser: Parser<T, S>): Parser<T, S> {
+    return input => {
+        let pos = input.position
+        input.direction = ParseDirection.Backward
+        let res = parser(input)
+        input.direction = ParseDirection.Forward
         input.position = pos
         return res
     }

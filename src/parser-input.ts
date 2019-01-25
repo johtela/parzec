@@ -47,7 +47,7 @@ class ArrayInput<S> implements ParserInput<S> {
     next(): IteratorResult<S> {
         let pos = this.position + this.direction
         if (pos < 0 || pos >= this.array.length)
-            return { done: true, value: undefined as unknown as S }
+            return { done: true, value: <S><unknown>undefined }
         this.position = pos
         return { done: false, value: this.array[pos] }
     }
