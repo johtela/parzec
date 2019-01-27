@@ -68,8 +68,3 @@ class LexerInput<S> implements ParserInput<Token<S>> {
 export function lexerInput<S>(text: string, lexer: Lexer<S>): ParserInput<Token<S>> {
     return new LexerInput<S>(text, lexer)
 }
-
-export function mapText<T>(token: Token<T>) {
-    return token.text
-}
-

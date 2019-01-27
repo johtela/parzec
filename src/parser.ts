@@ -1,6 +1,7 @@
 import { ParserInput } from "./parserinput"
 import { ParseResult, succeeded, failed } from "./parseresult";
 import { Token } from "./lexer";
+import { Ref } from "./ref";
 
 /**
  * Parser type wraps a parsing function. It takes an ParserInput as
@@ -68,7 +69,7 @@ export function parse<T, S>(parser: Parser<T, S>, input: ParserInput<S>): T {
  * return, that is, it lifts a value to the parser monad.
  * @param value The value that is returned by the result parser.
  */
-export function toParser<T, S>(value: T): Parser<T, S> {
+export function mret<T, S>(value: T): Parser<T, S> {
     return input => succeeded(input.position, value)
 }
 
@@ -143,7 +144,7 @@ export function bind<T, U, S>(parser: Parser<T, S>, binder: (value: T) => Parser
  * @param mapper The mapper function.
  */
 export function map<T, U, S>(parser: Parser<T, S>, mapper: (value: T) => U): Parser<U, S> {
-    return bind(parser, x => toParser(mapper(x)))
+    return bind(parser, x => mret(mapper(x)))
 }
 
 /**
@@ -152,7 +153,7 @@ export function map<T, U, S>(parser: Parser<T, S>, mapper: (value: T) => U): Par
  * @param parser The first parser.
  * @param other The second parser.
  */
-export function then<T, U, S>(parser: Parser<T, S>, other: Parser<U, S>): Parser<U, S> {
+export function seq<T, U, S>(parser: Parser<T, S>, other: Parser<U, S>): Parser<U, S> {
     return bind(parser, _ => other)
 }
 
@@ -201,7 +202,7 @@ export function where<T, S>(parser: Parser<T, S>, predicate: (value: T) => boole
     Parser<T, S> {
     return bind(parser, x =>
         predicate(x) ?
-            toParser(x) :
+            mret(x) :
             fail(`${x}`, "predicate"))
 }
 
@@ -253,7 +254,7 @@ export function occurrences<T, S>(parser: Parser<T, S>, min: number, max: number
     return bind(zeroOrMore(parser), list => {
         let cnt = list.length
         return cnt >= min && cnt <= max ?
-            toParser(list) :
+            mret(list) :
             fail(`${cnt} occurrences`, `${min}-${max} occurrences`)
     })
 }
@@ -265,7 +266,7 @@ export function occurrences<T, S>(parser: Parser<T, S>, min: number, max: number
  */
 export function optional<T, S>(parser: Parser<T, S>, defaultValue: T):
     Parser<T, S> {
-    return or(parser, toParser(defaultValue))
+    return or(parser, mret(defaultValue))
 }
 
 /**
@@ -273,7 +274,7 @@ export function optional<T, S>(parser: Parser<T, S>, defaultValue: T):
  * @param parser The parser to be converted optional.
  */
 export function optionalRef<T, S>(parser: Parser<T, S>): Parser<T | null, S> {
-    return or(parser, toParser(null))
+    return or(parser, mret(null))
 }
 
 /**
@@ -480,4 +481,24 @@ export function is<T>(value: T): Parser<T, T> {
  */
 export function token<T>(token: T): Parser<Token<T>, Token<T>> {
     return satisfy<Token<T>>(t => t.token === token)
+}
+
+/**
+ * Shorthand function to transform a parser returning tokens into parser returning strings. 
+ * @param parser The parser reading lexer input.
+ */
+export function mapTokenText<T>(parser: Parser<Token<T>, Token<T>>): Parser<string, Token<T>> {
+    return map(parser, t => t.text)
+}
+
+/**
+ * Use a parser that is not yet defined.
+ * Often grammar rules are mutually recursive, which means that there is no way to
+ * write them in an order where all the dependent rules are defined. In these occasions,
+ * you can just define a reference to a parser and set its implementation later. To refer
+ * to the parser that is not yet defined, you can use this function. 
+ * @param parser Reference to the parser to be defined later.
+ */
+export function forwardRef<T, S>(parser: Ref<Parser<T, S>>): Parser<T, S> {
+    return input => parser.target(input)
 }
