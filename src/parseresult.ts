@@ -22,7 +22,7 @@ export abstract class ParseResult<T> {
     }
 
     get expectedAsCsv(): string {
-        return this.expected.reduce((s1, s2) => s1 + ", " + s2)
+        return this.expected.join(", ")
     }
 }
 

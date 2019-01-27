@@ -1,5 +1,6 @@
 import { ParserInput } from "./parserinput"
 import { ParseResult, succeeded, failed } from "./parseresult";
+import { Token } from "./lexer";
 
 /**
  * Parser type wraps a parsing function. It takes an ParserInput as
@@ -115,10 +116,10 @@ export function notSatisfy<T>(predicate: (value: T) => boolean): Parser<T, T> {
  * The monadic bind. Runs the first parser, and if it succeeds, feeds the 
  * result to the second parser. Corresponds to Haskell's >>= operator.
  * @param parser The parser that is executed first.
- * @param func The function that maps the result of the first parser to 
+ * @param binder The function that maps the result of the first parser to 
  *             a second parser.
  */
-export function bind<T, U, S>(parser: Parser<T, S>, func: (value: T) => Parser<U, S>):
+export function bind<T, U, S>(parser: Parser<T, S>, binder: (value: T) => Parser<U, S>):
     Parser<U, S> {
     if (parser === null)
         throw Error("Argument 'parser' cannot be null")
@@ -126,13 +127,23 @@ export function bind<T, U, S>(parser: Parser<T, S>, func: (value: T) => Parser<U
         let pos = input.position
         let res1 = parser(input)
         if (res1.success) {
-            let res2 = func(res1.result)(input)
+            let res2 = binder(res1.result)(input)
             if (!res2.success && pos !== input.position)
                 input.position = pos // backtrack
             return res2
         }
         return failed(res1.position, res1.found, res1.expected)
     }
+}
+
+/**
+ * Map result of the input parser to another value. The function performs the standard
+ * functor mapping that can be implemented using the monadic bind.
+ * @param parser The parser whose result is mapped.
+ * @param mapper The mapper function.
+ */
+export function map<T, U, S>(parser: Parser<T, S>, mapper: (value: T) => U): Parser<U, S> {
+    return bind(parser, x => toParser(mapper(x)))
 }
 
 /**
@@ -459,6 +470,14 @@ export function anything<T>(): Parser<T, T> {
  * given parameter; otherwise parsing fails.
  * @param value The value expected to be read from the input.
  */
-export function is<T>(value: T) {
+export function is<T>(value: T): Parser<T, T> {
     return satisfy<T>(x => x === value)
+}
+
+/**
+ * Parse a specific token from the lexer input stream.
+ * @param token The token to be parsed.
+ */
+export function token<T>(token: T): Parser<Token<T>, Token<T>> {
+    return satisfy<Token<T>>(t => t.token === token)
 }
