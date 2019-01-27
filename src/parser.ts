@@ -1,4 +1,4 @@
-import { ParserInput, ParseDirection } from "./parserinput"
+import { ParserInput } from "./parserinput"
 import { ParseResult, succeeded, failed } from "./parseresult";
 
 /**
@@ -338,23 +338,6 @@ export function peek<S>(): Parser<S, S> {
  */
 export function choose<T, S>(selector: (input: S) => Parser<T, S>): Parser<T, S> {
     return bind(peek<S>(), selector)
-}
-
-/**
- * Perform backward lookup without changing the input position. The operation is 
- * equivalent to the "and" combinator with the difference that it checks input 
- * backward instead of forward.
- * @param parser The parser to be applied.
- */
-export function lookBack<T, S>(parser: Parser<T, S>): Parser<T, S> {
-    return input => {
-        let pos = input.position
-        input.direction = ParseDirection.Backward
-        let res = parser(input)
-        input.direction = ParseDirection.Forward
-        input.position = pos
-        return res
-    }
 }
 
 /**
