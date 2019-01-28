@@ -484,14 +484,6 @@ export function token<T>(token: T): Parser<Token<T>, Token<T>> {
 }
 
 /**
- * Shorthand function to transform a parser returning tokens into parser returning strings. 
- * @param parser The parser reading lexer input.
- */
-export function mapTokenText<T>(parser: Parser<Token<T>, Token<T>>): Parser<string, Token<T>> {
-    return map(parser, t => t.text)
-}
-
-/**
  * Use a parser that is not yet defined.
  * Often grammar rules are mutually recursive, which means that there is no way to
  * write them in an order where all the dependent rules are defined. In these occasions,
