@@ -57,7 +57,7 @@ export function tryParse<T, S>(parser: Parser<T, S>, input: ParserInput<S>):
 export function parse<T, S>(parser: Parser<T, S>, input: ParserInput<S>): T {
     var res = tryParse(parser, input)
     if (!res.success)
-        throw Error(`Parse error at ${res.position}.\n` +
+        throw Error(`Parse error at position ${res.position}.\n` +
             `Found: "${res.found}"\n` +
             `Expected: "${res.expectedAsCsv}"`)
     return res.result

@@ -1,7 +1,7 @@
 import { ParserInput } from "../parserinput";
 import { Token, Lexer, lexerInput } from "../lexer";
-import { Parser, expect, map, token, optional, bind, forwardRef, or, mret, any } from "../parser";
-import { oneOrMoreSeparatedBy } from "../arrayparsers";
+import { Parser, expect, map, token, optional, bind, forwardRef, or, mret, any, parse } from "../parser";
+import { oneOrMoreSeparatedBy, bracket } from "../arrayparsers";
 import { Ref } from "../ref";
 
 // Tokens
@@ -18,10 +18,10 @@ const lexer = new Lexer<JsonToken>(
     [/\}/, JsonToken.RightBrace],
     [/\[/, JsonToken.LeftBracket],
     [/\]/, JsonToken.RightBracket],
-    [/\,/, JsonToken.Comma],
-    [/\:/, JsonToken.Colon],
-    [/\-?(?:[1-9]\d+|\d(?!\d))(?:\.\d+)?(?:[eE][+-]?\d+)?/, JsonToken.Number],
-    [/"(?:(?:(?!["\\])[\u{0020}-\u{10ffff}])|(?:\\(?:["\\\/bnrt]|(?:u[0-9a-fA-F]{4}))))*"/, JsonToken.String],
+    [/,/, JsonToken.Comma],
+    [/:/, JsonToken.Colon],
+    [/-?(?:[1-9]\d+|\d(?!\d))(?:\.\d+)?(?:[eE][+-]?\d+)?/, JsonToken.Number],
+    [/"(?:(?:(?!["\\])[\u{0020}-\u{ffff}])|(?:\\(?:["\\\/bnrt]|(?:u[0-9a-fA-F]{4}))))*"/u, JsonToken.String],
     [/[\t\n\r ]+/, JsonToken.Whitespace],
     [/./, JsonToken.Unknown]);
 
@@ -42,11 +42,8 @@ const endobject = expect(token(JsonToken.RightBrace), "}")
 // Nonterminals
 const element = new Ref<Parser<any, Token<JsonToken>>>()
 const elements = oneOrMoreSeparatedBy(forwardRef(element), comma)
-const array = 
-    bind(beginarray, b =>
-    bind(or(elements, whitespace), es =>
-    bind(endarray, e =>
-    mret(typeof es === "string" ? [] : es))))
+const array = map(bracket(or(elements, whitespace), beginarray, endarray),
+    es => typeof es === "string" ? [] : es)
 const member =
     bind(whitespace, ws1 =>
     bind(string, s =>
@@ -55,25 +52,26 @@ const member =
     bind(forwardRef(element), e =>
     mret(<[string, any]>[s, e]))))))
 const members = oneOrMoreSeparatedBy(member, comma)
-const object =
-    bind(beginobject, b =>
-    bind(or(members, whitespace), ms =>
-    bind(endobject, e =>
-    mret(typeof ms === "string" ? <any>{} : initObject(ms)))))
+const object = map(bracket(or(members, whitespace), beginobject, endobject),
+    ms => typeof ms === "string" ? <any>{} : initObject(ms))
 const value = any(object, array, string, number, littrue, litfalse, litnull)
-element.target = 
-    bind(whitespace, ws1 =>
-    bind(value, v =>
-    bind(whitespace, ws2 =>
-    mret(v))))
+element.target = bracket(value, whitespace, whitespace)
 const json = element.target
 
 /**
  * Create lexer input stream for JSON string.
- * @param text JSON string to be parsed.
+ * @param text JSON string to be lexed.
  */
 export function jsonInput(text: string): ParserInput<Token<JsonToken>> {
     return lexerInput<JsonToken>(text, lexer);
+}
+
+/**
+ * Parse a JSON string into a JS/TS value. Throws an exception, if parsing fails.
+ * @param text JSON string to be parsed.
+ */
+export function parseJson(text: string): any {
+    return parse(json, jsonInput(text))
 }
 
 function initObject(members: [string, any][]): any {

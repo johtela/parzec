@@ -20,6 +20,29 @@
                 "panel": "shared",
                 "clear": true
             }
+        },
+        {
+            "type": "npm",
+            "script": "test",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "focus": true,
+                "clear": true
+            }
+        },
+        {
+            "type": "npm",
+            "script": "build",
+            "problemMatcher": [
+                "$tsc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            }
         }
     ]
 }

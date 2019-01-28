@@ -2,9 +2,13 @@
   "name": "parzec",
   "version": "1.0.0",
   "description": "Parser combinators for Typescript",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./lib/test/*tests.js",
+    "build": "tsc",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
@@ -17,6 +21,12 @@
   },
   "homepage": "https://github.com/johtela/parzec#readme",
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.18",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "ts-node": "^8.0.2",
     "typescript": "^3.2.4"
   }
 }
