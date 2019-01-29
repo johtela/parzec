@@ -1,4 +1,4 @@
-import { Parser, bind, seq, mret, zeroOrMore, or, map } from "./parser";
+import { Parser, bind, seq, mret, zeroOrMore, or, map, any } from "./parser";
 
 type BinaryOperation<T> = (x: T, y: T) => T
 
@@ -38,5 +38,5 @@ export function reduceZeroOrMore<T, S>(parser: Parser<T, S>,
 }
 
 export function operators<T, U, S>(...ops: [Parser<T, S>, U][]): Parser<U, S> {
-    return ops.map(([p, o]) => map(p, x => o)).reduce(or)
+    return any(...ops.map(([p, o]) => map(p, x => o)))
 }
