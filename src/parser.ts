@@ -187,12 +187,13 @@ export function or<T, U, S>(parser: Parser<T, S>, other: Parser<U, S>): Parser<T
 export function expect<T, S>(parser: Parser<T, S>, expected: string): Parser<T, S> {
     if (!parserDebug.errorMessages)
         return parser
-    return input => {
+    let resParser = (input: ParserInput<S>) => {
         let res = parser(input)
         if (res.kind == "fail")
             res.expected.push(expected)
         return res
     }
+    return parserDebug.debugging ? trace(resParser, expected) : resParser
 }
 
 /**
@@ -315,7 +316,16 @@ export function not<T, S>(parser: Parser<T, S>): Parser<T, S> {
     }
 }
 
-export function tryRule<T, S>(parser: Parser<T, S>): Parser<T, S> {
+/**
+ * Bactrack to the current input position, even if the given parser fails
+ * and has advanced the input position. Normally we do not bactrack when a
+ * parser has advanced in the input. Doing so would loose the position where
+ * the parsing failed and make error messages more vague. Sometimes, however, 
+ * we need more input lookahead. In these cases, you can use the backtrack
+ * operation to retry the next rule.
+ * @param parser The parser which is attempted to run.
+ */
+export function backtrack<T, S>(parser: Parser<T, S>): Parser<T, S> {
     return input => {
         let pos = input.position
         let res = parser(input)
@@ -384,25 +394,6 @@ export function choose<T, S>(selector: (input: S) => Parser<T, S>): Parser<T, S>
  */
 export function position<S>(): Parser<number, S> {
     return input => succeeded(input.position, input.position)
-}
-
-/**
- * Perform explicit backtracking, that is, move the input position to a specified
- * place, and try to run the given parser there. After parsing the position is 
- * resetted back to its original value. This operation is needed rarely but it
- * is handy in situations where the parsing is context-sensitive and it is not 
- * feasible to store the context in the satellite state.
- * @param parser The parser to be run in the specified position.
- * @param position The position where to backtrack.
- */
-export function backtrack<T, S>(parser: Parser<T, S>, position: number): Parser<T, S> {
-    return input => {
-        let pos = input.position
-        input.position = position
-        let res = parser(input)
-        input.position = pos
-        return res
-    }
 }
 
 /**

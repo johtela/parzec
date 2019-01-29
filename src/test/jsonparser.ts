@@ -1,7 +1,9 @@
 import { ParserInput } from "../parserinput";
 import { Token, Lexer, lexerInput } from "../lexer";
-import { Parser, expect, map, token, optional, bind, forwardRef, or, mret, any, parse, trace, parserDebug, tryRule } from "../parser";
+import { Parser, expect, map, token, optional, bind, forwardRef, or, mret, any, parse, 
+    trace, parserDebug } from "../parser";
 import { oneOrMoreSeparatedBy, bracket } from "../arrayparsers";
+import { initObject } from "../utils";
 import { Ref } from "../ref";
 
 // Tokens
@@ -10,7 +12,7 @@ export enum JsonToken {
     Digit, Point, Exp, Plus, Minus, Number, String, Whitespace, Unknown
 }
 
-parserDebug.debugging = true
+parserDebug.debugging = false
 
 const lexer = new Lexer<JsonToken>(
     [/true/, JsonToken.True],
@@ -28,20 +30,20 @@ const lexer = new Lexer<JsonToken>(
     [/./, JsonToken.Unknown]);
 
 // Terminals
-const number = trace(expect(map(token(JsonToken.Number), t => <any>Number(t.text)), "<number>"), "number")
-const string = trace(expect(map(token(JsonToken.String), t => <any>t.text.substring(1, t.text.length - 1)), 
-    "<string>"), "string")
-const whitespace = trace(expect(optional(map(token(JsonToken.Whitespace), t => <any>t.text), ""), 
-    "<whitespace>"), "whitespace")
-const littrue = trace(expect(map(token(JsonToken.True), t => <any>true), "true"), "true")
-const litfalse = trace(expect(map(token(JsonToken.False), t => <any>false), "false"), "false")
-const litnull = trace(expect(map(token(JsonToken.Null), t => <any>null), "null"), "null")
-const comma = trace(expect(token(JsonToken.Comma), ","), "comma")
-const colon = trace(expect(token(JsonToken.Colon), ":"), "colon")
-const beginarray = trace(expect(token(JsonToken.LeftBracket), "["), "beginarray")
-const endarray = trace(expect(token(JsonToken.RightBracket), "]"), "endarray")
-const beginobject = trace(expect(token(JsonToken.LeftBrace), "{"), "beginobject")
-const endobject = trace(expect(token(JsonToken.RightBrace), "}"), "endobject")
+const number = expect(map(token(JsonToken.Number), t => <any>Number(t.text)), "<number>")
+const string = expect(map(token(JsonToken.String), 
+    t => <any>t.text.substring(1, t.text.length - 1)), "<string>")
+const whitespace = expect(optional(map(token(JsonToken.Whitespace), 
+    t => <any>t.text), ""), "<whitespace>")
+const littrue = expect(map(token(JsonToken.True), t => <any>true), "true")
+const litfalse = expect(map(token(JsonToken.False), t => <any>false), "false")
+const litnull = expect(map(token(JsonToken.Null), t => <any>null), "null")
+const comma = expect(token(JsonToken.Comma), ",")
+const colon = expect(token(JsonToken.Colon), ":")
+const beginarray = expect(token(JsonToken.LeftBracket), "[")
+const endarray = expect(token(JsonToken.RightBracket), "]")
+const beginobject = expect(token(JsonToken.LeftBrace), "{")
+const endobject = expect(token(JsonToken.RightBrace), "}")
 
 // Nonterminals
 const element = new Ref<Parser<any, Token<JsonToken>>>()
@@ -76,13 +78,4 @@ export function jsonInput(text: string): ParserInput<Token<JsonToken>> {
  */
 export function parseJson(text: string): any {
     return parse(json, jsonInput(text))
-}
-
-function initObject(members: [string, any][]): any {
-    let res: any = {}
-    for (let i = 0; i < members.length; i++) {
-        let [m, v] = members[i];
-        res[m] = v
-    }
-    return res
 }
