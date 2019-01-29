@@ -1,3 +1,4 @@
 {
-    "number": true,
+    "number": 12,
+    "foo": ["bar", null]
 }

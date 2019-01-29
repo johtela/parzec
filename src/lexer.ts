@@ -1,13 +1,23 @@
 import { ParserInput } from "./parserinput";
+import { escapeWhitespace } from "./utils";
 
 interface TokenMatcher<S> {
     regex: RegExp
     token: S
 }
 
-export interface Token<S> {
+export class Token<S> {
     token: S
     text: string
+    
+    constructor(token: S, text: string) {
+        this.token = token
+        this.text = text
+    }
+
+    toString() {
+        return this.text ? escapeWhitespace(this.text) : this.token
+    }
 }
 
 export class Lexer<S> {
@@ -26,7 +36,7 @@ export class Lexer<S> {
             matcher.regex.lastIndex = pos
             let match = matcher.regex.exec(input)
             if (match != null)
-                return { token: matcher.token, text: match[0] }
+                return new Token<S>(matcher.token, match[0])
         }
         return null
     }

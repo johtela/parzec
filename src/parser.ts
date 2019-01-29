@@ -1,7 +1,8 @@
 import { ParserInput } from "./parserinput"
-import { ParseResult, succeeded, failed } from "./parseresult";
+import { ParseResult, succeeded, failed, expectedAsCsv, joinExpected } from "./parseresult";
 import { Token } from "./lexer";
 import { Ref } from "./ref";
+import { escapeWhitespace } from "./utils";
 
 /**
  * Parser type wraps a parsing function. It takes an ParserInput as
@@ -56,10 +57,9 @@ export function tryParse<T, S>(parser: Parser<T, S>, input: ParserInput<S>):
  */
 export function parse<T, S>(parser: Parser<T, S>, input: ParserInput<S>): T {
     var res = tryParse(parser, input)
-    if (!res.success)
-        throw Error(`Parse error at position ${res.position}.\n` +
-            `Found: "${res.found}"\n` +
-            `Expected: "${res.expectedAsCsv}"`)
+    if (res.kind == "fail")
+        throw Error(`Parse error at position ${res.position + 1}. ` +
+            `Found: "${res.found}", expected: ${expectedAsCsv(res)}.`)
     return res.result
 }
 
@@ -97,9 +97,8 @@ export function satisfy<T>(predicate: (value: T) => boolean): Parser<T, T> {
         let item = next.value
         if (predicate(item))
             return succeeded(input.position, item)
-        let res = failed<T>(input.position, `${item}`)
         input.position = pos
-        return res
+        return failed<T>(input.position, `${item}`)
     }
 }
 
@@ -127,13 +126,13 @@ export function bind<T, U, S>(parser: Parser<T, S>, binder: (value: T) => Parser
     return input => {
         let pos = input.position
         let res1 = parser(input)
-        if (res1.success) {
+        if (res1.kind == "ok") {
             let res2 = binder(res1.result)(input)
-            if (!res2.success && pos !== input.position)
+            if (res2.kind == "fail" && pos !== input.position)
                 input.position = pos // backtrack
             return res2
         }
-        return failed(res1.position, res1.found, res1.expected)
+        return res1
     }
 }
 
@@ -165,13 +164,17 @@ export function seq<T, U, S>(parser: Parser<T, S>, other: Parser<U, S>): Parser<
  */
 export function or<T, U, S>(parser: Parser<T, S>, other: Parser<U, S>): Parser<T | U, S> {
     return input => {
+        let pos = input.position;
         let res1 = parser(input)
-        if (res1.success)
+        if (res1.kind == "ok")
+            return res1
+        if (res1.position > pos)
             return res1
         let res2 = other(input)
-        if (res2.success)
+        if (res2.kind == "ok")
             return res2
-        return failed(input.position, res2.found, res1.mergeExpected(res2))
+        joinExpected(res2, res1)
+        return res2
     }
 }
 
@@ -186,8 +189,9 @@ export function expect<T, S>(parser: Parser<T, S>, expected: string): Parser<T, 
         return parser
     return input => {
         let res = parser(input)
-        return res.success ? res :
-            failed(res.position, res.found, [expected].concat(res.expected))
+        if (res.kind == "fail")
+            res.expected.push(expected)
+        return res
     }
 }
 
@@ -215,9 +219,10 @@ export function zeroOrMore<T, S>(parser: Parser<T, S>): Parser<T[], S> {
     return input => {
         let list: T[] = []
         while (true) {
+            let pos = input.position
             let res = parser(input)
-            if (!res.success)
-                return succeeded(input.position, list)
+            if (res.kind == "fail")
+                return res.position > pos ? res : succeeded(res.position, list)
             list.push(res.result)
         }
     }
@@ -231,13 +236,14 @@ export function zeroOrMore<T, S>(parser: Parser<T, S>): Parser<T[], S> {
 export function oneOrMore<T, S>(parser: Parser<T, S>): Parser<T[], S> {
     return input => {
         let res = parser(input)
-        if (!res.success)
-            return failed(input.position, res.found)
+        if (res.kind == "fail")
+            return res
         let list = [res.result]
         while (true) {
+            let pos = input.position
             res = parser(input)
-            if (!res.success)
-                return succeeded(input.position, list)
+            if (res.kind == "fail")
+                return res.position > pos ? res : succeeded(res.position, list)
             list.push(res.result)
         }
     }
@@ -301,11 +307,21 @@ export function not<T, S>(parser: Parser<T, S>): Parser<T, S> {
         let pos = input.position
         let res = parser(input)
         input.position = pos
-        if (res.success) {
+        if (res.kind == "ok") {
             let found = `${res.result}`
-            return failed(input.position, found, ["not " + found])
+            return failed(res.position, found, ["not " + found])
         }
-        return succeeded(input.position, <T><unknown>undefined)
+        return succeeded(res.position, <T><unknown>undefined)
+    }
+}
+
+export function tryRule<T, S>(parser: Parser<T, S>): Parser<T, S> {
+    return input => {
+        let pos = input.position
+        let res = parser(input)
+        if (res.kind == "fail" && res.position > pos)
+            res.position = pos
+        return res
     }
 }
 
@@ -318,12 +334,21 @@ export function any<T, S>(...parsers: Parser<T, S>[]): Parser<T, S> {
     if (parsers.length == 0)
         throw Error("At least one parser must be given.")
     return input => {
-        let res: ParseResult<T>
+        let res: ParseResult<T> | null = null
         let i = 0
+        let pos = input.position
         do {
-            res = parsers[i++](input)
+            let r = parsers[i++](input)
+            if (r.kind == "ok")
+                return r
+            if (r.position > pos)
+                return r
+            if (res == null)
+                res = r
+            else
+                joinExpected(res, r)
         }
-        while (i < parsers.length && !res.success)
+        while (i < parsers.length)
         return res
     }
 }
@@ -393,14 +418,15 @@ export function trace<T, S>(parser: Parser<T, S>, ruleName: string): Parser<T, S
     if (!parserDebug.debugging)
         return parser;
     return input => {
-        parserDebug.write(`${ruleName} called with input '${input.current}' ` +
-            `at position ${input.position}`)
+        parserDebug.write(`${ruleName} called with input '${input.current}'.`)
         parserDebug.indent()
         let res = parser(input)
         parserDebug.rulesEvaluated++
         parserDebug.unindent()
-        parserDebug.write(`${ruleName} ${res.success ? "SUCCEEDED" : "FAILED"} ` +
-            `at position ${input.position}`)
+        parserDebug.write((res.kind == "ok" ?
+            `${ruleName} SUCCEEDED with value '${escapeWhitespace(`${res.result}`)}'` :
+            `${ruleName} FAILED with value '${escapeWhitespace(`${res.found}`)}'. Expected values: ${expectedAsCsv(res)}`) +
+            ` at position ${res.position}`)
         return res
     }
 }

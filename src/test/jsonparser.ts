@@ -1,6 +1,6 @@
 import { ParserInput } from "../parserinput";
 import { Token, Lexer, lexerInput } from "../lexer";
-import { Parser, expect, map, token, optional, bind, forwardRef, or, mret, any, parse } from "../parser";
+import { Parser, expect, map, token, optional, bind, forwardRef, or, mret, any, parse, trace, parserDebug, tryRule } from "../parser";
 import { oneOrMoreSeparatedBy, bracket } from "../arrayparsers";
 import { Ref } from "../ref";
 
@@ -9,6 +9,8 @@ export enum JsonToken {
     True, False, Null, LeftBrace, RightBrace, LeftBracket, RightBracket, Comma, Colon,
     Digit, Point, Exp, Plus, Minus, Number, String, Whitespace, Unknown
 }
+
+parserDebug.debugging = true
 
 const lexer = new Lexer<JsonToken>(
     [/true/, JsonToken.True],
@@ -26,37 +28,39 @@ const lexer = new Lexer<JsonToken>(
     [/./, JsonToken.Unknown]);
 
 // Terminals
-const number = expect(map(token(JsonToken.Number), t => <any>Number(t.text)), "number")
-const string = expect(map(token(JsonToken.String), t => <any>t.text), "string")
-const whitespace = expect(optional(map(token(JsonToken.Whitespace), t => <any>t.text), ""), "whitespace")
-const littrue = expect(map(token(JsonToken.True), t => <any>true), "true")
-const litfalse = expect(map(token(JsonToken.True), t => <any>false), "false")
-const litnull = expect(map(token(JsonToken.True), t => <any>null), "null")
-const comma = expect(token(JsonToken.Comma), ",")
-const colon = expect(token(JsonToken.Colon), ":")
-const beginarray = expect(token(JsonToken.LeftBracket), "[")
-const endarray = expect(token(JsonToken.RightBracket), "]")
-const beginobject = expect(token(JsonToken.LeftBrace), "{")
-const endobject = expect(token(JsonToken.RightBrace), "}")
+const number = trace(expect(map(token(JsonToken.Number), t => <any>Number(t.text)), "<number>"), "number")
+const string = trace(expect(map(token(JsonToken.String), t => <any>t.text.substring(1, t.text.length - 1)), 
+    "<string>"), "string")
+const whitespace = trace(expect(optional(map(token(JsonToken.Whitespace), t => <any>t.text), ""), 
+    "<whitespace>"), "whitespace")
+const littrue = trace(expect(map(token(JsonToken.True), t => <any>true), "true"), "true")
+const litfalse = trace(expect(map(token(JsonToken.False), t => <any>false), "false"), "false")
+const litnull = trace(expect(map(token(JsonToken.Null), t => <any>null), "null"), "null")
+const comma = trace(expect(token(JsonToken.Comma), ","), "comma")
+const colon = trace(expect(token(JsonToken.Colon), ":"), "colon")
+const beginarray = trace(expect(token(JsonToken.LeftBracket), "["), "beginarray")
+const endarray = trace(expect(token(JsonToken.RightBracket), "]"), "endarray")
+const beginobject = trace(expect(token(JsonToken.LeftBrace), "{"), "beginobject")
+const endobject = trace(expect(token(JsonToken.RightBrace), "}"), "endobject")
 
 // Nonterminals
 const element = new Ref<Parser<any, Token<JsonToken>>>()
-const elements = oneOrMoreSeparatedBy(forwardRef(element), comma)
-const array = map(bracket(or(elements, whitespace), beginarray, endarray),
-    es => typeof es === "string" ? [] : es)
-const member =
+const elements = trace(oneOrMoreSeparatedBy(forwardRef(element), comma), "elements")
+const array = trace(map(bracket(or(elements, whitespace), beginarray, endarray), 
+    es => typeof es === "string" ? [] : es), "array")
+const member = trace(
     bind(whitespace, ws1 =>
     bind(string, s =>
     bind(whitespace, ws2 =>
     bind(colon, c =>
     bind(forwardRef(element), e =>
-    mret(<[string, any]>[s, e]))))))
-const members = oneOrMoreSeparatedBy(member, comma)
-const object = map(bracket(or(members, whitespace), beginobject, endobject),
-    ms => typeof ms === "string" ? <any>{} : initObject(ms))
-const value = any(object, array, string, number, littrue, litfalse, litnull)
-element.target = bracket(value, whitespace, whitespace)
-const json = element.target
+    mret(<[string, any]>[s, e])))))), "member")
+const members = trace(oneOrMoreSeparatedBy(member, comma), "members")
+const object = trace(map(bracket(or(members, whitespace), beginobject, endobject),
+    ms => typeof ms === "string" ? <any>{} : initObject(ms)), "object")
+const value = trace(any(object, array, string, number, littrue, litfalse, litnull), "value")
+element.target = trace(bracket(value, whitespace, whitespace), "element")
+const json = trace(element.target, "json")
 
 /**
  * Create lexer input stream for JSON string.
