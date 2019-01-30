@@ -5,29 +5,6 @@ export interface ParserInput<S> extends Iterator<S> {
     state: any
 }
 
-class StringInput implements ParserInput<string> {
-    position: number
-    current: string
-    state: any
-
-    private text: string;
-
-    constructor(text: string) {
-        this.text = text
-        this.position = -1
-        this.current = ""
-    }
-
-    next(): IteratorResult<string> {
-        let pos = this.position + 1
-        if (pos >= this.text.length)
-            return { done: true, value: "" }
-        this.position = pos
-        this.current = this.text[pos]
-        return { done: false, value: this.current }
-    }
-}
-
 class ArrayInput<S> implements ParserInput<S> {
     position: number
     current: S
@@ -49,11 +26,6 @@ class ArrayInput<S> implements ParserInput<S> {
         this.current = this.array[pos]
         return { done: false, value: this.current }
     }
-}
-
-
-export function stringInput(text: string): ParserInput<string> {
-    return new StringInput(text);
 }
 
 export function arrayInput<S>(array: S[]): ParserInput<S> {

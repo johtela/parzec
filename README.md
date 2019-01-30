@@ -1,15 +1,27 @@
 # `parzec` - Parser Combinators for Typescript
 
-Parser combinator library inspired by [Parsec] for building parsers for languages 
-that can described using the [PEG] grammar. The parsers built with the library 
-have infinite lookahead and backtracking capabilities. This means that they can
-recognize both context-free and context-sensitive languages. To keep the performance
-reasonable, some combinators have been inlined. Backtracking can be limited by using 
-special combinators that guide the parsing.
+Parzec is a parser combinator library inspired by [Parsec][]. A parser combinator 
+library is basically a set of [higher order functions][] which make it easy to build
+[recursive descent parsers][]. Parsers composed from Parzec's combinators can 
+recognize languages in the [PEG][] class of grammars. PEG grammars can be 
+context-sensitive, so the parsers have infinite lookahead and backtracking 
+capabilities. 
 
-Parser input is represented by an abstract [interface]. Consequently, the input can be 
-anything from simple strings to files, or even tokenized data streams.
+Parzec also supports efficient parsing of [LL(1)][] grammars by enabling the backtracking 
+only when a special combinator is used. Also, to improve performance, some combinators 
+have been inlined rather than built from lower level combinators.
+
+Parzec's input is represented by an abstract [interface]. Consequently, the parsers' 
+input can be anything from simple strings to files, or even tokenized data streams. 
+Parzec includes functionality to create [lexical analyzers][] or _lexers_ from 
+[regular expressions][]. The lexer converts input strings into tokens, and makes the 
+parsing simpler and more efficient. 
 
 [Parsec]: http://hackage.haskell.org/package/parsec
+[higher order functions]: https://en.wikipedia.org/wiki/Higher-order_function
+[recursive descent parsers]: https://en.wikipedia.org/wiki/Recursive_descent_parser
 [PEG]: https://en.wikipedia.org/wiki/Parsing_expression_grammar
+[LL(1)]: https://en.wikipedia.org/wiki/LL_parser
 [interface]: src/parser-input.ts
+[lexical analyzers]: https://en.wikipedia.org/wiki/Lexical_analysis
+[regular expressions]: https://en.wikipedia.org/wiki/Regular_expression

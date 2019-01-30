@@ -184,7 +184,7 @@ export function or<T, U, S>(parser: Parser<T, S>, other: Parser<U, S>): Parser<T
  * @param parser The parser to be wrapped.
  * @param expected Name of the symbol or nonterminal that the parser matches.
  */
-export function expect<T, S>(parser: Parser<T, S>, expected: string): Parser<T, S> {
+export function expect<T, S>(expected: string, parser: Parser<T, S>): Parser<T, S> {
     if (!parserDebug.errorMessages)
         return parser
     let resParser = (input: ParserInput<S>) => {
@@ -193,7 +193,7 @@ export function expect<T, S>(parser: Parser<T, S>, expected: string): Parser<T, 
             res.expected.push(expected)
         return res
     }
-    return parserDebug.debugging ? trace(resParser, expected) : resParser
+    return parserDebug.debugging ? trace(expected, resParser) : resParser
 }
 
 /**
@@ -405,7 +405,7 @@ export function position<S>(): Parser<number, S> {
  * @param parser The parser to be decorated with debug info.
  * @param ruleName The name of the parsing rule.
  */
-export function trace<T, S>(parser: Parser<T, S>, ruleName: string): Parser<T, S> {
+export function trace<T, S>(ruleName: string, parser: Parser<T, S>): Parser<T, S> {
     if (!parserDebug.debugging)
         return parser;
     return input => {
