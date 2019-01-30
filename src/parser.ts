@@ -1,5 +1,5 @@
-import { ParserInput } from "./parserinput"
-import { ParseResult, succeeded, failed, expectedAsCsv, joinExpected } from "./parseresult";
+import { ParserInput } from "./input"
+import { ParseResult, succeeded, failed, expectedAsCsv, joinExpected } from "./result";
 import { Token } from "./lexer";
 import { Ref } from "./ref";
 import { escapeWhitespace } from "./utils";

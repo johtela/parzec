@@ -1,4 +1,4 @@
-import { ParserInput } from "./parserinput";
+import { ParserInput } from "./input";
 import { escapeWhitespace } from "./utils";
 
 interface TokenMatcher<S> {

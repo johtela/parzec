@@ -1,4 +1,4 @@
-import { ParserInput } from "../parserinput";
+import { ParserInput } from "../input";
 import { Token, Lexer, lexerInput } from "../lexer";
 import { Parser, expect, map, token, optional, bind, forwardRef, or, mret, any, parse, 
     trace, parserDebug, choose } from "../parser";
