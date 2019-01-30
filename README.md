@@ -22,6 +22,6 @@ parsing simpler and more efficient.
 [recursive descent parsers]: https://en.wikipedia.org/wiki/Recursive_descent_parser
 [PEG]: https://en.wikipedia.org/wiki/Parsing_expression_grammar
 [LL(1)]: https://en.wikipedia.org/wiki/LL_parser
-[interface]: src/parser-input.ts
+[interface]: src/parserinput.ts
 [lexical analyzers]: https://en.wikipedia.org/wiki/Lexical_analysis
 [regular expressions]: https://en.wikipedia.org/wiki/Regular_expression
