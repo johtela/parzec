@@ -1,5 +1,6 @@
-import { ParserInput } from "./input";
-import { escapeWhitespace } from "./utils";
+import { ParserInput } from "./input"
+import { escapeWhitespace } from "./utils"
+import { ParseError, ErrorSource } from "./error"
 
 interface TokenMatcher<S> {
     regex: RegExp
@@ -67,11 +68,12 @@ class LexerInput<S> implements ParserInput<Token<S>> {
             return this.eof
         this.position = pos
         let match = this.tokens[pos] || this.lexer.matchToken(this.input, pos)
+        if (!match)
+            throw new ParseError(ErrorSource.Lexer, pos, 
+                this.input.substr(pos, 10) + "...", ["<valid token>"])
         this.tokens[pos] = match
         this.current = match      
-        return match ?
-            { done: false, value: match } :
-            this.eof
+        return { done: false, value: match };
     }
 }
 

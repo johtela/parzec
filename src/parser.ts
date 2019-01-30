@@ -3,6 +3,7 @@ import { ParseResult, succeeded, failed, expectedAsCsv, joinExpected } from "./r
 import { Token } from "./lexer";
 import { Ref } from "./ref";
 import { escapeWhitespace } from "./utils";
+import { ParseError, ErrorSource } from "./error";
 
 /**
  * Parser type wraps a parsing function. It takes an ParserInput as
@@ -58,8 +59,8 @@ export function tryParse<T, S>(parser: Parser<T, S>, input: ParserInput<S>):
 export function parse<T, S>(parser: Parser<T, S>, input: ParserInput<S>): T {
     var res = tryParse(parser, input)
     if (res.kind == "fail")
-        throw Error(`Parse error at position ${res.position + 1}. ` +
-            `Found: "${res.found}", expected: ${expectedAsCsv(res)}.`)
+        throw new ParseError(ErrorSource.Parser, res.position, res.found,
+            res.expected)
     return res.result
 }
 
@@ -78,8 +79,8 @@ export function mret<T, S>(value: T): Parser<T, S> {
  * @param found The terminal reported as found.
  * @param expected The terminal reported as expected.
  */
-export function fail<T, S>(found: string, expected: string): Parser<T, S> {
-    return input => failed(input.position, found, [expected])
+export function fail<T, S>(found: string, ...expected: string[]): Parser<T, S> {
+    return input => failed(input.position, found, expected)
 }
 
 /**

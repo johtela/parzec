@@ -1,12 +1,14 @@
-interface Ok<T> {
-    kind: "ok"
+interface Position {
     position: number
+}
+
+interface Ok<T> extends Position {
+    kind: "ok"
     result: T
 }
 
-interface Fail {
+interface Fail extends Position {
     kind: "fail"
-    position: number
     found: string
     expected: string[]
 }

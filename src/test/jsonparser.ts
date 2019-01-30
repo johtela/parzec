@@ -1,7 +1,7 @@
 import { ParserInput } from "../input";
 import { Token, Lexer, lexerInput } from "../lexer";
-import { Parser, expect, map, token, optional, bind, forwardRef, or, mret, any, parse, 
-    trace, parserDebug, choose } from "../parser";
+import { Parser, expect, map, token, optional, bind, forwardRef, or, mret, parse, 
+    trace, parserDebug, choose, fail } from "../parser";
 import { oneOrMoreSeparatedBy, bracket } from "../arrayparsers";
 import { initObject } from "../utils";
 import { Ref } from "../ref";
@@ -9,7 +9,7 @@ import { Ref } from "../ref";
 // Tokens
 export enum JsonToken {
     True, False, Null, LeftBrace, RightBrace, LeftBracket, RightBracket, Comma, Colon,
-    Digit, Point, Exp, Plus, Minus, Number, String, Whitespace, Unknown
+    Digit, Point, Exp, Plus, Minus, Number, String, Whitespace
 }
 
 parserDebug.debugging = false
@@ -26,8 +26,7 @@ const lexer = new Lexer<JsonToken>(
     [/:/, JsonToken.Colon],
     [/-?(?:[1-9]\d+|\d(?!\d))(?:\.\d+)?(?:[eE][+-]?\d+)?/, JsonToken.Number],
     [/"(?:(?:(?!["\\])[\u{0020}-\u{ffff}])|(?:\\(?:["\\\/bnrt]|(?:u[0-9a-fA-F]{4}))))*"/u, JsonToken.String],
-    [/[\t\n\r ]+/, JsonToken.Whitespace],
-    [/./, JsonToken.Unknown]);
+    [/[\t\n\r ]+/, JsonToken.Whitespace]);
 
 // Terminals
 const number = expect("<number>", 
@@ -74,7 +73,9 @@ const value = trace("value",
             case JsonToken.Number: return number
             case JsonToken.True: return littrue
             case JsonToken.False: return  litfalse
-            default: return litnull
+            case JsonToken.Null: return litnull
+            default: return fail(token.text, 
+                "{", "[", "<string>", "<number>", "true", "false", "null")
         }
     }))
 element.target = trace("element", 

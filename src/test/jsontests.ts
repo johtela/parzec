@@ -1,6 +1,6 @@
-import { parseJson } from "./jsonparser";
-import { readFileSync } from "fs";
-import { expect } from "chai";
+import { parseJson } from "./jsonparser"
+import { readFileSync } from "fs"
+import { expect } from "chai"
 
 describe("Test simple file", () => {
     it("should succeed parsing 'test.json'", () => {
