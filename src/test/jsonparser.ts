@@ -32,7 +32,8 @@ const lexer = new Lexer<JsonToken>(
 const number = expect("<number>", 
     map(token(JsonToken.Number), t => <any>Number(t.text)))
 const string = expect("<string>",
-    map(token(JsonToken.String), t => <any>t.text.substring(1, t.text.length - 1)))
+    map(token(JsonToken.String), t => 
+    <any>t.text.substring(1, t.text.length - 1).replace(/\\\\/g, "\\")))
 const whitespace = expect("<whitespace>", 
     optional(map(token(JsonToken.Whitespace), t => <any>t.text), ""))
 const littrue = expect("true", map(token(JsonToken.True), t => <any>true))
