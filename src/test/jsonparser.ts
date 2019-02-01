@@ -25,15 +25,14 @@ const lexer = new Lexer<JsonToken>(
     [/,/, JsonToken.Comma],
     [/:/, JsonToken.Colon],
     [/-?(?:[1-9]\d+|\d(?!\d))(?:\.\d+)?(?:[eE][+-]?\d+)?/, JsonToken.Number],
-    [/"(?:(?:(?!["\\])[\u{0020}-\u{ffff}])|(?:\\(?:["\\\/bnrt]|(?:u[0-9a-fA-F]{4}))))*"/u, JsonToken.String],
+    [/"(?:(?:(?!["\\])[\u{0020}-\u{ffff}])|(?:\\(?:["\\\/bnfrt]|(?:u[0-9a-fA-F]{4}))))*"/u, JsonToken.String],
     [/[\t\n\r ]+/, JsonToken.Whitespace]);
 
 // Terminals
 const number = expect("<number>", 
     map(token(JsonToken.Number), t => <any>Number(t.text)))
 const string = expect("<string>",
-    map(token(JsonToken.String), t => 
-    <any>t.text.substring(1, t.text.length - 1).replace(/\\\\/g, "\\")))
+    map(token(JsonToken.String), t => <any>JSON.parse(t.text)))
 const whitespace = expect("<whitespace>", 
     optional(map(token(JsonToken.Whitespace), t => <any>t.text), ""))
 const littrue = expect("true", map(token(JsonToken.True), t => <any>true))

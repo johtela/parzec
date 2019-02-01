@@ -23,3 +23,12 @@ describe("Test JSON file parsing", () => {
     }
 })
 
+describe("Test arbitrary JSON data", () => {
+    jsc.property("Serialize and parse arbitrary data", jsc.json,
+        data => {
+            let str = JSON.stringify(data)
+            let json = parseJson(str)
+            expect(json).to.deep.equal(data)
+            return true
+        })
+})
