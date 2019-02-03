@@ -2,14 +2,14 @@ import { ParserInput } from "../input";
 import { Token, Lexer, lexerInput } from "../lexer";
 import { Parser, expect, map, token, optional, bind, forwardRef, or, mret, parse, 
     trace, parserDebug, choose, fail } from "../parser";
-import { oneOrMoreSeparatedBy, bracket } from "../arrayparsers";
+import { oneOrMoreSeparatedBy, bracketedBy } from "../arrayparsers";
 import { initObject } from "../utils";
 import { Ref } from "../ref";
 
 // Tokens
 export enum JsonToken {
     True, False, Null, LeftBrace, RightBrace, LeftBracket, RightBracket, Comma, Colon,
-    Digit, Point, Exp, Plus, Minus, Number, String, Whitespace
+    Number, String, Whitespace
 }
 
 parserDebug.debugging = false
@@ -50,7 +50,7 @@ const element = new Ref<Parser<any, Token<JsonToken>>>()
 const elements = trace("elements", 
     oneOrMoreSeparatedBy(forwardRef(element), comma))
 const array = trace("array",
-    map(bracket(or(elements, whitespace), beginarray, endarray), 
+    map(bracketedBy(or(elements, whitespace), beginarray, endarray), 
         es => typeof es === "string" ? [] : es))
 const member = trace("member",
     bind(whitespace, ws1 =>
@@ -62,7 +62,7 @@ const member = trace("member",
 const members = trace("members", 
     oneOrMoreSeparatedBy(member, comma))
 const object = trace("object",
-    map(bracket(or(members, whitespace), beginobject, endobject),
+    map(bracketedBy(or(members, whitespace), beginobject, endobject),
         ms => typeof ms === "string" ? <any>{} : initObject(ms)))
 const value = trace("value", 
     choose((token: Token<JsonToken>) => { 
@@ -79,7 +79,7 @@ const value = trace("value",
         }
     }))
 element.target = trace("element", 
-    bracket(value, whitespace, whitespace))
+    bracketedBy(value, whitespace, whitespace))
 const json = trace("json", element.target)
 
 /**
