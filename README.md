@@ -11,7 +11,7 @@ Parzec also supports efficient parsing of [LL(1)][] grammars by enabling the bac
 only when a special combinator is used. Also, to improve performance, some combinators 
 have been inlined rather than built from lower level combinators.
 
-Parzec's input is represented by an abstract [interface]. Consequently, the parsers' 
+Parzec's input is represented by an abstract [interface][]. Consequently, the parsers' 
 input can be anything from simple strings to files, or even tokenized data streams. 
 Parzec includes functionality to create [lexical analyzers][] or _lexers_ from 
 [regular expressions][]. The lexer converts input strings into tokens, and makes the 
@@ -22,6 +22,6 @@ parsing simpler and more efficient.
 [recursive descent parsers]: https://en.wikipedia.org/wiki/Recursive_descent_parser
 [PEG]: https://en.wikipedia.org/wiki/Parsing_expression_grammar
 [LL(1)]: https://en.wikipedia.org/wiki/LL_parser
-[interface]: src/parserinput.ts
+[interface]: src/input.ts
 [lexical analyzers]: https://en.wikipedia.org/wiki/Lexical_analysis
 [regular expressions]: https://en.wikipedia.org/wiki/Regular_expression

@@ -59,7 +59,12 @@ export class Token<S> {
  */
 export class Lexer<S> {
     private matchers: TokenMatcher<S>[]
-
+    /**
+     * The constructor adds two flags to the regular expressions given as 
+     * arguments. The `y` flag makes the search sticky so that it scans the
+     * input string from the position indicated by the `lastIndex` property.
+     * The `u` flag makes the search support unicode characters.
+     */
     constructor(...tokens: [RegExp, S][]) {
         this.matchers = tokens.map(t => ({
             regex: new RegExp(t[0], "yu"),
@@ -126,9 +131,11 @@ class LexerInput<S> implements ParserInput<Token<S>> {
     }
     /**
      * The iterator implementation is fairly straightforward. We need to make sure
-     * that the state variables `position` and `current` keep in sync when we 
-     * advance in the input string. We must also update the caché for tokens. 
-     * If the lexer cannot recognize the next token, we throw a parse error.
+     * that the state variables `position` and `current` are kept in sync while we
+     * advance in the input string. We must also do a lookup in the caché
+     * before calling the lexer to recognize the token. If the lexer finds a 
+     * match, we update the caché. If the lexer cannot recognize the next token, 
+     * we throw a `ParseError`.
      */
     next(): IteratorResult<Token<S>> {
         let pos = this.position
