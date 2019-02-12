@@ -17,9 +17,8 @@ export type BinaryOperation<T> = (x: T, y: T) => T
 
 /**
  * Parse an array containing at least one element. The items of the array are recognized by 
- * `parser`. The items are separated by input recognized by `separator`.
- * @param parser The parser for the array items.
- * @param separator The parser for the separator.
+ * `parser`. The items are separated by input recognized by `separator`. The function returns
+ * an array of parsed elements.
  */
 export function oneOrMoreSeparatedBy<T, U, S>(parser: Parser<T, S>, separator: Parser<U, S>):
     Parser<T[], S> {
@@ -31,8 +30,6 @@ export function oneOrMoreSeparatedBy<T, U, S>(parser: Parser<T, S>, separator: P
 /**
  * Parse a potentially empty array. The items of the array are recognized by 
  * `parser`. The items are separated by input recognized by `separator`.
- * @param parser The parser for the array items.
- * @param separator The parser for the separator.
  */
 export function zeroOrMoreSeparatedBy<T, U, S>(parser: Parser<T, S>, separator: Parser<U, S>):
     Parser<T[], S> {
@@ -40,9 +37,8 @@ export function zeroOrMoreSeparatedBy<T, U, S>(parser: Parser<T, S>, separator: 
 }
 
 /**
- * Parse item(s) followed by input recognized by the `after` parser. 
- * @param parser The parser whose result is returned.
- * @param after The parser that recognizes the trailing input which is ignored.
+ * Parse item(s) followed by a terminator given in the `after` parser. The result of
+ * `parser` is returned, and result of `after` is ignored.
  */
 export function followedBy<T, U, S>(parser: Parser<T, S>, after: Parser<U, S>): 
     Parser<T, S> {
@@ -52,9 +48,8 @@ export function followedBy<T, U, S>(parser: Parser<T, S>, after: Parser<U, S>):
 }
 
 /**
- * Parse item(s) surrounded by input recognized by the `surround` parser. 
- * @param parser The parser whose result is returned.
- * @param surround The parser for the input surrounding the result.
+ * Parse item(s) surrounded by input recognized by the `surround` parser. The result
+ * of `parser` is returned.
  */
 export function surroundedBy<T, U, S>(parser: Parser<T, S>, surround: Parser<U, S>): 
     Parser<T, S> {
@@ -65,10 +60,7 @@ export function surroundedBy<T, U, S>(parser: Parser<T, S>, surround: Parser<U, 
 }
 
 /**
- * Parse item(s) surrounded by an open and closing bracket.
- * @param parser The parser whose result is returned.
- * @param open The parser for the opening bracket.
- * @param close The parser for the closing bracket.
+ * Parse item(s) surrounded by an open and closing bracket. The result `parser` is returned.
  */
 export function bracketedBy<T, U, V, S>(parser: Parser<T, S>, open: Parser<U, S>,
     close: Parser<V, S>): Parser<T, S> {
@@ -83,9 +75,6 @@ export function bracketedBy<T, U, V, S>(parser: Parser<T, S>, open: Parser<U, S>
  * Return a value obtained by a left associative application of all functions returned 
  * by `operation` to the values returned by `parser`. This parser can for example be used 
  * to eliminate left recursion which typically occurs in expression grammars.
- * @param parser The parser for the items.
- * @param operation The parser for the operators. The result of this parser 
- * is a function taking two terms and returning their calculated results.
  */
 export function chainOneOrMore<T, S>(parser: Parser<T, S>, 
     operation: Parser<BinaryOperation<T>, S>): Parser<T, S> {
@@ -102,10 +91,6 @@ export function chainOneOrMore<T, S>(parser: Parser<T, S>,
  * Return a value obtained by a left associative application of all functions returned 
  * by `operation` to the values returned by `parser`. If there are zero occurrences of 
  * `parser`, the `value` is returned.
- * @param parser The parser for the items.
- * @param operation The parser for the operators. The result of this parser 
- * is a function taking two terms and returning their calculated results.
- * @param value Default value returned if there are zero occurrences.
  */
 export function chainZeroOrMore<T, S>(parser: Parser<T, S>, 
     operation: Parser<BinaryOperation<T>, S>, value: T): Parser<T, S> {
@@ -115,8 +100,6 @@ export function chainZeroOrMore<T, S>(parser: Parser<T, S>,
 /**
  * Construct a parser for operator selection. Used typically in conjunction
  * with `chain*` functions.
- * @param ops The sequence of parsers for different operators. The result of the 
- * parsers must have the same type.
  */
 export function operators<T, U, S>(...ops: [Parser<T, S>, U][]): Parser<U, S> {
     return any(...ops.map(([p, o]) => map(p, _ => o)))
