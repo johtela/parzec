@@ -1,7 +1,6 @@
-
 /**
  * Parser Input
- * ------------
+ * ============
  * Input to parsers is a stream of data items of type `S`. The input is represented
  * by an abstract interface which extends the `Iterator<S>` interface. It provides 
  * the `next()` method to iterate through the stream. 
@@ -38,9 +37,7 @@ class ArrayInput<S> implements ParserInput<S> {
     position: number
     current: S
     state: any
-
     private array: S[];
-
     /**
      * Create an ArrayInput object.
      */
@@ -49,7 +46,6 @@ class ArrayInput<S> implements ParserInput<S> {
         this.position = -1
         this.current = <S><unknown>undefined
     }
-
     /**
      * Return the next item in the array. Update `position` and
      * `current` fields. Inherited from the `Iterator<S>` interface.

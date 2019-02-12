@@ -160,7 +160,7 @@ export function notSatisfy<T>(predicate: (value: T) => boolean): Parser<T, T> {
 
 /**
  * Fundamental combinators
- * ----------------------
+ * -----------------------
  * Map result of the input parser to another value. This function implements a
  * [_functor_](https://en.wikipedia.org/wiki/Functor) which is a superclass of monad.
  */

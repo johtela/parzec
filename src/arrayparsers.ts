@@ -16,6 +16,8 @@ import { Parser, bind, seq, mret, zeroOrMore, or, map, any } from "./parser"
 export type BinaryOperation<T> = (x: T, y: T) => T
 
 /**
+ * Parsing Separated Lists
+ * -----------------------
  * Parse an array containing at least one element. The items of the array are recognized by 
  * `parser`. The items are separated by input recognized by `separator`. The function returns
  * an array of parsed elements.
@@ -26,7 +28,6 @@ export function oneOrMoreSeparatedBy<T, U, S>(parser: Parser<T, S>, separator: P
             bind(zeroOrMore(seq(separator, parser)), xs =>
             mret([x].concat(xs))))
 }
-
 /**
  * Parse a potentially empty array. The items of the array are recognized by 
  * `parser`. The items are separated by input recognized by `separator`.
@@ -37,6 +38,8 @@ export function zeroOrMoreSeparatedBy<T, U, S>(parser: Parser<T, S>, separator: 
 }
 
 /**
+ * Terminators & Brackets
+ * ----------------------
  * Parse item(s) followed by a terminator given in the `after` parser. The result of
  * `parser` is returned, and result of `after` is ignored.
  */
@@ -46,7 +49,6 @@ export function followedBy<T, U, S>(parser: Parser<T, S>, after: Parser<U, S>):
             bind(after, a =>
             mret(p)))
 }
-
 /**
  * Parse item(s) surrounded by input recognized by the `surround` parser. The result
  * of `parser` is returned.
@@ -58,7 +60,6 @@ export function surroundedBy<T, U, S>(parser: Parser<T, S>, surround: Parser<U, 
             bind(surround, c =>
             mret(p))))
 }
-
 /**
  * Parse item(s) surrounded by an open and closing bracket. The result `parser` is returned.
  */
@@ -71,6 +72,8 @@ export function bracketedBy<T, U, V, S>(parser: Parser<T, S>, open: Parser<U, S>
 }
 
 /**
+ * Parsing Expressions
+ * -------------------
  * Parse one or more occurrences of `parser`, separated by `operation`. 
  * Return a value obtained by a left associative application of all functions returned 
  * by `operation` to the values returned by `parser`. This parser can for example be used 
@@ -85,7 +88,6 @@ export function chainOneOrMore<T, S>(parser: Parser<T, S>,
                 mret(<[BinaryOperation<T>, T]>[f, y])))), fys =>
             mret(fys.reduce((z, [f, y]) => f(z, y), x))))
 }
-
 /**
  * Parse zero or more occurrences of `parser`, separated by `operation`. 
  * Return a value obtained by a left associative application of all functions returned 
@@ -96,7 +98,6 @@ export function chainZeroOrMore<T, S>(parser: Parser<T, S>,
     operation: Parser<BinaryOperation<T>, S>, value: T): Parser<T, S> {
     return or(chainOneOrMore(parser, operation), mret(value))
 }
-
 /**
  * Construct a parser for operator selection. Used typically in conjunction
  * with `chain*` functions.
