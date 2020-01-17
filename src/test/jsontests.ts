@@ -1,7 +1,7 @@
 import { parseJson } from "./jsonparser"
 import { readFileSync, readdirSync } from "fs"
 import { expect } from "chai"
-import * as jsc from "jsverify"
+import * as fc from "fast-check"
 
 function testParsingFile(fileName: string) {
     let buf = readFileSync(fileName);
@@ -10,6 +10,10 @@ function testParsingFile(fileName: string) {
     let json1 = parseJson(text);
     let json2 = JSON.parse(text);
     expect(json1).to.deep.equal(json2);
+}
+
+function check<T>(desc: string, prop: fc.IProperty<T>) {
+    it(desc, () => fc.assert(prop))
 }
 
 describe("Test JSON file parsing", () => {
@@ -23,12 +27,10 @@ describe("Test JSON file parsing", () => {
     }
 })
 
-describe("Test arbitrary JSON data", () => {
-    jsc.property("Serialize and parse arbitrary data", jsc.json,
-        data => {
-            let str = JSON.stringify(data)
-            let json = parseJson(str)
-            expect(json).to.deep.equal(data)
-            return true
-        })
-})
+describe("Test arbitrary JSON data", () =>
+    check("Serialize and parse arbitrary data", 
+        fc.property(fc.json(), str => {
+            let obj1 = JSON.parse(str)
+            let obj2 = parseJson(str)
+            expect(obj2).to.deep.equal(obj1)
+        })))

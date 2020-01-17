@@ -1,7 +1,7 @@
 import { evaluateExpression } from "./exprparser"
 import { expect } from "chai"
-import * as jsc from "jsverify"
-import { ParseError } from "../error";
+import * as fc from "fast-check"
+import { ParseError } from "../error"
 
 describe("Test parsing of predefined expressions", () => {
     let testset: string[] = [
@@ -35,5 +35,5 @@ describe("Test failing expressions", () => {
     }
 })
 
-const arbNum = jsc.number.smap(n => n.toString(), s => Number(s))
-const arbOper = jsc.elements(["+", "-", "*", "/"])
+const arbNum = fc.integer(-1000, 1000).map(n => n.toString())
+const arbOper = fc.constantFrom(["+", "-", "*", "/"])
