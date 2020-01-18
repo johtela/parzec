@@ -1,7 +1,7 @@
 import { evaluateExpression } from "./exprparser"
 import { expect } from "chai"
 import * as fc from "fast-check"
-import { ParseError } from "../error"
+import * as pz from ".."
 
 describe("Test parsing of predefined expressions", () => {
     let testset: string[] = [
@@ -30,7 +30,7 @@ describe("Test failing expressions", () => {
     for (let i = 0; i < testset.length; i++) {
         let expr = testset[i]
         it(`expression '${expr}' should not parse`, () => {
-            expect(() => evaluateExpression(expr)).to.throw(ParseError)
+            expect(() => evaluateExpression(expr)).to.throw(pz.ParseError)
         })
     }
 })

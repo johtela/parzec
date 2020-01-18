@@ -1,20 +1,14 @@
-import { ParserInput } from "../input";
-import { Token, Lexer, lexerInput } from "../lexer";
-import { Parser, expect, map, token, optional, bind, forwardRef, or, mret, parse, 
-    trace, parserDebug, choose, fail } from "../parser";
-import { oneOrMoreSeparatedBy, bracketedBy } from "../arrayparsers";
-import { initObject } from "../utils";
-import { Ref } from "../ref";
+import * as pz from "..";
 
 // Tokens
 export enum JsonToken {
-    True, False, Null, LeftBrace, RightBrace, LeftBracket, RightBracket, Comma, Colon,
-    Number, String, Whitespace
+    True, False, Null, LeftBrace, RightBrace, LeftBracket, RightBracket, Comma,
+    Colon, Number, String, Whitespace
 }
 
-parserDebug.debugging = false
+pz.parserDebug.debugging = false
 
-const lexer = new Lexer<JsonToken>(
+const lexer = new pz.Lexer<JsonToken>(
     [/true/, JsonToken.True],
     [/false/, JsonToken.False],
     [/null/, JsonToken.Null],
@@ -25,69 +19,67 @@ const lexer = new Lexer<JsonToken>(
     [/,/, JsonToken.Comma],
     [/:/, JsonToken.Colon],
     [/-?(?:[1-9]\d+|\d(?!\d))(?:\.\d+)?(?:[eE][+-]?\d+)?/, JsonToken.Number],
-    [/"(?:(?:(?!["\\])[\u{0020}-\u{ffff}])|(?:\\(?:["\\\/bnfrt]|(?:u[0-9a-fA-F]{4}))))*"/u, JsonToken.String],
+    [/"(?:(?:(?!["\\])[\u{0020}-\u{ffff}])|(?:\\(?:["\\\/bnfrt]|(?:u[0-9a-fA-F]{4}))))*"/u,
+        JsonToken.String],
     [/[\t\n\r ]+/, JsonToken.Whitespace]);
 
 // Terminals
-const number = expect("<number>", 
-    map(token(JsonToken.Number), t => <any>Number(t.text)))
-const string = expect("<string>",
-    map(token(JsonToken.String), t => <any>JSON.parse(t.text)))
-const whitespace = expect("<whitespace>", 
-    optional(map(token(JsonToken.Whitespace), t => <any>t.text), ""))
-const littrue = expect("true", map(token(JsonToken.True), t => <any>true))
-const litfalse = expect("false", map(token(JsonToken.False), t => <any>false))
-const litnull = expect("null", map(token(JsonToken.Null), t => <any>null))
-const comma = expect(",", token(JsonToken.Comma))
-const colon = expect(":", token(JsonToken.Colon))
-const beginarray = expect("[", token(JsonToken.LeftBracket))
-const endarray = expect("]", token(JsonToken.RightBracket))
-const beginobject = expect("{", token(JsonToken.LeftBrace))
-const endobject = expect("}", token(JsonToken.RightBrace))
+const number = pz.token(JsonToken.Number).map(t => <any>Number(t.text))
+    .expect("<number>")
+const string = pz.token(JsonToken.String).map(t => <any>JSON.parse(t.text))
+    .expect("<string>")
+const whitespace = pz.token(JsonToken.Whitespace).map(t => <any>t.text)
+    .optional("").expect("<whitespace>")
+const littrue = pz.token(JsonToken.True).map(t => <any>true).expect("true")
+const litfalse = pz.token(JsonToken.False).map(t => <any>false).expect("false")
+const litnull = pz.token(JsonToken.Null).map(t => <any>null).expect("null")
+const comma = pz.token(JsonToken.Comma).expect(",")
+const colon = pz.token(JsonToken.Colon).expect(":")
+const beginarray = pz.token(JsonToken.LeftBracket).expect("[")
+const endarray = pz.token(JsonToken.RightBracket).expect("]")
+const beginobject = pz.token(JsonToken.LeftBrace).expect("{")
+const endobject = pz.token(JsonToken.RightBrace).expect("}")
 
 // Nonterminals
-const element = new Ref<Parser<any, Token<JsonToken>>>()
-const elements = trace("elements", 
-    oneOrMoreSeparatedBy(forwardRef(element), comma))
-const array = trace("array",
-    map(bracketedBy(or(elements, whitespace), beginarray, endarray), 
-        es => typeof es === "string" ? [] : es))
-const member = trace("member",
-    bind(whitespace, ws1 =>
-    bind(string, s =>
-    bind(whitespace, ws2 =>
-    bind(colon, c =>
-    bind(forwardRef(element), e =>
-    mret(<[string, any]>[s, e])))))))
-const members = trace("members", 
-    oneOrMoreSeparatedBy(member, comma))
-const object = trace("object",
-    map(bracketedBy(or(members, whitespace), beginobject, endobject),
-        ms => typeof ms === "string" ? <any>{} : initObject(ms)))
-const value = trace("value", 
-    choose((token: Token<JsonToken>) => { 
+const element = new pz.Ref<pz.Parser<any, pz.Token<JsonToken>>>()
+const elements = pz.forwardRef(element).oneOrMoreSeparatedBy(comma)
+    .trace("elements")
+const array = elements.or(whitespace).bracketedBy(beginarray, endarray)
+    .map(es => typeof es === "string" ? [] : es).trace("array")
+const member = whitespace.bind(
+        ws1 => string.bind(
+        s => whitespace.bind(
+        ws2 => colon.bind(
+        c => pz.forwardRef(element).bind(
+        e => pz.mret(<[string, any]>[s, e]))))))
+        .trace("member")                        
+const members = member.oneOrMoreSeparatedBy(comma).trace("members")
+const object = members.or(whitespace).bracketedBy(beginobject, endobject)
+    .map(ms => typeof ms === "string" ? <any>{} : pz.initObject(ms))
+    .trace("object")
+const value = pz.choose(
+    (token: pz.Token<JsonToken>) => {
         switch (token.token) {
             case JsonToken.LeftBrace: return object
             case JsonToken.LeftBracket: return array
             case JsonToken.String: return string
             case JsonToken.Number: return number
             case JsonToken.True: return littrue
-            case JsonToken.False: return  litfalse
+            case JsonToken.False: return litfalse
             case JsonToken.Null: return litnull
-            default: return fail(token.text, 
+            default: return pz.fail<any, pz.Token<JsonToken>>(token.text,
                 "{", "[", "<string>", "<number>", "true", "false", "null")
         }
-    }))
-element.target = trace("element", 
-    bracketedBy(value, whitespace, whitespace))
-const json = trace("json", element.target)
+    }).trace("value")
+element.target = value.bracketedBy(whitespace, whitespace).trace("element")
+const json = element.target.trace("json")
 
 /**
  * Create lexer input stream for JSON string.
  * @param text JSON string to be lexed.
  */
-export function jsonInput(text: string): ParserInput<Token<JsonToken>> {
-    return lexerInput<JsonToken>(text, lexer);
+export function jsonInput(text: string): pz.ParserInput<pz.Token<JsonToken>> {
+    return pz.lexerInput<JsonToken>(text, lexer);
 }
 
 /**
@@ -95,5 +87,5 @@ export function jsonInput(text: string): ParserInput<Token<JsonToken>> {
  * @param text JSON string to be parsed.
  */
 export function parseJson(text: string): any {
-    return parse(json, jsonInput(text))
+    return pz.parse(json, jsonInput(text))
 }
