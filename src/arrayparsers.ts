@@ -7,7 +7,11 @@
  * library.
  */
 import { Parser, mret, any } from "./parser"
-
+/**
+ * We use a trick described 
+ * [here](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
+ * to add the functions we define to the `Parser<T, S>` class.
+ */
 declare module './parser' {
     export interface Parser<T, S> {
         oneOrMoreSeparatedBy<U>(separator: Parser<U, S>): Parser<T[], S>
@@ -20,12 +24,11 @@ declare module './parser' {
             Parser<T, S>
     }
 }
-
 /**
- * Type definition for a binary function that has the same domain and range type.
+ * Type definition for a binary function that has the same domain and range 
+ * type.
  */
 export type BinaryOperation<T> = (x: T, y: T) => T
-
 /**
  * Parsing Separated Lists
  * -----------------------
@@ -47,7 +50,6 @@ Parser.prototype.zeroOrMoreSeparatedBy = function <T, U, S>(this: Parser<T, S>,
     separator: Parser<U, S>): Parser<T[], S> {
     return this.oneOrMoreSeparatedBy(separator).or(mret([]))
 }
-
 /**
  * Terminators & Brackets
  * ----------------------
