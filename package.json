@@ -8,7 +8,9 @@
     "build": "tsc",
     "prepare": "npm run build",
     "prepublishOnly": "npm test",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "lits": "lits",
+    "lits-watch": "lits --watch"
   },
   "repository": {
     "type": "git",

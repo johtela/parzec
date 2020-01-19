@@ -1,21 +1,20 @@
 /**
- * Parser Monad and Basic Combinators
- * =====================================
+ * # Parser Monad and Basic Combinators
+ * 
  * This module defines the basic types and combinators for the parser monad. 
  * To learn about monadic parsers refer to the list of literature in the 
  * [Wikipedia page](https://en.wikipedia.org/wiki/Parser_combinator).
  */
 import { ParserInput } from "./input"
-import { ParseResult, succeeded, failed, expectedAsCsv, joinExpected }
-    from "./result"
+import { ParseResult, succeeded, failed, expectedAsCsv, joinExpected } from "./result"
 import { Token } from "./lexer"
 import { Ref } from "./ref"
 import { escapeWhitespace } from "./utils"
 import { ParseError, ErrorSource } from "./error"
-
 /**
- * Parsing Function
- * ----------------
+ * 
+ * ## Parsing Function
+ * 
  * `Parse<T, S>` type represents a parsing function whics takes a 
  * `ParserInput<S>` stream as an argument and returns a `ParseResult<T>` object. 
  * The type of value to be parsed and the type of terminals in the input stream 
@@ -23,8 +22,8 @@ import { ParseError, ErrorSource } from "./error"
  */
 export type Parse<T, S> = (input: ParserInput<S>) => ParseResult<T>
 /**
- * Parser Class
- * ------------
+ * ## Parser Class
+ * 
  * The central type in the Parzec library is the `Parser<T, S>` class. It wraps
  * a parsing function and provides the core combinators to combine parsers in 
  * various ways.
@@ -69,8 +68,8 @@ export class Parser<T, S> {
         return this.bind(x => mret(mapper(x))) as Parser<U, S>
     }
     /**
-     * Conditional Parsing
-     * -------------------
+     * ## Conditional Parsing
+     * 
      * The ordered choice operation. Creates a parser that first runs `this` 
      * parser, and if that fails, runs the `other` one. Corresponds to the `/` 
      * operation in [PEG grammars](https://en.wikipedia.org/wiki/Parsing_expression_grammar).
@@ -113,8 +112,8 @@ export class Parser<T, S> {
             predicate(x) ? mret(x) : fail(`${x}`, "predicate"))
     }
     /**
-     * Parsing Multiple Items
-     * ----------------------
+     * ## Parsing Multiple Items
+     * 
      * Creates a parser that will run `this` parser zero or more times. The 
      * results of the input parser are added to an array.
      */
@@ -161,8 +160,8 @@ export class Parser<T, S> {
         })
     }
     /**
-     * Lookahead & Backtracking
-     * ------------------------
+     * ## Lookahead & Backtracking
+     * 
      * Check that `this` parser succeeds without consuming any input. 
      * Corresponds to the `&` operator in PEG grammars.
      */
@@ -208,8 +207,8 @@ export class Parser<T, S> {
         })
     }
     /**
-     * Error Reporting and Debugging
-     * -----------------------------
+     * ## Error Reporting and Debugging
+     * 
      * Give a human-readable name to the "thing" that the given parser matches. 
      * This name is reported as expected value, if the parsing fails.
      */
@@ -250,8 +249,8 @@ export class Parser<T, S> {
     }
 }
 /**
- * Debugging Options
- * -----------------
+ * ## Debugging Options
+ * 
  * The following object contains the global settings that control the parser 
  * reporting. 
  */
@@ -295,8 +294,8 @@ export const parserDebug = {
 }
 
 /**
- * Main Functions
- * --------------
+ * ## Main Functions
+ * 
  * Attempt to parse an input with a given parser. Takes a Parser and a 
  * ParserInput as arguments and return a ParseResult.
  */
@@ -319,8 +318,8 @@ export function parse<T, S>(parser: Parser<T, S>, input: ParserInput<S>): T {
     return res.result
 }
 /**
- * Monadic Returns
- * ---------------
+ * ## Monadic Returns
+ * 
  * Create a parser that always succeeds and returns the given value without 
  * consuming any input. This function implements the monadic return, that is, 
  * it lifts a value to the parser monad.
@@ -336,8 +335,8 @@ export function fail<T, S>(found: string, ...expected: string[]): Parser<T, S> {
     return new Parser(input => failed(input.position, found, expected))
 }
 /**
- * Parsing Terminals
- * -----------------
+ * ## Parsing Terminals
+ * 
  * Creates a parser that reads one terminal from the input and returns it, if it 
  * satisfies the given predicate; otherwise the parser fails.
  */
@@ -411,8 +410,8 @@ export function choose<T, S>(selector: (input: S) => Parser<T, S>):
     return peek<S>().bind(selector)
 }
 /**
- * Getting Current Position
- * ------------------------
+ * ## Getting Current Position
+ * 
  * A parser that returns the current position of the input. This is useful
  * when binding parsers together and you want to know the position where you
  * currently are. The position can be also used for backtracking.
@@ -421,8 +420,8 @@ export function position<S>(): Parser<number, S> {
     return new Parser(input => succeeded(input.position, input.position))
 }
 /**
- * User-Managed State
- * ------------------
+ * ## User-Managed State
+ * 
  * Get the current satellite state stored in the input.
  */
 export function getState<T, S>(): Parser<T, S> {
@@ -470,8 +469,8 @@ export function cleanupState<T, U, S>(parser: Parser<T, S>,
     })
 }
 /**
- * Defining Mutually Recursive Parsers
- * -----------------------------------
+ * ## Defining Mutually Recursive Parsers
+ * 
  * Often grammar rules are mutually recursive, which means that there is no way 
  * to write them in an order where all the dependent rules are defined. In these 
  * occasions, you can just create a _reference_ to a parser and set its 
@@ -482,8 +481,8 @@ export function forwardRef<T, S>(parser: Ref<Parser<T, S>>): Parser<T, S> {
     return new Parser(input => parser.target.parse(input))
 }
 /**
- * General Parsers
- * ---------------
+ * ## General Parsers
+ * 
  * The catch-all parser that will match any symbol read from the input.
  */
 export function anything<T>(): Parser<T, T> {

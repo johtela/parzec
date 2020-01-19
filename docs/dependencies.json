@@ -1,0 +1,90 @@
+{
+    "src/input": {
+        "url": "src/input.html",
+        "dependencies": []
+    },
+    "src/result": {
+        "url": "src/result.html",
+        "dependencies": []
+    },
+    "src/utils": {
+        "url": "src/utils.html",
+        "dependencies": []
+    },
+    "src/error": {
+        "url": "src/error.html",
+        "dependencies": []
+    },
+    "src/lexer": {
+        "url": "src/lexer.html",
+        "dependencies": [
+            "src/input",
+            "src/utils",
+            "src/error"
+        ]
+    },
+    "src/ref": {
+        "url": "src/ref.html",
+        "dependencies": []
+    },
+    "src/parser": {
+        "url": "src/parser.html",
+        "dependencies": [
+            "src/input",
+            "src/result",
+            "src/lexer",
+            "src/ref",
+            "src/utils",
+            "src/error"
+        ]
+    },
+    "src/arrayparsers": {
+        "url": "src/arrayparsers.html",
+        "dependencies": [
+            "src/parser"
+        ]
+    },
+    "src/index": {
+        "url": "src/index.html",
+        "dependencies": []
+    },
+    "src/test/exprparser": {
+        "url": "src/test/exprparser.html",
+        "dependencies": [
+            "src/index"
+        ]
+    },
+    "src/test/exprtests": {
+        "url": "src/test/exprtests.html",
+        "dependencies": [
+            "src/test/exprparser",
+            "chai",
+            "fast-check",
+            "src/index"
+        ]
+    },
+    "chai": {
+        "dependencies": []
+    },
+    "fast-check": {
+        "dependencies": []
+    },
+    "src/test/jsonparser": {
+        "url": "src/test/jsonparser.html",
+        "dependencies": [
+            "src/index"
+        ]
+    },
+    "src/test/jsontests": {
+        "url": "src/test/jsontests.html",
+        "dependencies": [
+            "src/test/jsonparser",
+            "fs",
+            "chai",
+            "fast-check"
+        ]
+    },
+    "fs": {
+        "dependencies": []
+    }
+}

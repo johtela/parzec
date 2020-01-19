@@ -1,0 +1,14 @@
+{
+    "exclude": [
+        "node_modules",
+        "lib",
+        "testdata"
+    ],
+    "updateToc": true,
+    "frontMatter": {
+        "projectName": "parzec",
+        "repository": "https://github.com/johtela/parzec",
+        "download": "https://www.npmjs.com/package/parzec",
+        "footer": "Copyright © 2020 Tommi Johtela"
+    }
+}
