@@ -44,7 +44,6 @@ const rootExpr = optws.seq(expr)
 
 /**
  * Parse an expresion string and calculate its value. 
- * @param text Expression string to be parsed.
  */
 export function evaluateExpression(expression: string): number {
     return pz.parse(rootExpr, pz.lexerInput<ExprToken>(expression, lexer))

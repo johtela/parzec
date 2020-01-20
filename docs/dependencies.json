@@ -54,19 +54,26 @@
             "src/index"
         ]
     },
+    "src/test/fc-helpers": {
+        "url": "src/test/fc-helpers.html",
+        "dependencies": [
+            "fast-check"
+        ]
+    },
+    "fast-check": {
+        "dependencies": []
+    },
     "src/test/exprtests": {
         "url": "src/test/exprtests.html",
         "dependencies": [
             "src/test/exprparser",
             "chai",
             "fast-check",
+            "src/test/fc-helpers",
             "src/index"
         ]
     },
     "chai": {
-        "dependencies": []
-    },
-    "fast-check": {
         "dependencies": []
     },
     "src/test/jsonparser": {
@@ -81,7 +88,8 @@
             "src/test/jsonparser",
             "fs",
             "chai",
-            "fast-check"
+            "fast-check",
+            "src/test/fc-helpers"
         ]
     },
     "fs": {

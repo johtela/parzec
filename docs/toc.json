@@ -78,5 +78,10 @@
                 "desc": ""
             }
         ]
+    },
+    {
+        "page": "fc-helpers",
+        "file": "src/test/fc-helpers.html",
+        "desc": ""
     }
 ]
