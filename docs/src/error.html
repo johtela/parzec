@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>parzec - error</title>
+    <title>parzec - Error Reporting</title>
     <link rel="icon" type="image/icon" href="../images/favicon.png" />
     <link rel="stylesheet" href="../css/main.css" />
     
@@ -34,11 +34,11 @@
     </a>
     <a class="enabled" href="result.html">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"/></svg>
-        <span>Previous: result</span>
+        <span>Previous: Parser Result</span>
     </a>
-    <a class="enabled" href="lexer.html">
+    <a class="enabled" href="ref.html">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
-        <span>Next: lexer</span>
+        <span>Next: Reference Cells</span>
     </a>
         </div>
         
@@ -59,54 +59,16 @@
         
     <li>
         
-        <a href="../README.html">README</a>
+        <a href="../README.html">Introduction</a>
         
     </li>
     <li>
+        <button class="accordion">
+        Examples
+        </button>
+            
+    <ul>
         
-        <a href="index.html">index</a>
-        
-    </li>
-    <li>
-        
-        <a href="input.html">input</a>
-        
-    </li>
-    <li>
-        
-        <a href="result.html">result</a>
-        
-    </li>
-    <li>
-        
-        <a href="error.html" class="highlight">error</a>
-        
-    </li>
-    <li>
-        
-        <a href="lexer.html">lexer</a>
-        
-    </li>
-    <li>
-        
-        <a href="ref.html">ref</a>
-        
-    </li>
-    <li>
-        
-        <a href="parser.html">parser</a>
-        
-    </li>
-    <li>
-        
-        <a href="arrayparsers.html">arrayparsers</a>
-        
-    </li>
-    <li>
-        
-        <a href="utils.html">utils</a>
-        
-    </li>
     <li>
         
         <a href="test/exprparser.html">exprparser</a>
@@ -128,6 +90,62 @@
         
     </li>
     </ul>
+    </li>
+    <li>
+        <button class="accordion">
+        Implementation
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="index.html">Library Exports</a>
+        
+    </li>
+    <li>
+        
+        <a href="input.html">Parser Input</a>
+        
+    </li>
+    <li>
+        
+        <a href="result.html">Parser Result</a>
+        
+    </li>
+    <li>
+        
+        <a href="error.html" class="highlight">Error Reporting</a>
+        
+    </li>
+    <li>
+        
+        <a href="ref.html">Reference Cells</a>
+        
+    </li>
+    <li>
+        
+        <a href="lexer.html">Lexical Analyzer</a>
+        
+    </li>
+    <li>
+        
+        <a href="parser.html">Parser Monad and Combinators</a>
+        
+    </li>
+    <li>
+        
+        <a href="arrayparsers.html">Parsing Arrays and Expressions</a>
+        
+    </li>
+    <li>
+        
+        <a href="utils.html">Utility Functions</a>
+        
+    </li>
+    </ul>
+    </li>
+    </ul>
     </div>
             
         </div>
@@ -145,39 +163,33 @@
         <h1 id="error-reporting">Error Reporting</h1>
 <p>We define a custom Error class for parsing errors.</p>
 <p>The possible sources of errors are defined in the enumeration below.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">enum</span> <span id="0" data-toggle="tooltip" data-title="ErrorSource">ErrorSource</span> <span class="punctuation">{</span> 
-    <span id="208" data-toggle="tooltip" data-title="ErrorSource.Input">Input</span> <span class="punctuation">=</span> <span class="string">&quot;Input&quot;</span><span class="punctuation">,</span> 
-    <span id="231" data-toggle="tooltip" data-title="ErrorSource.Lexer">Lexer</span> <span class="punctuation">=</span> <span class="string">&quot;Lexer&quot;</span><span class="punctuation">,</span> 
-    <span id="254" data-toggle="tooltip" data-title="ErrorSource.Parser">Parser</span> <span class="punctuation">=</span> <span class="string">&quot;Parsing&quot;</span> 
+<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">enum</span> <span id="0" class="typename" data-toggle="tooltip" data-title="ErrorSource">ErrorSource</span> <span class="punctuation">{</span>
+    <span id="194" data-toggle="tooltip" data-title="ErrorSource.Input">Input</span> <span class="punctuation">=</span> <span class="string">&quot;Input&quot;</span><span class="punctuation">,</span>
+    <span id="216" data-toggle="tooltip" data-title="ErrorSource.Lexer">Lexer</span> <span class="punctuation">=</span> <span class="string">&quot;Lexer&quot;</span><span class="punctuation">,</span>
+    <span id="238" data-toggle="tooltip" data-title="ErrorSource.Parser">Parser</span> <span class="punctuation">=</span> <span class="string">&quot;Parsing&quot;</span>
 <span class="punctuation">}</span>
 </code></pre>
-<p>The ParsError class contains information about the parsing error in
+<p>The ParseError class contains information about the parsing error in
 an easily accessible form.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">class</span> <span id="283" class="typename" data-toggle="tooltip" data-title="ParseError">ParseError</span> <span class="keyword">extends</span> <span class="typename" data-toggle="tooltip" data-title="ErrorConstructor">Error</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">class</span> <span id="265" class="typename" data-toggle="tooltip" data-title="ParseError">ParseError</span> <span class="keyword">extends</span> <span class="typename" data-toggle="tooltip" data-title="ErrorConstructor">Error</span> <span class="punctuation">{</span>
+    <span class="keyword">constructor</span><span class="punctuation">(</span>
 </code></pre>
 <p>The source of the error.</p>
-<pre class="syntaxhighlight"><code>    <span id="437" data-toggle="tooltip" data-title="ErrorSource">source</span><span class="punctuation">:</span> <a href="error.html#0"><span data-toggle="tooltip" data-title="ErrorSource">ErrorSource</span></a>
+<pre class="syntaxhighlight"><code>        <span class="keyword">readonly</span> <span id="438" data-toggle="tooltip" data-title="ErrorSource">source</span><span class="punctuation">:</span> <a href="error.html#0"><span class="typename" data-toggle="tooltip" data-title="ErrorSource">ErrorSource</span></a><span class="punctuation">,</span>
 </code></pre>
 <p>The position where the error happened.</p>
-<pre class="syntaxhighlight"><code>    <span id="513" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span>
+<pre class="syntaxhighlight"><code>        <span class="keyword">readonly</span> <span id="540" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span>
 </code></pre>
 <p>Input found at <code>position</code>.</p>
-<pre class="syntaxhighlight"><code>    <span id="600" data-toggle="tooltip" data-title="string">found</span><span class="punctuation">:</span> <span class="keyword">string</span>
+<pre class="syntaxhighlight"><code>        <span class="keyword">readonly</span> <span id="653" data-toggle="tooltip" data-title="string">found</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">,</span>
 </code></pre>
 <p>Input expected at <code>position</code>. There can be multiple terminals.</p>
-<pre class="syntaxhighlight"><code>    <span id="672" data-toggle="tooltip" data-title="string[]">expected</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">[</span><span class="punctuation">]</span>
+<pre class="syntaxhighlight"><code>        <span class="keyword">readonly</span> <span id="751" data-toggle="tooltip" data-title="string[]">expected</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">[</span><span class="punctuation">]</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span> <span class="punctuation">{</span>
 </code></pre>
-<p>Create a parsing error object. Calls the inherited constructor
-with a readable error message.</p>
-<pre class="syntaxhighlight"><code>    <span class="keyword">constructor</span><span class="punctuation">(</span><span id="931" data-toggle="tooltip" data-title="ErrorSource">source</span><span class="punctuation">:</span> <a href="error.html#0"><span data-toggle="tooltip" data-title="ErrorSource">ErrorSource</span></a><span class="punctuation">,</span> <span id="951" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span>
-        <span id="969" data-toggle="tooltip" data-title="string">found</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">,</span> <span id="993" data-toggle="tooltip" data-title="string[]">expected</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">[</span><span class="punctuation">]</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span> <span class="punctuation">{</span>
-        <span class="keyword">super</span><span class="punctuation">(</span><span class="string">`${</span><a href="error.html#931"><span data-toggle="tooltip" data-title="ErrorSource">source</span></a><span class="string">} error at position ${</span><a href="error.html#951"><span data-toggle="tooltip" data-title="number">position</span></a><span class="string">}.\n`</span> <span class="punctuation">+</span>
-            <span class="string">`\tFound: &quot;${</span><a href="error.html#969"><span data-toggle="tooltip" data-title="string">found</span></a><span class="string">}&quot;\n`</span> <span class="punctuation">+</span> 
-            <span class="string">`\tExpected: ${</span><a href="error.html#993"><span data-toggle="tooltip" data-title="string[]">expected</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(callbackfn: (value: string, index: number, array: string[]) =&gt; U, thisArg?: any) =&gt; U[]">map</span><span class="punctuation">(</span><span id="1164" data-toggle="tooltip" data-title="string">s</span> <span class="punctuation">=&gt;</span> <span class="string">`&quot;${</span><a href="error.html#1164"><span data-toggle="tooltip" data-title="string">s</span></a><span class="string">}&quot;`</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(separator?: string | undefined) =&gt; string">join</span><span class="punctuation">(</span><span class="string">&quot;, &quot;</span><span class="punctuation">)</span><span class="string">}`</span><span class="punctuation">)</span><span class="punctuation">;</span>
-        <span class="keyword">this</span><span class="punctuation">.</span><a href="error.html#437"><span data-toggle="tooltip" data-title="ErrorSource">source</span></a> <span class="punctuation">=</span> <a href="error.html#931"><span data-toggle="tooltip" data-title="ErrorSource">source</span></a>
-        <span class="keyword">this</span><span class="punctuation">.</span><a href="error.html#513"><span data-toggle="tooltip" data-title="number">position</span></a> <span class="punctuation">=</span> <a href="error.html#951"><span data-toggle="tooltip" data-title="number">position</span></a>
-        <span class="keyword">this</span><span class="punctuation">.</span><a href="error.html#600"><span data-toggle="tooltip" data-title="string">found</span></a> <span class="punctuation">=</span> <a href="error.html#969"><span data-toggle="tooltip" data-title="string">found</span></a>
-        <span class="keyword">this</span><span class="punctuation">.</span><a href="error.html#672"><span data-toggle="tooltip" data-title="string[]">expected</span></a> <span class="punctuation">=</span> <a href="error.html#993"><span data-toggle="tooltip" data-title="string[]">expected</span></a>
+<p>Constructor formats the error message using the parameters provided.</p>
+<pre class="syntaxhighlight"><code>        <span class="keyword">super</span><span class="punctuation">(</span><span class="string">`${</span><a href="error.html#438"><span data-toggle="tooltip" data-title="ErrorSource">source</span></a><span class="string">} error at position ${</span><a href="error.html#540"><span data-toggle="tooltip" data-title="number">position</span></a><span class="string">}.\n`</span> <span class="punctuation">+</span>
+            <span class="string">`\tFound: &quot;${</span><a href="error.html#653"><span data-toggle="tooltip" data-title="string">found</span></a><span class="string">}&quot;\n`</span> <span class="punctuation">+</span>
+            <span class="string">`\tExpected: ${</span><a href="error.html#751"><span data-toggle="tooltip" data-title="string[]">expected</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(callbackfn: (value: string, index: number, array: string[]) =&gt; U, thisArg?: any) =&gt; U[]">map</span><span class="punctuation">(</span><span id="1148" data-toggle="tooltip" data-title="string">s</span> <span class="punctuation">=&gt;</span> <span class="string">`&quot;${</span><a href="error.html#1148"><span data-toggle="tooltip" data-title="string">s</span></a><span class="string">}&quot;`</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(separator?: string | undefined) =&gt; string">join</span><span class="punctuation">(</span><span class="string">&quot;, &quot;</span><span class="punctuation">)</span><span class="string">}`</span><span class="punctuation">)</span><span class="punctuation">;</span>
     <span class="punctuation">}</span>
 <span class="punctuation">}</span>
 </code></pre>

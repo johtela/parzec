@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>parzec - result</title>
+    <title>parzec - Parser Result</title>
     <link rel="icon" type="image/icon" href="../images/favicon.png" />
     <link rel="stylesheet" href="../css/main.css" />
     
@@ -34,11 +34,11 @@
     </a>
     <a class="enabled" href="input.html">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"/></svg>
-        <span>Previous: input</span>
+        <span>Previous: Parser Input</span>
     </a>
     <a class="enabled" href="error.html">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
-        <span>Next: error</span>
+        <span>Next: Error Reporting</span>
     </a>
         </div>
         
@@ -59,54 +59,16 @@
         
     <li>
         
-        <a href="../README.html">README</a>
+        <a href="../README.html">Introduction</a>
         
     </li>
     <li>
+        <button class="accordion">
+        Examples
+        </button>
+            
+    <ul>
         
-        <a href="index.html">index</a>
-        
-    </li>
-    <li>
-        
-        <a href="input.html">input</a>
-        
-    </li>
-    <li>
-        
-        <a href="result.html" class="highlight">result</a>
-        
-    </li>
-    <li>
-        
-        <a href="error.html">error</a>
-        
-    </li>
-    <li>
-        
-        <a href="lexer.html">lexer</a>
-        
-    </li>
-    <li>
-        
-        <a href="ref.html">ref</a>
-        
-    </li>
-    <li>
-        
-        <a href="parser.html">parser</a>
-        
-    </li>
-    <li>
-        
-        <a href="arrayparsers.html">arrayparsers</a>
-        
-    </li>
-    <li>
-        
-        <a href="utils.html">utils</a>
-        
-    </li>
     <li>
         
         <a href="test/exprparser.html">exprparser</a>
@@ -126,6 +88,62 @@
         
         <a href="test/jsontests.html">jsontests</a>
         
+    </li>
+    </ul>
+    </li>
+    <li>
+        <button class="accordion">
+        Implementation
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="index.html">Library Exports</a>
+        
+    </li>
+    <li>
+        
+        <a href="input.html">Parser Input</a>
+        
+    </li>
+    <li>
+        
+        <a href="result.html" class="highlight">Parser Result</a>
+        
+    </li>
+    <li>
+        
+        <a href="error.html">Error Reporting</a>
+        
+    </li>
+    <li>
+        
+        <a href="ref.html">Reference Cells</a>
+        
+    </li>
+    <li>
+        
+        <a href="lexer.html">Lexical Analyzer</a>
+        
+    </li>
+    <li>
+        
+        <a href="parser.html">Parser Monad and Combinators</a>
+        
+    </li>
+    <li>
+        
+        <a href="arrayparsers.html">Parsing Arrays and Expressions</a>
+        
+    </li>
+    <li>
+        
+        <a href="utils.html">Utility Functions</a>
+        
+    </li>
+    </ul>
     </li>
     </ul>
     </div>
@@ -148,61 +166,61 @@ represents either success or failure. In both cases need the
 <code>position</code> field to indicate where in the input stream we are.
 This is field is defined in the base interface.</p>
 <pre class="syntaxhighlight"><code><span class="keyword">interface</span> <span id="0" class="typename" data-toggle="tooltip" data-title="Position">Position</span> <span class="punctuation">{</span>
-    <span id="318" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span>
+    <span id="307" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span>
 <span class="punctuation">}</span>
 </code></pre>
 <p>When parsing succeeds we return the the <code>Ok&lt;T&gt;</code> object. It contains
 the <code>result</code> returned by the parser. Type parameter <code>T</code> indicates
 its type.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">interface</span> <span id="343" class="typename" data-toggle="tooltip" data-title="Ok&lt;T&gt;">Ok</span><span class="punctuation">&lt;</span><span id="526" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span> <span class="keyword">extends</span> <a href="result.html#0"><span class="typename" data-toggle="tooltip" data-title="Position">Position</span></a> <span class="punctuation">{</span>
-    <span id="547" data-toggle="tooltip" data-title="&quot;ok&quot;">kind</span><span class="punctuation">:</span> <span class="string">&quot;ok&quot;</span>
-    <span id="563" data-toggle="tooltip" data-title="T">result</span><span class="punctuation">:</span> <a href="result.html#526"><span data-toggle="tooltip" data-title="T">T</span></a>
+<pre class="syntaxhighlight"><code><span class="keyword">interface</span> <span id="332" class="typename" data-toggle="tooltip" data-title="Ok&lt;T&gt;">Ok</span><span class="punctuation">&lt;</span><span id="515" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span> <span class="keyword">extends</span> <a href="result.html#0"><span class="typename" data-toggle="tooltip" data-title="Position">Position</span></a> <span class="punctuation">{</span>
+    <span id="536" data-toggle="tooltip" data-title="&quot;ok&quot;">kind</span><span class="punctuation">:</span> <span class="string">&quot;ok&quot;</span>
+    <span id="552" data-toggle="tooltip" data-title="T">result</span><span class="punctuation">:</span> <a href="result.html#515"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a>
 <span class="punctuation">}</span>
 </code></pre>
 <p>When parsing fails we return the <code>Fail</code> object. It does not have a
 result, but information about the input <code>found</code> and input <code>expected</code>.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">interface</span> <span id="581" class="typename" data-toggle="tooltip" data-title="Fail">Fail</span> <span class="keyword">extends</span> <a href="result.html#0"><span class="typename" data-toggle="tooltip" data-title="Position">Position</span></a> <span class="punctuation">{</span>
-    <span id="773" data-toggle="tooltip" data-title="&quot;fail&quot;">kind</span><span class="punctuation">:</span> <span class="string">&quot;fail&quot;</span>
-    <span id="791" data-toggle="tooltip" data-title="string">found</span><span class="punctuation">:</span> <span class="keyword">string</span>
-    <span id="810" data-toggle="tooltip" data-title="string[]">expected</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">[</span><span class="punctuation">]</span>
+<pre class="syntaxhighlight"><code><span class="keyword">interface</span> <span id="570" class="typename" data-toggle="tooltip" data-title="Fail">Fail</span> <span class="keyword">extends</span> <a href="result.html#0"><span class="typename" data-toggle="tooltip" data-title="Position">Position</span></a> <span class="punctuation">{</span>
+    <span id="762" data-toggle="tooltip" data-title="&quot;fail&quot;">kind</span><span class="punctuation">:</span> <span class="string">&quot;fail&quot;</span>
+    <span id="780" data-toggle="tooltip" data-title="string">found</span><span class="punctuation">:</span> <span class="keyword">string</span>
+    <span id="799" data-toggle="tooltip" data-title="string[]">expected</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">[</span><span class="punctuation">]</span>
 <span class="punctuation">}</span>
 </code></pre>
 <p>The actual result type is a discriminated union of the <code>Ok&lt;T&gt;</code> and
 <code>Fail</code> objects.</p>
-<h2 id="pre-class-syntaxhighlight-code-span-class-keyword-export-span-span-class-keyword-type-span-span-id-837-class-typename-data-toggle-tooltip-data-title-parse-result-lt-t-gt-parse-result-span-span-class-punctuation-lt-span-span-id-965-data-toggle-tooltip-data-title-t-t-span-span-class-punctuation-gt-span-span-class-punctuation-span-a-href-result-html-343-span-class-typename-data-toggle-tooltip-data-title-ok-lt-t-gt-ok-span-a-span-class-punctuation-lt-span-a-href-result-html-965-span-data-toggle-tooltip-data-title-t-t-span-a-span-class-punctuation-gt-span-span-class-punctuation-span-a-href-result-html-581-span-class-typename-data-toggle-tooltip-data-title-fail-fail-span-a-code-pre-helper-functions"><pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">type</span> <span id="837" class="typename" data-toggle="tooltip" data-title="ParseResult&lt;T&gt;">ParseResult</span><span class="punctuation">&lt;</span><span id="965" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span> <span class="punctuation">=</span> <a href="result.html#343"><span class="typename" data-toggle="tooltip" data-title="Ok&lt;T&gt;">Ok</span></a><span class="punctuation">&lt;</span><a href="result.html#965"><span data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">|</span> <a href="result.html#581"><span class="typename" data-toggle="tooltip" data-title="Fail">Fail</span></a>
+<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">type</span> <span id="826" class="typename" data-toggle="tooltip" data-title="ParseResult&lt;T&gt;">ParseResult</span><span class="punctuation">&lt;</span><span id="954" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span> <span class="punctuation">=</span> <a href="result.html#332"><span class="typename" data-toggle="tooltip" data-title="Ok&lt;T&gt;">Ok</span></a><span class="punctuation">&lt;</span><a href="result.html#954"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">|</span> <a href="result.html#570"><span class="typename" data-toggle="tooltip" data-title="Fail">Fail</span></a>
 </code></pre>
-Helper Functions</h2>
+<h2 id="helper-functions">Helper Functions</h2>
 <p>The <code>joinExpected</code> function concatenates the list of expected
 inputs from the <code>other</code> failed parse result into the <code>expected</code>
 array of the first one.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="982" class="member" data-toggle="tooltip" data-title="(result: Fail, other: Fail) =&gt; void">joinExpected</span><span class="punctuation">(</span><span id="1232" data-toggle="tooltip" data-title="Fail">result</span><span class="punctuation">:</span> <a href="result.html#581"><span class="typename" data-toggle="tooltip" data-title="Fail">Fail</span></a><span class="punctuation">,</span> <span id="1245" data-toggle="tooltip" data-title="Fail">other</span><span class="punctuation">:</span> <a href="result.html#581"><span class="typename" data-toggle="tooltip" data-title="Fail">Fail</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
-    <span class="keyword">if</span> <span class="punctuation">(</span><a href="result.html#1245"><span data-toggle="tooltip" data-title="Fail">other</span></a><span class="punctuation">.</span><a href="result.html#810"><span data-toggle="tooltip" data-title="string[]">expected</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">length</span> <span class="punctuation">&gt;</span> <span class="number">0</span><span class="punctuation">)</span>
-        <a href="result.html#1232"><span data-toggle="tooltip" data-title="Fail">result</span></a><span class="punctuation">.</span><a href="result.html#810"><span data-toggle="tooltip" data-title="string[]">expected</span></a> <span class="punctuation">=</span> <a href="result.html#1232"><span data-toggle="tooltip" data-title="Fail">result</span></a><span class="punctuation">.</span><a href="result.html#810"><span data-toggle="tooltip" data-title="string[]">expected</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (...items: ConcatArray&lt;string&gt;[]): string[]; (...items: (string | ConcatArray&lt;string&gt;)[]): string[]; }">concat</span><span class="punctuation">(</span><a href="result.html#1245"><span data-toggle="tooltip" data-title="Fail">other</span></a><span class="punctuation">.</span><a href="result.html#810"><span data-toggle="tooltip" data-title="string[]">expected</span></a><span class="punctuation">)</span>
+<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="971" class="member" data-toggle="tooltip" data-title="(result: Fail, other: Fail) =&gt; void">joinExpected</span><span class="punctuation">(</span><span id="1208" data-toggle="tooltip" data-title="Fail">result</span><span class="punctuation">:</span> <a href="result.html#570"><span class="typename" data-toggle="tooltip" data-title="Fail">Fail</span></a><span class="punctuation">,</span> <span id="1221" data-toggle="tooltip" data-title="Fail">other</span><span class="punctuation">:</span> <a href="result.html#570"><span class="typename" data-toggle="tooltip" data-title="Fail">Fail</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+    <span class="keyword">if</span> <span class="punctuation">(</span><a href="result.html#1221"><span data-toggle="tooltip" data-title="Fail">other</span></a><span class="punctuation">.</span><a href="result.html#799"><span data-toggle="tooltip" data-title="string[]">expected</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">length</span> <span class="punctuation">&gt;</span> <span class="number">0</span><span class="punctuation">)</span>
+        <a href="result.html#1208"><span data-toggle="tooltip" data-title="Fail">result</span></a><span class="punctuation">.</span><a href="result.html#799"><span data-toggle="tooltip" data-title="string[]">expected</span></a> <span class="punctuation">=</span> <a href="result.html#1208"><span data-toggle="tooltip" data-title="Fail">result</span></a><span class="punctuation">.</span><a href="result.html#799"><span data-toggle="tooltip" data-title="string[]">expected</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (...items: ConcatArray&lt;string&gt;[]): string[]; (...items: (string | ConcatArray&lt;string&gt;)[]): string[]; }">concat</span><span class="punctuation">(</span><a href="result.html#1221"><span data-toggle="tooltip" data-title="Fail">other</span></a><span class="punctuation">.</span><a href="result.html#799"><span data-toggle="tooltip" data-title="string[]">expected</span></a><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 <p>This function formats the array of expected inputs as a string for
 printing.</p>
-<h2 id="pre-class-syntaxhighlight-code-span-class-keyword-export-span-span-class-keyword-function-span-span-id-1365-class-member-data-toggle-tooltip-data-title-result-fail-gt-string-expected-as-csv-span-span-class-punctuation-span-span-id-1492-data-toggle-tooltip-data-title-fail-result-span-span-class-punctuation-span-a-href-result-html-581-span-class-typename-data-toggle-tooltip-data-title-fail-fail-span-a-span-class-punctuation-span-span-class-punctuation-span-span-class-keyword-string-span-span-class-punctuation-span-span-class-keyword-return-span-a-href-result-html-1492-span-data-toggle-tooltip-data-title-fail-result-span-a-span-class-punctuation-span-a-href-result-html-810-span-data-toggle-tooltip-data-title-string-expected-span-a-span-class-punctuation-span-span-class-member-data-toggle-tooltip-data-title-lt-u-gt-callbackfn-value-string-index-number-array-string-gt-u-this-arg-any-gt-u-map-span-span-class-punctuation-span-span-id-1552-data-toggle-tooltip-data-title-string-s-span-span-class-punctuation-gt-span-span-class-string-code-amp-quot-lt-span-gt-lt-a-href-quot-result-html-1552-quot-gt-lt-span-data-toggle-quot-tooltip-quot-data-title-quot-string-quot-gt-s-lt-span-gt-lt-a-gt-lt-span-class-quot-string-quot-gt-amp-quot-code-span-span-class-punctuation-span-span-class-punctuation-span-span-class-member-data-toggle-tooltip-data-title-separator-string-undefined-gt-string-join-span-span-class-punctuation-span-span-class-string-quot-quot-span-span-class-punctuation-span-span-class-punctuation-span-code-pre-constructor-functions"><pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="1365" class="member" data-toggle="tooltip" data-title="(result: Fail) =&gt; string">expectedAsCsv</span><span class="punctuation">(</span><span id="1492" data-toggle="tooltip" data-title="Fail">result</span><span class="punctuation">:</span> <a href="result.html#581"><span class="typename" data-toggle="tooltip" data-title="Fail">Fail</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <span class="keyword">string</span> <span class="punctuation">{</span>
-<span class="keyword">return</span> <a href="result.html#1492"><span data-toggle="tooltip" data-title="Fail">result</span></a><span class="punctuation">.</span><a href="result.html#810"><span data-toggle="tooltip" data-title="string[]">expected</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(callbackfn: (value: string, index: number, array: string[]) =&gt; U, thisArg?: any) =&gt; U[]">map</span><span class="punctuation">(</span><span id="1552" data-toggle="tooltip" data-title="string">s</span> <span class="punctuation">=&gt;</span> <span class="string"><code>&amp;quot;${&lt;/span&gt;&lt;a href=&quot;result.html#1552&quot;&gt;&lt;span data-toggle=&quot;tooltip&quot; data-title=&quot;string&quot;&gt;s&lt;/span&gt;&lt;/a&gt;&lt;span class=&quot;string&quot;&gt;}&amp;quot;</code></span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(separator?: string | undefined) =&gt; string">join</span><span class="punctuation">(</span><span class="string">&quot;, &quot;</span><span class="punctuation">)</span>
+<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="1341" class="member" data-toggle="tooltip" data-title="(result: Fail) =&gt; string">expectedAsCsv</span><span class="punctuation">(</span><span id="1468" data-toggle="tooltip" data-title="Fail">result</span><span class="punctuation">:</span> <a href="result.html#570"><span class="typename" data-toggle="tooltip" data-title="Fail">Fail</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <span class="keyword">string</span> <span class="punctuation">{</span>
+        <span class="keyword">return</span> <a href="result.html#1468"><span data-toggle="tooltip" data-title="Fail">result</span></a><span class="punctuation">.</span><a href="result.html#799"><span data-toggle="tooltip" data-title="string[]">expected</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(callbackfn: (value: string, index: number, array: string[]) =&gt; U, thisArg?: any) =&gt; U[]">map</span><span class="punctuation">(</span><span id="1528" data-toggle="tooltip" data-title="string">s</span> <span class="punctuation">=&gt;</span> <span class="string">`&quot;${</span><a href="result.html#1528"><span data-toggle="tooltip" data-title="string">s</span></a><span class="string">}&quot;`</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(separator?: string | undefined) =&gt; string">join</span><span class="punctuation">(</span><span class="string">&quot;, &quot;</span><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
-Constructor Functions</h2>
+<h2 id="constructor-functions">Constructor Functions</h2>
 <p>The following function is used to construct an <code>Ok&lt;T&gt;</code> result.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="1580" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(pos: number, res: T) =&gt; ParseResult&lt;T&gt;">succeeded</span><span class="punctuation">&lt;</span><span id="1740" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="1743" data-toggle="tooltip" data-title="number">pos</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span> <span id="1755" data-toggle="tooltip" data-title="T">res</span><span class="punctuation">:</span> <a href="result.html#1740"><span data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="result.html#837"><span class="typename" data-toggle="tooltip" data-title="ParseResult&lt;T&gt;">ParseResult</span></a><span class="punctuation">&lt;</span><a href="result.html#1740"><span data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="1556" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(pos: number, res: T) =&gt; ParseResult&lt;T&gt;">succeeded</span><span class="punctuation">&lt;</span><span id="1698" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="1701" data-toggle="tooltip" data-title="number">pos</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span> <span id="1713" data-toggle="tooltip" data-title="T">res</span><span class="punctuation">:</span> <a href="result.html#1698"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="result.html#826"><span class="typename" data-toggle="tooltip" data-title="ParseResult&lt;T&gt;">ParseResult</span></a><span class="punctuation">&lt;</span><a href="result.html#1698"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="punctuation">{</span>
-        <span id="1795" data-toggle="tooltip" data-title="&quot;ok&quot;">kind</span><span class="punctuation">:</span> <span class="string">&quot;ok&quot;</span><span class="punctuation">,</span>
-        <span id="1816" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <a href="result.html#1743"><span data-toggle="tooltip" data-title="number">pos</span></a><span class="punctuation">,</span> 
-        <span id="1840" data-toggle="tooltip" data-title="T">result</span><span class="punctuation">:</span> <a href="result.html#1755"><span data-toggle="tooltip" data-title="T">res</span></a>
+        <span id="1753" data-toggle="tooltip" data-title="&quot;ok&quot;">kind</span><span class="punctuation">:</span> <span class="string">&quot;ok&quot;</span><span class="punctuation">,</span>
+        <span id="1774" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <a href="result.html#1701"><span data-toggle="tooltip" data-title="number">pos</span></a><span class="punctuation">,</span> 
+        <span id="1798" data-toggle="tooltip" data-title="T">result</span><span class="punctuation">:</span> <a href="result.html#1713"><span data-toggle="tooltip" data-title="T">res</span></a>
     <span class="punctuation">}</span>
 <span class="punctuation">}</span>
 </code></pre>
 <p>The next one constructs a <code>Fail</code> result.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="1872" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(pos: number, fnd: string, exp?: string[]) =&gt; ParseResult&lt;T&gt;">failed</span><span class="punctuation">&lt;</span><span id="1952" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="1955" data-toggle="tooltip" data-title="number">pos</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span> <span id="1967" data-toggle="tooltip" data-title="string">fnd</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">,</span> <span id="1980" data-toggle="tooltip" data-title="string[]">exp</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">[</span><span class="punctuation">]</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="result.html#837"><span class="typename" data-toggle="tooltip" data-title="ParseResult&lt;T&gt;">ParseResult</span></a><span class="punctuation">&lt;</span><a href="result.html#1952"><span data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="1830" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(pos: number, fnd: string, exp?: string[]) =&gt; ParseResult&lt;T&gt;">failed</span><span class="punctuation">&lt;</span><span id="1910" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="1913" data-toggle="tooltip" data-title="number">pos</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span> <span id="1925" data-toggle="tooltip" data-title="string">fnd</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">,</span> <span id="1938" data-toggle="tooltip" data-title="string[]">exp</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">[</span><span class="punctuation">]</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="result.html#826"><span class="typename" data-toggle="tooltip" data-title="ParseResult&lt;T&gt;">ParseResult</span></a><span class="punctuation">&lt;</span><a href="result.html#1910"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="punctuation">{</span>
-        <span id="2032" data-toggle="tooltip" data-title="&quot;fail&quot;">kind</span><span class="punctuation">:</span> <span class="string">&quot;fail&quot;</span><span class="punctuation">,</span>
-        <span id="2055" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <a href="result.html#1955"><span data-toggle="tooltip" data-title="number">pos</span></a><span class="punctuation">,</span> 
-        <span id="2079" data-toggle="tooltip" data-title="string">found</span><span class="punctuation">:</span> <a href="result.html#1967"><span data-toggle="tooltip" data-title="string">fnd</span></a><span class="punctuation">,</span> 
-        <span id="2101" data-toggle="tooltip" data-title="string[]">expected</span><span class="punctuation">:</span> <a href="result.html#1980"><span data-toggle="tooltip" data-title="string[]">exp</span></a>
+        <span id="1990" data-toggle="tooltip" data-title="&quot;fail&quot;">kind</span><span class="punctuation">:</span> <span class="string">&quot;fail&quot;</span><span class="punctuation">,</span>
+        <span id="2013" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <a href="result.html#1913"><span data-toggle="tooltip" data-title="number">pos</span></a><span class="punctuation">,</span> 
+        <span id="2037" data-toggle="tooltip" data-title="string">found</span><span class="punctuation">:</span> <a href="result.html#1925"><span data-toggle="tooltip" data-title="string">fnd</span></a><span class="punctuation">,</span> 
+        <span id="2059" data-toggle="tooltip" data-title="string[]">expected</span><span class="punctuation">:</span> <a href="result.html#1938"><span data-toggle="tooltip" data-title="string[]">exp</span></a>
     <span class="punctuation">}</span>
 <span class="punctuation">}</span>
 </code></pre>

@@ -5,12 +5,12 @@
  * To learn about monadic parsers refer to the list of literature in the 
  * [Wikipedia page](https://en.wikipedia.org/wiki/Parser_combinator).
  */
-import { ParserInput } from "./input"
-import { ParseResult, succeeded, failed, expectedAsCsv, joinExpected } from "./result"
-import { Token } from "./lexer"
-import { Ref } from "./ref"
-import { escapeWhitespace } from "./utils"
-import { ParseError, ErrorSource } from "./error"
+import * as inp from "./input"
+import * as pr from "./result"
+import * as lex from "./lexer"
+import * as ref from "./ref"
+import * as utils from "./utils"
+import * as err from "./error"
 /**
  * 
  * ## Parsing Function
@@ -20,7 +20,7 @@ import { ParseError, ErrorSource } from "./error"
  * The type of value to be parsed and the type of terminals in the input stream 
  * are given as type parameters `T` and `S`.
  */
-export type Parse<T, S> = (input: ParserInput<S>) => ParseResult<T>
+export type Parse<T, S> = (input: inp.ParserInput<S>) => pr.ParseResult<T>
 /**
  * ## Parser Class
  * 
@@ -77,7 +77,7 @@ export class Parser<T, S> {
     or<U>(other: Parser<U, S>): Parser<T | U, S> {
         return new Parser(input => {
             let pos = input.position;
-            let res1 = this.parse(input) as ParseResult<T | U>
+            let res1 = this.parse(input) as pr.ParseResult<T | U>
             if (res1.kind == "ok")
                 return res1
             if (res1.position > pos)
@@ -85,7 +85,7 @@ export class Parser<T, S> {
             let res2 = other.parse(input)
             if (res2.kind == "ok")
                 return res2
-            joinExpected(res2, res1)
+            pr.joinExpected(res2, res1)
             return res2
         })
     }
@@ -125,7 +125,7 @@ export class Parser<T, S> {
                 let res = this.parse(input)
                 if (res.kind == "fail")
                     return res.position > pos ?
-                        res : succeeded(res.position, list)
+                        res : pr.succeeded(res.position, list)
                 list.push(res.result)
             }
         })
@@ -143,7 +143,8 @@ export class Parser<T, S> {
                 let pos = input.position
                 res = this.parse(input)
                 if (res.kind == "fail")
-                    return res.position > pos ? res : succeeded(res.position, list)
+                    return res.position > pos ? 
+                        res : pr.succeeded(res.position, list)
                 list.push(res.result)
             }
         })
@@ -184,9 +185,9 @@ export class Parser<T, S> {
             input.position = pos
             if (res.kind == "ok") {
                 let found = `${res.result}`
-                return failed(res.position, found, ["not " + found])
+                return pr.failed(res.position, found, ["not " + found])
             }
-            return succeeded(res.position, <T><unknown>undefined)
+            return pr.succeeded(res.position, <T><unknown>undefined)
         })
     }
     /**
@@ -215,7 +216,7 @@ export class Parser<T, S> {
     expect(expected: string): Parser<T, S> {
         if (!parserDebug.errorMessages)
             return this
-        let resParser = new Parser((input: ParserInput<S>) => {
+        let resParser = new Parser((input: inp.ParserInput<S>) => {
             let res = this.parse(input)
             if (res.kind == "fail")
                 res.expected.push(expected)
@@ -240,9 +241,11 @@ export class Parser<T, S> {
             parserDebug.rulesEvaluated++
             parserDebug.unindent()
             parserDebug.write((res.kind == "ok" ?
-                `${ruleName} SUCCEEDED with value '${escapeWhitespace(`${res.result}`)}'` :
-                `${ruleName} FAILED with value '${escapeWhitespace(`${res.found}`)
-                    }'. Expected values: ${expectedAsCsv(res)}`) +
+                `${ruleName} SUCCEEDED with value '${
+                    utils.escapeWhitespace(`${res.result}`)}'` :
+                `${ruleName} FAILED with value '${
+                    utils.escapeWhitespace(`${res.found}`)
+                    }'. Expected values: ${pr.expectedAsCsv(res)}`) +
                 ` at position ${res.position}`)
             return res
         })
@@ -299,8 +302,8 @@ export const parserDebug = {
  * Attempt to parse an input with a given parser. Takes a Parser and a 
  * ParserInput as arguments and return a ParseResult.
  */
-export function tryParse<T, S>(parser: Parser<T, S>, input: ParserInput<S>):
-    ParseResult<T> {
+export function tryParse<T, S>(parser: Parser<T, S>, input: inp.ParserInput<S>):
+    pr.ParseResult<T> {
     parserDebug.rulesEvaluated = 0
     let res = parser.parse(input)
     if (parserDebug.debugging)
@@ -310,11 +313,11 @@ export function tryParse<T, S>(parser: Parser<T, S>, input: ParserInput<S>):
 /**
  * Parse an input using a given parser, or throw an exception, if parsing fails.
  */
-export function parse<T, S>(parser: Parser<T, S>, input: ParserInput<S>): T {
+export function parse<T, S>(parser: Parser<T, S>, input: inp.ParserInput<S>): T {
     var res = tryParse(parser, input)
     if (res.kind == "fail")
-        throw new ParseError(ErrorSource.Parser, res.position, res.found,
-            res.expected)
+        throw new err.ParseError(err.ErrorSource.Parser, res.position, 
+            res.found, res.expected)
     return res.result
 }
 /**
@@ -325,14 +328,14 @@ export function parse<T, S>(parser: Parser<T, S>, input: ParserInput<S>): T {
  * it lifts a value to the parser monad.
  */
 export function mret<T, S>(value: T): Parser<T, S> {
-    return new Parser(input => succeeded(input.position, value))
+    return new Parser(input => pr.succeeded(input.position, value))
 }
 /**
  * Create a parser that always fails. The terminals reported as
  * found or expected are given as an argument.
  */
 export function fail<T, S>(found: string, ...expected: string[]): Parser<T, S> {
-    return new Parser(input => failed(input.position, found, expected))
+    return new Parser(input => pr.failed(input.position, found, expected))
 }
 /**
  * ## Parsing Terminals
@@ -345,12 +348,12 @@ export function satisfy<T>(predicate: (value: T) => boolean): Parser<T, T> {
         let pos = input.position
         let next = input.next()
         if (next.done)
-            return failed(input.position, "end of input")
+            return pr.failed(input.position, "end of input")
         let item = next.value
         if (predicate(item))
-            return succeeded(input.position, item)
+            return pr.succeeded(input.position, item)
         input.position = pos
-        return failed<T>(input.position, `${item}`)
+        return pr.failed<T>(input.position, `${item}`)
     })
 }
 /**
@@ -368,7 +371,7 @@ export function any<T, S>(...parsers: Parser<T, S>[]): Parser<T, S> {
     if (parsers.length == 0)
         throw Error("At least one parser must be given.")
     return new Parser(input => {
-        let res: ParseResult<T> | null = null
+        let res: pr.ParseResult<T> | null = null
         let i = 0
         let pos = input.position
         do {
@@ -380,7 +383,7 @@ export function any<T, S>(...parsers: Parser<T, S>[]): Parser<T, S> {
             if (res == null)
                 res = r
             else
-                joinExpected(res, r)
+                pr.joinExpected(res, r)
         }
         while (i < parsers.length)
         return res
@@ -395,8 +398,8 @@ export function peek<S>(): Parser<S, S> {
         let next = input.next()
         input.position = pos
         return next.done ?
-            failed(input.position, "end of input") :
-            succeeded(input.position, next.value)
+            pr.failed(input.position, "end of input") :
+            pr.succeeded(input.position, next.value)
     })
 }
 /**
@@ -417,7 +420,7 @@ export function choose<T, S>(selector: (input: S) => Parser<T, S>):
  * currently are. The position can be also used for backtracking.
  */
 export function position<S>(): Parser<number, S> {
-    return new Parser(input => succeeded(input.position, input.position))
+    return new Parser(input => pr.succeeded(input.position, input.position))
 }
 /**
  * ## User-Managed State
@@ -425,7 +428,7 @@ export function position<S>(): Parser<number, S> {
  * Get the current satellite state stored in the input.
  */
 export function getState<T, S>(): Parser<T, S> {
-    return new Parser(input => succeeded(input.position, <T>input.state))
+    return new Parser(input => pr.succeeded(input.position, <T>input.state))
 }
 /**
  * Set the current satellite state stored in the input. The new state
@@ -434,7 +437,7 @@ export function getState<T, S>(): Parser<T, S> {
  */
 export function setState<T, S>(newValue: () => T): Parser<T, S> {
     return new Parser(input =>
-        succeeded(input.position, input.state = newValue()))
+        pr.succeeded(input.position, input.state = newValue()))
 }
 /**
  * Mutate the satellite state stored in the input. The mutation is done
@@ -443,7 +446,7 @@ export function setState<T, S>(newValue: () => T): Parser<T, S> {
 export function mutateState<T, S>(mutate: (state: T) => void): Parser<T, S> {
     return new Parser(input => {
         mutate(input.state)
-        return succeeded(input.position, input.state)
+        return pr.succeeded(input.position, input.state)
     })
 }
 /**
@@ -453,12 +456,12 @@ export function mutateState<T, S>(mutate: (state: T) => void): Parser<T, S> {
 export function checkState<T, S>(predicate: (state: T) => boolean): 
     Parser<T, S> {
     return new Parser(input => predicate(input.state) ?
-        succeeded(input.position, input.state) :
-        failed(input.position, "Matching predicate."))
+        pr.succeeded(input.position, input.state) :
+        pr.failed(input.position, "Matching predicate."))
 }
 /**
- * Clean up the current state after a parser has been executed. The clean-up function
- * is run regardless of whether the parser succeeds or fails.
+ * Clean up the current state after a parser has been executed. The clean-up 
+ * function is run regardless of whether the parser succeeds or fails.
  */
 export function cleanupState<T, U, S>(parser: Parser<T, S>,
     cleanup: (state: U) => void): Parser<T, S> {
@@ -477,7 +480,7 @@ export function cleanupState<T, U, S>(parser: Parser<T, S>,
  * implementation later. To refer to the parser that is not yet defined, you can 
  * use this function. 
  */
-export function forwardRef<T, S>(parser: Ref<Parser<T, S>>): Parser<T, S> {
+export function forwardRef<T, S>(parser: ref.Ref<Parser<T, S>>): Parser<T, S> {
     return new Parser(input => parser.target.parse(input))
 }
 /**
@@ -498,6 +501,12 @@ export function is<T>(value: T): Parser<T, T> {
 /**
  * Parse a specific token from the lexer input stream.
  */
-export function token<T>(token: T): Parser<Token<T>, Token<T>> {
-    return satisfy<Token<T>>(t => t.token === token)
+export function token<T>(token: T): Parser<lex.Token<T>, lex.Token<T>> {
+    return satisfy<lex.Token<T>>(t => t.token === token)
+}
+/**
+ * Helper function to create a terminal parser.
+ */
+export function terminal<T>(tok: T, name: string) {
+    return token(tok).expect(name)
 }

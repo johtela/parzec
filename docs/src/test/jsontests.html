@@ -36,9 +36,9 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"/></svg>
         <span>Previous: jsonparser</span>
     </a>
-    <a  >
+    <a class="enabled" href="../index.html">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
-        <span>Next:</span>
+        <span>Next: Library Exports</span>
     </a>
         </div>
         
@@ -59,54 +59,16 @@
         
     <li>
         
-        <a href="../../README.html">README</a>
+        <a href="../../README.html">Introduction</a>
         
     </li>
     <li>
+        <button class="accordion">
+        Examples
+        </button>
+            
+    <ul>
         
-        <a href="../index.html">index</a>
-        
-    </li>
-    <li>
-        
-        <a href="../input.html">input</a>
-        
-    </li>
-    <li>
-        
-        <a href="../result.html">result</a>
-        
-    </li>
-    <li>
-        
-        <a href="../error.html">error</a>
-        
-    </li>
-    <li>
-        
-        <a href="../lexer.html">lexer</a>
-        
-    </li>
-    <li>
-        
-        <a href="../ref.html">ref</a>
-        
-    </li>
-    <li>
-        
-        <a href="../parser.html">parser</a>
-        
-    </li>
-    <li>
-        
-        <a href="../arrayparsers.html">arrayparsers</a>
-        
-    </li>
-    <li>
-        
-        <a href="../utils.html">utils</a>
-        
-    </li>
     <li>
         
         <a href="exprparser.html">exprparser</a>
@@ -126,6 +88,62 @@
         
         <a href="jsontests.html" class="highlight">jsontests</a>
         
+    </li>
+    </ul>
+    </li>
+    <li>
+        <button class="accordion">
+        Implementation
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="../index.html">Library Exports</a>
+        
+    </li>
+    <li>
+        
+        <a href="../input.html">Parser Input</a>
+        
+    </li>
+    <li>
+        
+        <a href="../result.html">Parser Result</a>
+        
+    </li>
+    <li>
+        
+        <a href="../error.html">Error Reporting</a>
+        
+    </li>
+    <li>
+        
+        <a href="../ref.html">Reference Cells</a>
+        
+    </li>
+    <li>
+        
+        <a href="../lexer.html">Lexical Analyzer</a>
+        
+    </li>
+    <li>
+        
+        <a href="../parser.html">Parser Monad and Combinators</a>
+        
+    </li>
+    <li>
+        
+        <a href="../arrayparsers.html">Parsing Arrays and Expressions</a>
+        
+    </li>
+    <li>
+        
+        <a href="../utils.html">Utility Functions</a>
+        
+    </li>
+    </ul>
     </li>
     </ul>
     </div>
@@ -156,7 +174,7 @@
     <a href="jsontests.html#98"><span data-toggle="tooltip" data-title="Chai.ExpectStatic">expect</span></a><span class="punctuation">(</span><a href="jsontests.html#322"><span data-toggle="tooltip" data-title="any">json1</span></a><span class="punctuation">)</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Chai.Assertion">to</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Chai.Deep">deep</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Chai.Equal">equal</span><span class="punctuation">(</span><a href="jsontests.html#356"><span data-toggle="tooltip" data-title="any">json2</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
 <span class="punctuation">}</span>
 
-<span class="keyword">function</span> <span id="426" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(desc: string, prop: fc.IProperty&lt;T&gt;) =&gt; void">check</span><span class="punctuation">&lt;</span><span id="445" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="448" data-toggle="tooltip" data-title="string">desc</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">,</span> <span id="461" data-toggle="tooltip" data-title="fc.IProperty&lt;T&gt;">prop</span><span class="punctuation">:</span> <a href="jsontests.html#127"><span data-toggle="tooltip" data-title="any">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="fc.IProperty&lt;Ts&gt;">IProperty</span><span class="punctuation">&lt;</span><a href="jsontests.html#445"><span data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<span class="keyword">function</span> <span id="426" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(desc: string, prop: fc.IProperty&lt;T&gt;) =&gt; void">check</span><span class="punctuation">&lt;</span><span id="445" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="448" data-toggle="tooltip" data-title="string">desc</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">,</span> <span id="461" data-toggle="tooltip" data-title="fc.IProperty&lt;T&gt;">prop</span><span class="punctuation">:</span> <a href="jsontests.html#127"><span data-toggle="tooltip" data-title="any">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="fc.IProperty&lt;Ts&gt;">IProperty</span><span class="punctuation">&lt;</span><a href="jsontests.html#445"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span> <span class="punctuation">{</span>
     <span data-toggle="tooltip" data-title="Mocha.TestFunction">it</span><span class="punctuation">(</span><a href="jsontests.html#448"><span data-toggle="tooltip" data-title="string">desc</span></a><span class="punctuation">,</span> <span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="jsontests.html#127"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ &lt;Ts&gt;(property: fc.IAsyncProperty&lt;Ts&gt;, params?: fc.Parameters&lt;Ts&gt; | undefined): Promise&lt;void&gt;; &lt;Ts&gt;(property: fc.IProperty&lt;Ts&gt;, params?: fc.Parameters&lt;Ts&gt; | undefined): void; &lt;Ts&gt;(property: fc.IRawProperty&lt;...&gt;, params?: fc.Parameters&lt;...&gt; | undefined): void | Promise&lt;...&gt;; }">assert</span><span class="punctuation">(</span><a href="jsontests.html#461"><span data-toggle="tooltip" data-title="fc.IProperty&lt;T&gt;">prop</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 

@@ -18,31 +18,28 @@ const lexer = new pz.Lexer<ExprToken>(
     [/[\t\n\r ]+/, ExprToken.Whitespace]);
 
 // Terminals
-const optws = pz.token(ExprToken.Whitespace).map(t => t.text).optional("")
-    .expect("<whitespace>") 
-const number = pz.token(ExprToken.Number).map(t => Number(t.text))
-    .followedBy(optws).expect("<number>")
-const openParen = pz.token(ExprToken.OpenParen).followedBy(optws).expect("(")
-const closeParen = pz.token(ExprToken.CloseParen).followedBy(optws).expect(")") 
-const plus = pz.token(ExprToken.Plus).followedBy(optws).expect("+")
-const minus = pz.token(ExprToken.Minus).followedBy(optws).expect("-")
-const multiply = pz.token(ExprToken.Multiply).followedBy(optws).expect("*")
-const divide = pz.token(ExprToken.Divide).followedBy(optws).expect("/")
+const optws = pz.terminal(ExprToken.Whitespace, "<whitespace>").map(t => t.text)
+    .optional("")
+const number = pz.terminal(ExprToken.Number, "<number>").map(t => Number(t.text))
+    .followedBy(optws)
+const openParen = pz.terminal(ExprToken.OpenParen, "(").followedBy(optws)
+const closeParen = pz.terminal(ExprToken.CloseParen, ")").followedBy(optws)
+const plus = pz.terminal(ExprToken.Plus, "+").followedBy(optws)
+const minus = pz.terminal(ExprToken.Minus, "-").followedBy(optws)
+const multiply = pz.terminal(ExprToken.Multiply, "*").followedBy(optws)
+const divide = pz.terminal(ExprToken.Divide, "/").followedBy(optws)
 
 // Nonterminals
 const addop = pz.operators(
     [plus, (a: number, b: number) => a + b],
     [minus, (a: number, b: number) => a - b])
-    .expect("<addop>")
 const mulop = pz.operators(
     [multiply, (a: number, b: number) => a * b],
     [divide, (a: number, b: number) => a / b])
-    .expect("<mulop>")
 const term = new pz.Ref<pz.Parser<number, pz.Token<ExprToken>>>()
-const expr = pz.forwardRef(term).chainOneOrMore(addop).expect("<expr>")
+const expr = pz.forwardRef(term).chainOneOrMore(addop)
 const factor = expr.bracketedBy(openParen, closeParen).or(number)
-    .expect("<factor>")
-term.target = factor.chainOneOrMore(mulop).expect("<term>")
+term.target = factor.chainOneOrMore(mulop)
 const rootExpr = optws.seq(expr)
 
 /**

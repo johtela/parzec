@@ -1,6 +1,6 @@
 /**
- * Utility Functions
- * =================
+ * # Utility Functions
+ * 
  * This module contains general functions used elsewhere in the library.
  * 
  * The first function initializes an object from an array of `[string, any]`

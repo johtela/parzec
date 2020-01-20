@@ -59,54 +59,16 @@
         
     <li>
         
-        <a href="../../README.html">README</a>
+        <a href="../../README.html">Introduction</a>
         
     </li>
     <li>
+        <button class="accordion">
+        Examples
+        </button>
+            
+    <ul>
         
-        <a href="../index.html">index</a>
-        
-    </li>
-    <li>
-        
-        <a href="../input.html">input</a>
-        
-    </li>
-    <li>
-        
-        <a href="../result.html">result</a>
-        
-    </li>
-    <li>
-        
-        <a href="../error.html">error</a>
-        
-    </li>
-    <li>
-        
-        <a href="../lexer.html">lexer</a>
-        
-    </li>
-    <li>
-        
-        <a href="../ref.html">ref</a>
-        
-    </li>
-    <li>
-        
-        <a href="../parser.html">parser</a>
-        
-    </li>
-    <li>
-        
-        <a href="../arrayparsers.html">arrayparsers</a>
-        
-    </li>
-    <li>
-        
-        <a href="../utils.html">utils</a>
-        
-    </li>
     <li>
         
         <a href="exprparser.html">exprparser</a>
@@ -126,6 +88,62 @@
         
         <a href="jsontests.html">jsontests</a>
         
+    </li>
+    </ul>
+    </li>
+    <li>
+        <button class="accordion">
+        Implementation
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="../index.html">Library Exports</a>
+        
+    </li>
+    <li>
+        
+        <a href="../input.html">Parser Input</a>
+        
+    </li>
+    <li>
+        
+        <a href="../result.html">Parser Result</a>
+        
+    </li>
+    <li>
+        
+        <a href="../error.html">Error Reporting</a>
+        
+    </li>
+    <li>
+        
+        <a href="../ref.html">Reference Cells</a>
+        
+    </li>
+    <li>
+        
+        <a href="../lexer.html">Lexical Analyzer</a>
+        
+    </li>
+    <li>
+        
+        <a href="../parser.html">Parser Monad and Combinators</a>
+        
+    </li>
+    <li>
+        
+        <a href="../arrayparsers.html">Parsing Arrays and Expressions</a>
+        
+    </li>
+    <li>
+        
+        <a href="../utils.html">Utility Functions</a>
+        
+    </li>
+    </ul>
     </li>
     </ul>
     </div>
@@ -174,7 +192,7 @@
     <span class="keyword">for</span> <span class="punctuation">(</span><span class="keyword">let</span> <span id="841" data-toggle="tooltip" data-title="number">i</span> <span class="punctuation">=</span> <span class="number">0</span><span class="punctuation">;</span> <a href="exprtests.html#841"><span data-toggle="tooltip" data-title="number">i</span></a> <span class="punctuation">&lt;</span> <a href="exprtests.html#710"><span data-toggle="tooltip" data-title="string[]">testset</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">length</span><span class="punctuation">;</span> <a href="exprtests.html#841"><span data-toggle="tooltip" data-title="number">i</span></a><span class="punctuation">++</span><span class="punctuation">)</span> <span class="punctuation">{</span>
         <span class="keyword">let</span> <span id="888" data-toggle="tooltip" data-title="string">expr</span> <span class="punctuation">=</span> <a href="exprtests.html#710"><span data-toggle="tooltip" data-title="string[]">testset</span></a><span class="punctuation">[</span><a href="exprtests.html#841"><span data-toggle="tooltip" data-title="number">i</span></a><span class="punctuation">]</span>
         <span data-toggle="tooltip" data-title="Mocha.TestFunction">it</span><span class="punctuation">(</span><span class="string">`expression &#039;${</span><a href="exprtests.html#888"><span data-toggle="tooltip" data-title="string">expr</span></a><span class="string">}&#039; should not parse`</span><span class="punctuation">,</span> <span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
-            <a href="exprtests.html#59"><span data-toggle="tooltip" data-title="Chai.ExpectStatic">expect</span></a><span class="punctuation">(</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="exprtests.html#8"><span data-toggle="tooltip" data-title="(expression: string) =&gt; number">evaluateExpression</span></a><span class="punctuation">(</span><a href="exprtests.html#888"><span data-toggle="tooltip" data-title="string">expr</span></a><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Chai.Assertion">to</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Chai.Throw">throw</span><span class="punctuation">(</span><a href="exprtests.html#122"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../error.html#283"><span class="typename" data-toggle="tooltip" data-title="typeof pz.ParseError">ParseError</span></a><span class="punctuation">)</span>
+            <a href="exprtests.html#59"><span data-toggle="tooltip" data-title="Chai.ExpectStatic">expect</span></a><span class="punctuation">(</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="exprtests.html#8"><span data-toggle="tooltip" data-title="(expression: string) =&gt; number">evaluateExpression</span></a><span class="punctuation">(</span><a href="exprtests.html#888"><span data-toggle="tooltip" data-title="string">expr</span></a><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Chai.Assertion">to</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Chai.Throw">throw</span><span class="punctuation">(</span><a href="exprtests.html#122"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../error.html#265"><span class="typename" data-toggle="tooltip" data-title="typeof pz.ParseError">ParseError</span></a><span class="punctuation">)</span>
         <span class="punctuation">}</span><span class="punctuation">)</span>
     <span class="punctuation">}</span>
 <span class="punctuation">}</span><span class="punctuation">)</span>

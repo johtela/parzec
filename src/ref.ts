@@ -1,6 +1,6 @@
 /**
- * Reference Cells
- * ===============
+ * # Reference Cells
+ * 
  * `Ref<T>` class provides a simple reference cell, which can be used
  * as a surrogate for a parser that is defined later on. We can define 
  * a _reference_ to parser, but we don't have to give the target right

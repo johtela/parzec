@@ -1,59 +1,53 @@
 /**
- * @module lexer
+ * # Lexical Analyzer
  * 
- * Lexical Analyzer
- * ================
- * Lexical analyzer or [_lexer_](https://en.wikipedia.org/wiki/Lexical_analysis) 
- * is a program that converts sequence of characters into a sequence of _tokens_. 
- * It simplifies and speeds up parsing because the parser does not have to recognize 
- * low level patterns such as whitespace, keywords, identifiers, or numbers. Instead, 
- * the parser can focus on the higher level grammar and structure of the input.
+ * [Lexical analyzer][lexer], also known as lexer or scanner, is a program that 
+ * converts sequence of characters into a sequence of _tokens_. It simplifies 
+ * and speeds up parsing because the parser does not have to recognize low level 
+ * patterns such as whitespace, keywords, identifiers, or numbers. Instead, the 
+ * parser can focus on the high level grammar and structure of the input.
  * 
- * A lexer is usually implemented using a 
- * [deterministic finite automaton](https://en.wikipedia.org/wiki/Deterministic_finite_automaton), 
- * and the DFA is typically represented by a set of regular expressions. This is 
- * a natural choice for us too, as Javascript natively supports them.
+ * A lexer is usually implemented using a [deterministic finite automaton][dfa],
+ * and the DFA is typically represented by a regular expression. This is a 
+ * natural choice for us too, as Javascript natively supports them.
+ * 
+ * [lexer]: https://en.wikipedia.org/wiki/Lexical_analysis
+ * [dfa]: https://en.wikipedia.org/wiki/Deterministic_finite_automaton 
  */
-import { ParserInput } from "./input"
-import { escapeWhitespace } from "./utils"
-import { ParseError, ErrorSource } from "./error"
+import * as inp from "./input"
+import * as utils from "./utils"
+import * as err from "./error"
 
 /**
- * Recognizing a Token
- * -------------------
- * The mapping from regular expressions to tokens is defined using the `TokenMatcher<S>`
- * interface. A token can be of any type `S`, although usually an enumeration is used.
+ * ## Recognizing a Token
+ * 
+ * The mapping from regular expressions to tokens is defined using the 
+ * `TokenMatcher<S>` interface. A token can be of any type `S`, although usually 
+ * an enumeration is used.
  */
 interface TokenMatcher<S> {
     regex: RegExp
     token: S
 }
 /**
- * Representing a Token
- * --------------------
- * When a token is recognized it is wrapped into the `Token<S>` class. This class
+ * ## Representing a Token
+ * 
+ * When a token is recognized it is wrapped in a `Token<S>` object. This 
  * contains also the recognized string for error reporting and diagnostics.
  */
 export class Token<S> {
-    token: S
-    text: string
-    
-    constructor(token: S, text: string) {
-        this.token = token
-        this.text = text
-    }
+    constructor(readonly token: S, readonly text: string) { }
     /**
-     * We override the `toString()` function so we can output a token 
+     * We override the `toString` function so we can output a token 
      * to screen.
      */
     toString() {
-        return this.text ? escapeWhitespace(this.text) : this.token
+        return this.text ? utils.escapeWhitespace(this.text) : this.token
     }
 }
-
 /**
- * Lexer
- * -----
+ * ## Lexer
+ * 
  * The lexer itself is a simple class that contains all the TokenMatchers and
  * recognizes the next token in a string.
  */
@@ -69,12 +63,12 @@ export class Lexer<S> {
         this.matchers = tokens.map(t => ({
             regex: new RegExp(t[0], "yu"),
             token: t[1]
-        }))    
+        }))
     }
     /**
      * We check matchers one-by-one in the order they were given to
      * recognize the token in the given position. If none of the matchers
-     * succeed, we return null.
+     * succeed, we return `null`.
      */
     matchToken(input: string, pos: number): Token<S> | null {
         for (let i = 0; i < this.matchers.length; i++) {
@@ -88,16 +82,15 @@ export class Lexer<S> {
     }
 }
 /**
- * Lexer Input Wrapper
- * -------------------
- * We can integrate lexing directly into the parsing process. We do this by
- * implementing the `ParserInput` interface for any token. We don't expose 
- * `LexerInput` outside the module. It can be created with a constructor 
- * function.
+ * ## Lexer as Input
+ * 
+ * We can integrate lexing directly into the parsing process by implementing 
+ * the `ParserInput` interface for any token. We don't expose `LexerInput` 
+ * class outside the module. It can be created with the `lexerInput` function.
  */
-class LexerInput<S> implements ParserInput<Token<S>> {
+class LexerInput<S> implements inp.ParserInput<Token<S>> {
     /**
-     * We define the fields of the `ParserInput` interface in a boilerplate manner.
+     * We define the fields of the `ParserInput` interface.
      */
     position: number
     current: Token<S>
@@ -115,7 +108,7 @@ class LexerInput<S> implements ParserInput<Token<S>> {
      */
     private tokens: Token<S>[]
     /**
-     * We also store the result designating end of the input.
+     * We store the result designating end of the input.
      */
     private eof = { done: true, value: <Token<S>><unknown>undefined }
     /**
@@ -130,12 +123,12 @@ class LexerInput<S> implements ParserInput<Token<S>> {
         this.current = this.eof.value
     }
     /**
-     * The iterator implementation is fairly straightforward. We need to make sure
-     * that the state variables `position` and `current` are kept in sync while we
-     * advance in the input string. We must also do a lookup in the caché
-     * before calling the lexer to recognize the token. If the lexer finds a 
-     * match, we update the caché. If the lexer cannot recognize the next token, 
-     * we throw a `ParseError`.
+     * The iterator implementation is fairly straightforward. We need to make 
+     * sure that the state variables `position` and `current` are kept in sync 
+     * while we advance in the input string. We must also do a lookup in the 
+     * caché before calling the lexer to recognize the token. If the lexer finds 
+     * a match, we update the caché. If the lexer cannot recognize the next 
+     * token, we throw a `ParseError`.
      */
     next(): IteratorResult<Token<S>> {
         let pos = this.position
@@ -145,16 +138,17 @@ class LexerInput<S> implements ParserInput<Token<S>> {
         this.position = pos
         let match = this.tokens[pos] || this.lexer.matchToken(this.input, pos)
         if (!match)
-            throw new ParseError(ErrorSource.Lexer, pos, 
+            throw new err.ParseError(err.ErrorSource.Lexer, pos,
                 this.input.substr(pos, 10) + "...", ["<valid token>"])
         this.tokens[pos] = match
-        this.current = match      
+        this.current = match
         return { done: false, value: match };
     }
 }
 /**
  * Create an input stream for given `text` string using the given `lexer`.
  */
-export function lexerInput<S>(text: string, lexer: Lexer<S>): ParserInput<Token<S>> {
+export function lexerInput<S>(text: string, lexer: Lexer<S>):
+    inp.ParserInput<Token<S>> {
     return new LexerInput<S>(text, lexer)
 }

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>parzec - input</title>
+    <title>parzec - Parser Input</title>
     <link rel="icon" type="image/icon" href="../images/favicon.png" />
     <link rel="stylesheet" href="../css/main.css" />
     
@@ -34,11 +34,11 @@
     </a>
     <a class="enabled" href="index.html">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"/></svg>
-        <span>Previous: index</span>
+        <span>Previous: Library Exports</span>
     </a>
     <a class="enabled" href="result.html">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
-        <span>Next: result</span>
+        <span>Next: Parser Result</span>
     </a>
         </div>
         
@@ -59,54 +59,16 @@
         
     <li>
         
-        <a href="../README.html">README</a>
+        <a href="../README.html">Introduction</a>
         
     </li>
     <li>
+        <button class="accordion">
+        Examples
+        </button>
+            
+    <ul>
         
-        <a href="index.html">index</a>
-        
-    </li>
-    <li>
-        
-        <a href="input.html" class="highlight">input</a>
-        
-    </li>
-    <li>
-        
-        <a href="result.html">result</a>
-        
-    </li>
-    <li>
-        
-        <a href="error.html">error</a>
-        
-    </li>
-    <li>
-        
-        <a href="lexer.html">lexer</a>
-        
-    </li>
-    <li>
-        
-        <a href="ref.html">ref</a>
-        
-    </li>
-    <li>
-        
-        <a href="parser.html">parser</a>
-        
-    </li>
-    <li>
-        
-        <a href="arrayparsers.html">arrayparsers</a>
-        
-    </li>
-    <li>
-        
-        <a href="utils.html">utils</a>
-        
-    </li>
     <li>
         
         <a href="test/exprparser.html">exprparser</a>
@@ -128,6 +90,62 @@
         
     </li>
     </ul>
+    </li>
+    <li>
+        <button class="accordion">
+        Implementation
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="index.html">Library Exports</a>
+        
+    </li>
+    <li>
+        
+        <a href="input.html" class="highlight">Parser Input</a>
+        
+    </li>
+    <li>
+        
+        <a href="result.html">Parser Result</a>
+        
+    </li>
+    <li>
+        
+        <a href="error.html">Error Reporting</a>
+        
+    </li>
+    <li>
+        
+        <a href="ref.html">Reference Cells</a>
+        
+    </li>
+    <li>
+        
+        <a href="lexer.html">Lexical Analyzer</a>
+        
+    </li>
+    <li>
+        
+        <a href="parser.html">Parser Monad and Combinators</a>
+        
+    </li>
+    <li>
+        
+        <a href="arrayparsers.html">Parsing Arrays and Expressions</a>
+        
+    </li>
+    <li>
+        
+        <a href="utils.html">Utility Functions</a>
+        
+    </li>
+    </ul>
+    </li>
+    </ul>
     </div>
             
         </div>
@@ -143,60 +161,65 @@
             
     <div class="contentarea">
         <h1 id="parser-input">Parser Input</h1>
-<p>Input to parsers is a stream of data items of type <code>S</code>. The input is represented
-by an abstract interface which extends the <code>Iterator&lt;S&gt;</code> interface. It provides
+<p>Parsers input is a stream of data of type <code>S</code>. The input is represented by
+an abstract interface which extends the <code>Iterator&lt;S&gt;</code> interface. It provides
 the <code>next()</code> method to iterate through the stream.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">interface</span> <span id="0" class="typename" data-toggle="tooltip" data-title="ParserInput&lt;S&gt;">ParserInput</span><span class="punctuation">&lt;</span><span id="299" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span> <span class="keyword">extends</span> <span class="typename" data-toggle="tooltip" data-title="Iterator&lt;T, TReturn, TNext&gt;">Iterator</span><span class="punctuation">&lt;</span><a href="input.html#299"><span data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">interface</span> <span id="0" class="typename" data-toggle="tooltip" data-title="ParserInput&lt;S&gt;">ParserInput</span><span class="punctuation">&lt;</span><span id="281" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span> <span class="keyword">extends</span> <span class="typename" data-toggle="tooltip" data-title="Iterator&lt;T, TReturn, TNext&gt;">Iterator</span><span class="punctuation">&lt;</span><a href="input.html#281"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
 </code></pre>
 <p>Position in the input stream is represented by a number. The number has
-to increase as input is consumed, but not necessarily linearly. Backtracking
-is done by setting the <code>position</code> explicitly.</p>
-<pre class="syntaxhighlight"><code>    <span id="323" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span>
+to increase as input is consumed, but not necessarily linearly.
+Backtracking is done by setting the <code>position</code> explicitly.</p>
+<pre class="syntaxhighlight"><code>    <span id="305" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span>
 </code></pre>
-<p>The last item read from the stream. This is cached for efficiency.</p>
-<pre class="syntaxhighlight"><code>    <span class="keyword">readonly</span> <span id="583" data-toggle="tooltip" data-title="S">current</span><span class="punctuation">:</span> <a href="input.html#299"><span data-toggle="tooltip" data-title="S">S</span></a>
+<p>The latest item read from the stream is cached for efficiency.</p>
+<pre class="syntaxhighlight"><code>    <span class="keyword">readonly</span> <span id="566" data-toggle="tooltip" data-title="S">current</span><span class="punctuation">:</span> <a href="input.html#281"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a>
 </code></pre>
-<p>User-managed state can be carried along the parsing. It is useful especially
-with context-sensitive grammars. The input stores a reference to <code>any</code> data
-that can be modified by special combinators: <code>getState</code>, <code>setState</code>,
-<code>mutateState</code>, etc.</p>
-<h2 id="pre-class-syntaxhighlight-code-span-id-701-data-toggle-tooltip-data-title-any-state-span-span-class-punctuation-span-span-class-keyword-any-span-span-class-punctuation-span-code-pre-array-input"><pre class="syntaxhighlight"><code>    <span id="701" data-toggle="tooltip" data-title="any">state</span><span class="punctuation">:</span> <span class="keyword">any</span>
+<p>User-managed state can be carried along the parsing. State is needed
+especially with context-sensitive grammars. The input stores a reference
+to <code>any</code> data that can be modified by special combinators: <code>getState</code>,
+<code>setState</code>, <code>mutateState</code>, etc.</p>
+<pre class="syntaxhighlight"><code>    <span id="680" data-toggle="tooltip" data-title="any">state</span><span class="punctuation">:</span> <span class="keyword">any</span>
 <span class="punctuation">}</span>
 </code></pre>
-Array Input</h2>
-<p>To parse an array we provide wrapper that encapsulates it in the ParserInput
-interface. The items of the array may have any type <code>S</code>. The class is not
-exported outside the module. Users can create it using the <code>arrayInput()</code>
+<h2 id="array-input">Array Input</h2>
+<p>Arrays are the most common input data type. Therefore we provide a generic
+implementation for them. Array items may have any type <code>S</code>. The class is
+not exported outside the module. Users can create it using the <code>arrayInput</code>
 function.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">class</span> <span id="1013" class="typename" data-toggle="tooltip" data-title="ArrayInput&lt;S&gt;">ArrayInput</span><span class="punctuation">&lt;</span><span id="1329" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span> <span class="keyword">implements</span> <a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="input.html#1329"><span data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
-    <span id="1359" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span>
-    <span id="1381" data-toggle="tooltip" data-title="S">current</span><span class="punctuation">:</span> <a href="input.html#1329"><span data-toggle="tooltip" data-title="S">S</span></a>
-    <span id="1397" data-toggle="tooltip" data-title="any">state</span><span class="punctuation">:</span> <span class="keyword">any</span>
-    <span class="keyword">private</span> <span id="1413" data-toggle="tooltip" data-title="S[]">array</span><span class="punctuation">:</span> <a href="input.html#1329"><span data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">;</span>
+<pre class="syntaxhighlight"><code><span class="keyword">class</span> <span id="997" class="typename" data-toggle="tooltip" data-title="ArrayInput&lt;S&gt;">ArrayInput</span><span class="punctuation">&lt;</span><span id="1302" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span> <span class="keyword">implements</span> <a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="input.html#1302"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
 </code></pre>
-<p>Create an ArrayInput object.</p>
-<pre class="syntaxhighlight"><code>    <span class="keyword">constructor</span><span class="punctuation">(</span><span id="1511" data-toggle="tooltip" data-title="S[]">array</span><span class="punctuation">:</span> <a href="input.html#1329"><span data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span> <span class="punctuation">{</span>
-        <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1413"><span data-toggle="tooltip" data-title="S[]">array</span></a> <span class="punctuation">=</span> <a href="input.html#1511"><span data-toggle="tooltip" data-title="S[]">array</span></a>
-        <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1359"><span data-toggle="tooltip" data-title="number">position</span></a> <span class="punctuation">=</span> <span class="punctuation">-</span><span class="number">1</span>
-        <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1381"><span data-toggle="tooltip" data-title="S">current</span></a> <span class="punctuation">=</span> <span class="punctuation">&lt;</span><a href="input.html#1329"><span data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">&lt;</span><span class="keyword">unknown</span><span class="punctuation">&gt;</span><span data-toggle="tooltip" data-title="undefined">undefined</span>
+<p>Inherited properties.</p>
+<pre class="syntaxhighlight"><code>    <span id="1332" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span>
+    <span id="1402" data-toggle="tooltip" data-title="S">current</span><span class="punctuation">:</span> <a href="input.html#1302"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a>
+    <span id="1418" data-toggle="tooltip" data-title="any">state</span><span class="punctuation">:</span> <span class="keyword">any</span>
+</code></pre>
+<p>Wrapped array.</p>
+<pre class="syntaxhighlight"><code>    <span class="keyword">private</span> <span id="1434" data-toggle="tooltip" data-title="S[]">array</span><span class="punctuation">:</span> <a href="input.html#1302"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">;</span>
+</code></pre>
+<p>We set the position initially to -1 to indicate that no input has been
+consumed. The current item is <code>undefined</code>.</p>
+<pre class="syntaxhighlight"><code>    <span class="keyword">constructor</span><span class="punctuation">(</span><span id="1666" data-toggle="tooltip" data-title="S[]">array</span><span class="punctuation">:</span> <a href="input.html#1302"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+        <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1434"><span data-toggle="tooltip" data-title="S[]">array</span></a> <span class="punctuation">=</span> <a href="input.html#1666"><span data-toggle="tooltip" data-title="S[]">array</span></a>
+        <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1332"><span data-toggle="tooltip" data-title="number">position</span></a> <span class="punctuation">=</span> <span class="punctuation">-</span><span class="number">1</span>
+        <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1402"><span data-toggle="tooltip" data-title="S">current</span></a> <span class="punctuation">=</span> <span class="punctuation">&lt;</span><a href="input.html#1302"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">&lt;</span><span class="keyword">unknown</span><span class="punctuation">&gt;</span><span data-toggle="tooltip" data-title="undefined">undefined</span>
     <span class="punctuation">}</span>
 </code></pre>
 <p>Return the next item in the array. Update <code>position</code> and
 <code>current</code> fields. Inherited from the <code>Iterator&lt;S&gt;</code> interface.</p>
-<h2 id="pre-class-syntaxhighlight-code-span-id-1633-class-member-data-toggle-tooltip-data-title-gt-iterator-result-lt-s-any-gt-next-span-span-class-punctuation-span-span-class-punctuation-span-span-class-punctuation-span-span-class-typename-data-toggle-tooltip-data-title-iterator-result-lt-t-t-return-gt-iterator-result-span-span-class-punctuation-lt-span-a-href-input-html-1329-span-data-toggle-tooltip-data-title-s-s-span-a-span-class-punctuation-gt-span-span-class-punctuation-span-span-class-keyword-let-span-span-id-1832-data-toggle-tooltip-data-title-number-pos-span-span-class-punctuation-span-span-class-keyword-this-span-span-class-punctuation-span-a-href-input-html-1359-span-data-toggle-tooltip-data-title-number-position-span-a-span-class-punctuation-span-span-class-number-1-span-span-class-keyword-if-span-span-class-punctuation-span-a-href-input-html-1832-span-data-toggle-tooltip-data-title-number-pos-span-a-span-class-punctuation-gt-span-span-class-keyword-this-span-span-class-punctuation-span-a-href-input-html-1413-span-data-toggle-tooltip-data-title-s-array-span-a-span-class-punctuation-span-span-data-toggle-tooltip-data-title-number-length-span-span-class-punctuation-span-span-class-keyword-return-span-span-class-punctuation-span-span-id-1917-data-toggle-tooltip-data-title-true-done-span-span-class-punctuation-span-span-class-keyword-true-span-span-class-punctuation-span-span-id-1929-data-toggle-tooltip-data-title-s-value-span-span-class-punctuation-span-span-class-punctuation-lt-span-a-href-input-html-1329-span-data-toggle-tooltip-data-title-s-s-span-a-span-class-punctuation-gt-span-span-class-punctuation-lt-span-span-class-keyword-unknown-span-span-class-punctuation-gt-span-span-data-toggle-tooltip-data-title-undefined-undefined-span-span-class-punctuation-span-span-class-keyword-this-span-span-class-punctuation-span-a-href-input-html-1359-span-data-toggle-tooltip-data-title-number-position-span-a-span-class-punctuation-span-a-href-input-html-1832-span-data-toggle-tooltip-data-title-number-pos-span-a-span-class-keyword-this-span-span-class-punctuation-span-a-href-input-html-1381-span-data-toggle-tooltip-data-title-s-current-span-a-span-class-punctuation-span-span-class-keyword-this-span-span-class-punctuation-span-a-href-input-html-1413-span-data-toggle-tooltip-data-title-s-array-span-a-span-class-punctuation-span-a-href-input-html-1832-span-data-toggle-tooltip-data-title-number-pos-span-a-span-class-punctuation-span-span-class-keyword-return-span-span-class-punctuation-span-span-id-2047-data-toggle-tooltip-data-title-false-done-span-span-class-punctuation-span-span-class-keyword-false-span-span-class-punctuation-span-span-id-2060-data-toggle-tooltip-data-title-s-value-span-span-class-punctuation-span-span-class-keyword-this-span-span-class-punctuation-span-a-href-input-html-1381-span-data-toggle-tooltip-data-title-s-current-span-a-span-class-punctuation-span-span-class-punctuation-span-span-class-punctuation-span-code-pre-exported-functions"><pre class="syntaxhighlight"><code>    <span id="1633" class="member" data-toggle="tooltip" data-title="() =&gt; IteratorResult&lt;S, any&gt;">next</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <span class="typename" data-toggle="tooltip" data-title="IteratorResult&lt;T, TReturn&gt;">IteratorResult</span><span class="punctuation">&lt;</span><a href="input.html#1329"><span data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
-<span class="keyword">let</span> <span id="1832" data-toggle="tooltip" data-title="number">pos</span> <span class="punctuation">=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1359"><span data-toggle="tooltip" data-title="number">position</span></a> <span class="punctuation">+</span> <span class="number">1</span>
-<span class="keyword">if</span> <span class="punctuation">(</span><a href="input.html#1832"><span data-toggle="tooltip" data-title="number">pos</span></a> <span class="punctuation">&gt;=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1413"><span data-toggle="tooltip" data-title="S[]">array</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">length</span><span class="punctuation">)</span>
-<span class="keyword">return</span> <span class="punctuation">{</span> <span id="1917" data-toggle="tooltip" data-title="true">done</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span> <span id="1929" data-toggle="tooltip" data-title="S">value</span><span class="punctuation">:</span> <span class="punctuation">&lt;</span><a href="input.html#1329"><span data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">&lt;</span><span class="keyword">unknown</span><span class="punctuation">&gt;</span><span data-toggle="tooltip" data-title="undefined">undefined</span> <span class="punctuation">}</span>
-<span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1359"><span data-toggle="tooltip" data-title="number">position</span></a> <span class="punctuation">=</span> <a href="input.html#1832"><span data-toggle="tooltip" data-title="number">pos</span></a>
-<span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1381"><span data-toggle="tooltip" data-title="S">current</span></a> <span class="punctuation">=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1413"><span data-toggle="tooltip" data-title="S[]">array</span></a><span class="punctuation">[</span><a href="input.html#1832"><span data-toggle="tooltip" data-title="number">pos</span></a><span class="punctuation">]</span>
-<span class="keyword">return</span> <span class="punctuation">{</span> <span id="2047" data-toggle="tooltip" data-title="false">done</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span> <span id="2060" data-toggle="tooltip" data-title="S">value</span><span class="punctuation">:</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1381"><span data-toggle="tooltip" data-title="S">current</span></a> <span class="punctuation">}</span>
-<span class="punctuation">}</span>
+<pre class="syntaxhighlight"><code>    <span id="1788" class="member" data-toggle="tooltip" data-title="() =&gt; IteratorResult&lt;S, any&gt;">next</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <span class="typename" data-toggle="tooltip" data-title="IteratorResult&lt;T, TReturn&gt;">IteratorResult</span><span class="punctuation">&lt;</span><a href="input.html#1302"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+        <span class="keyword">let</span> <span id="1987" data-toggle="tooltip" data-title="number">pos</span> <span class="punctuation">=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1332"><span data-toggle="tooltip" data-title="number">position</span></a> <span class="punctuation">+</span> <span class="number">1</span>
+        <span class="keyword">if</span> <span class="punctuation">(</span><a href="input.html#1987"><span data-toggle="tooltip" data-title="number">pos</span></a> <span class="punctuation">&gt;=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1434"><span data-toggle="tooltip" data-title="S[]">array</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">length</span><span class="punctuation">)</span>
+            <span class="keyword">return</span> <span class="punctuation">{</span> <span id="2072" data-toggle="tooltip" data-title="true">done</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span> <span id="2084" data-toggle="tooltip" data-title="S">value</span><span class="punctuation">:</span> <span class="punctuation">&lt;</span><a href="input.html#1302"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">&lt;</span><span class="keyword">unknown</span><span class="punctuation">&gt;</span><span data-toggle="tooltip" data-title="undefined">undefined</span> <span class="punctuation">}</span>
+        <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1332"><span data-toggle="tooltip" data-title="number">position</span></a> <span class="punctuation">=</span> <a href="input.html#1987"><span data-toggle="tooltip" data-title="number">pos</span></a>
+        <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1402"><span data-toggle="tooltip" data-title="S">current</span></a> <span class="punctuation">=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1434"><span data-toggle="tooltip" data-title="S[]">array</span></a><span class="punctuation">[</span><a href="input.html#1987"><span data-toggle="tooltip" data-title="number">pos</span></a><span class="punctuation">]</span>
+        <span class="keyword">return</span> <span class="punctuation">{</span> <span id="2202" data-toggle="tooltip" data-title="false">done</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span> <span id="2215" data-toggle="tooltip" data-title="S">value</span><span class="punctuation">:</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1402"><span data-toggle="tooltip" data-title="S">current</span></a> <span class="punctuation">}</span>
+    <span class="punctuation">}</span>
 <span class="punctuation">}</span>
 </code></pre>
-Exported Functions</h2>
+<h2 id="exported-functions">Exported Functions</h2>
 <p>Create a ParserInput wrapper for an array.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="2092" class="member" data-toggle="tooltip" data-title="&lt;S&gt;(array: S[]) =&gt; ParserInput&lt;S&gt;">arrayInput</span><span class="punctuation">&lt;</span><span id="2226" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="2229" data-toggle="tooltip" data-title="S[]">array</span><span class="punctuation">:</span> <a href="input.html#2226"><span data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="input.html#2226"><span data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
-    <span class="keyword">return</span> <span class="keyword">new</span> <a href="input.html#1013"><span class="typename" data-toggle="tooltip" data-title="typeof ArrayInput">ArrayInput</span></a><span class="punctuation">&lt;</span><a href="input.html#2226"><span data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">(</span><a href="input.html#2229"><span data-toggle="tooltip" data-title="S[]">array</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="2247" class="member" data-toggle="tooltip" data-title="&lt;S&gt;(array: S[]) =&gt; ParserInput&lt;S&gt;">arrayInput</span><span class="punctuation">&lt;</span><span id="2366" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="2369" data-toggle="tooltip" data-title="S[]">array</span><span class="punctuation">:</span> <a href="input.html#2366"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="input.html#2366"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+    <span class="keyword">return</span> <span class="keyword">new</span> <a href="input.html#997"><span class="typename" data-toggle="tooltip" data-title="typeof ArrayInput">ArrayInput</span></a><span class="punctuation">&lt;</span><a href="input.html#2366"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">(</span><a href="input.html#2369"><span data-toggle="tooltip" data-title="S[]">array</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
 <span class="punctuation">}</span>
 </code></pre>
 

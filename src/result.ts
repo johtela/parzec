@@ -1,6 +1,6 @@
 /**
- * Parser Result
- * =============
+ * # Parser Result
+ * 
  * The result of a parser function is a discriminated union that
  * represents either success or failure. In both cases need the 
  * `position` field to indicate where in the input stream we are. 
@@ -34,8 +34,8 @@ interface Fail extends Position {
 export type ParseResult<T> = Ok<T> | Fail
 
 /**
- * Helper Functions
- * ----------------
+ * ## Helper Functions
+ * 
  * The `joinExpected` function concatenates the list of expected
  * inputs from the `other` failed parse result into the `expected` 
  * array of the first one.  
@@ -53,8 +53,8 @@ export function expectedAsCsv(result: Fail): string {
 }
 
 /**
- * Constructor Functions
- * ---------------------
+ * ## Constructor Functions
+ * 
  * The following function is used to construct an `Ok<T>` result. 
  */
 export function succeeded<T>(pos: number, res: T): ParseResult<T> {

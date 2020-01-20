@@ -2,6 +2,7 @@ import { parseJson } from "./jsonparser"
 import { readFileSync, readdirSync } from "fs"
 import { expect } from "chai"
 import * as fc from "fast-check"
+import { check } from "./fc-helpers"
 
 function testParsingFile(fileName: string) {
     let buf = readFileSync(fileName);
@@ -10,10 +11,6 @@ function testParsingFile(fileName: string) {
     let json1 = parseJson(text);
     let json2 = JSON.parse(text);
     expect(json1).to.deep.equal(json2);
-}
-
-function check<T>(desc: string, prop: fc.IProperty<T>) {
-    it(desc, () => fc.assert(prop))
 }
 
 describe("Test JSON file parsing", () => {

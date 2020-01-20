@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>parzec - utils</title>
+    <title>parzec - Utility Functions</title>
     <link rel="icon" type="image/icon" href="../images/favicon.png" />
     <link rel="stylesheet" href="../css/main.css" />
     
@@ -34,11 +34,11 @@
     </a>
     <a class="enabled" href="arrayparsers.html">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"/></svg>
-        <span>Previous: arrayparsers</span>
+        <span>Previous: Parsing Arrays and Expressions</span>
     </a>
-    <a class="enabled" href="test/exprparser.html">
+    <a  >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
-        <span>Next: exprparser</span>
+        <span>Next:</span>
     </a>
         </div>
         
@@ -59,54 +59,16 @@
         
     <li>
         
-        <a href="../README.html">README</a>
+        <a href="../README.html">Introduction</a>
         
     </li>
     <li>
+        <button class="accordion">
+        Examples
+        </button>
+            
+    <ul>
         
-        <a href="index.html">index</a>
-        
-    </li>
-    <li>
-        
-        <a href="input.html">input</a>
-        
-    </li>
-    <li>
-        
-        <a href="result.html">result</a>
-        
-    </li>
-    <li>
-        
-        <a href="error.html">error</a>
-        
-    </li>
-    <li>
-        
-        <a href="lexer.html">lexer</a>
-        
-    </li>
-    <li>
-        
-        <a href="ref.html">ref</a>
-        
-    </li>
-    <li>
-        
-        <a href="parser.html">parser</a>
-        
-    </li>
-    <li>
-        
-        <a href="arrayparsers.html">arrayparsers</a>
-        
-    </li>
-    <li>
-        
-        <a href="utils.html" class="highlight">utils</a>
-        
-    </li>
     <li>
         
         <a href="test/exprparser.html">exprparser</a>
@@ -128,6 +90,62 @@
         
     </li>
     </ul>
+    </li>
+    <li>
+        <button class="accordion">
+        Implementation
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="index.html">Library Exports</a>
+        
+    </li>
+    <li>
+        
+        <a href="input.html">Parser Input</a>
+        
+    </li>
+    <li>
+        
+        <a href="result.html">Parser Result</a>
+        
+    </li>
+    <li>
+        
+        <a href="error.html">Error Reporting</a>
+        
+    </li>
+    <li>
+        
+        <a href="ref.html">Reference Cells</a>
+        
+    </li>
+    <li>
+        
+        <a href="lexer.html">Lexical Analyzer</a>
+        
+    </li>
+    <li>
+        
+        <a href="parser.html">Parser Monad and Combinators</a>
+        
+    </li>
+    <li>
+        
+        <a href="arrayparsers.html">Parsing Arrays and Expressions</a>
+        
+    </li>
+    <li>
+        
+        <a href="utils.html" class="highlight">Utility Functions</a>
+        
+    </li>
+    </ul>
+    </li>
+    </ul>
     </div>
             
         </div>
@@ -146,19 +164,19 @@
 <p>This module contains general functions used elsewhere in the library.</p>
 <p>The first function initializes an object from an array of <code>[string, any]</code>
 pairs. It is used to populate an object dynamically.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="0" class="member" data-toggle="tooltip" data-title="(members: [string, any][]) =&gt; any">initObject</span><span class="punctuation">(</span><span id="295" data-toggle="tooltip" data-title="[string, any][]">members</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="keyword">string</span><span class="punctuation">,</span> <span class="keyword">any</span><span class="punctuation">]</span><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">:</span> <span class="keyword">any</span> <span class="punctuation">{</span>
-    <span class="keyword">let</span> <span id="336" data-toggle="tooltip" data-title="any">res</span><span class="punctuation">:</span> <span class="keyword">any</span> <span class="punctuation">=</span> <span class="punctuation">{</span><span class="punctuation">}</span>
-    <span class="keyword">for</span> <span class="punctuation">(</span><span class="keyword">let</span> <span id="364" data-toggle="tooltip" data-title="number">i</span> <span class="punctuation">=</span> <span class="number">0</span><span class="punctuation">;</span> <a href="utils.html#364"><span data-toggle="tooltip" data-title="number">i</span></a> <span class="punctuation">&lt;</span> <a href="utils.html#295"><span data-toggle="tooltip" data-title="[string, any][]">members</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">length</span><span class="punctuation">;</span> <a href="utils.html#364"><span data-toggle="tooltip" data-title="number">i</span></a><span class="punctuation">++</span><span class="punctuation">)</span> <span class="punctuation">{</span>
-        <span class="keyword">let</span> <span class="punctuation">[</span><span id="413" data-toggle="tooltip" data-title="string">m</span><span class="punctuation">,</span> <span id="415" data-toggle="tooltip" data-title="any">v</span><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="utils.html#295"><span data-toggle="tooltip" data-title="[string, any][]">members</span></a><span class="punctuation">[</span><a href="utils.html#364"><span data-toggle="tooltip" data-title="number">i</span></a><span class="punctuation">]</span><span class="punctuation">;</span>
-        <a href="utils.html#336"><span data-toggle="tooltip" data-title="any">res</span></a><span class="punctuation">[</span><a href="utils.html#413"><span data-toggle="tooltip" data-title="string">m</span></a><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="utils.html#415"><span data-toggle="tooltip" data-title="any">v</span></a>
+<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="0" class="member" data-toggle="tooltip" data-title="(members: [string, any][]) =&gt; any">initObject</span><span class="punctuation">(</span><span id="280" data-toggle="tooltip" data-title="[string, any][]">members</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="keyword">string</span><span class="punctuation">,</span> <span class="keyword">any</span><span class="punctuation">]</span><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">:</span> <span class="keyword">any</span> <span class="punctuation">{</span>
+    <span class="keyword">let</span> <span id="321" data-toggle="tooltip" data-title="any">res</span><span class="punctuation">:</span> <span class="keyword">any</span> <span class="punctuation">=</span> <span class="punctuation">{</span><span class="punctuation">}</span>
+    <span class="keyword">for</span> <span class="punctuation">(</span><span class="keyword">let</span> <span id="349" data-toggle="tooltip" data-title="number">i</span> <span class="punctuation">=</span> <span class="number">0</span><span class="punctuation">;</span> <a href="utils.html#349"><span data-toggle="tooltip" data-title="number">i</span></a> <span class="punctuation">&lt;</span> <a href="utils.html#280"><span data-toggle="tooltip" data-title="[string, any][]">members</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">length</span><span class="punctuation">;</span> <a href="utils.html#349"><span data-toggle="tooltip" data-title="number">i</span></a><span class="punctuation">++</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+        <span class="keyword">let</span> <span class="punctuation">[</span><span id="398" data-toggle="tooltip" data-title="string">m</span><span class="punctuation">,</span> <span id="400" data-toggle="tooltip" data-title="any">v</span><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="utils.html#280"><span data-toggle="tooltip" data-title="[string, any][]">members</span></a><span class="punctuation">[</span><a href="utils.html#349"><span data-toggle="tooltip" data-title="number">i</span></a><span class="punctuation">]</span><span class="punctuation">;</span>
+        <a href="utils.html#321"><span data-toggle="tooltip" data-title="any">res</span></a><span class="punctuation">[</span><a href="utils.html#398"><span data-toggle="tooltip" data-title="string">m</span></a><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="utils.html#400"><span data-toggle="tooltip" data-title="any">v</span></a>
     <span class="punctuation">}</span>
-    <span class="keyword">return</span> <a href="utils.html#336"><span data-toggle="tooltip" data-title="any">res</span></a>
+    <span class="keyword">return</span> <a href="utils.html#321"><span data-toggle="tooltip" data-title="any">res</span></a>
 <span class="punctuation">}</span>
 </code></pre>
 <p>The <code>escapeWhitespace</code> function helps printing strings containing whitespace
 characters. It replaces them with their escape codes.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="478" class="member" data-toggle="tooltip" data-title="(text: string) =&gt; string">escapeWhitespace</span><span class="punctuation">(</span><span id="662" data-toggle="tooltip" data-title="string">text</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span><span class="punctuation">:</span> <span class="keyword">string</span> <span class="punctuation">{</span>
-    <span class="keyword">return</span> <a href="utils.html#662"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) =&gt; string): string; (searchValue: { ...; }, replaceValue: string): string; (searchValue: { ...; }, replacer: (substring: string, ...args: any[]) =&gt; string): string; }">replace</span><span class="punctuation">(</span><span class="string">&quot;\n&quot;</span><span class="punctuation">,</span> <span class="string">&quot;\\n&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) =&gt; string): string; (searchValue: { ...; }, replaceValue: string): string; (searchValue: { ...; }, replacer: (substring: string, ...args: any[]) =&gt; string): string; }">replace</span><span class="punctuation">(</span><span class="string">&quot;\r&quot;</span><span class="punctuation">,</span> <span class="string">&quot;\\r&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) =&gt; string): string; (searchValue: { ...; }, replaceValue: string): string; (searchValue: { ...; }, replacer: (substring: string, ...args: any[]) =&gt; string): string; }">replace</span><span class="punctuation">(</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> <span class="string">&quot;\\t&quot;</span><span class="punctuation">)</span><span class="punctuation">;</span>
+<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="463" class="member" data-toggle="tooltip" data-title="(text: string) =&gt; string">escapeWhitespace</span><span class="punctuation">(</span><span id="647" data-toggle="tooltip" data-title="string">text</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span><span class="punctuation">:</span> <span class="keyword">string</span> <span class="punctuation">{</span>
+    <span class="keyword">return</span> <a href="utils.html#647"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) =&gt; string): string; (searchValue: { ...; }, replaceValue: string): string; (searchValue: { ...; }, replacer: (substring: string, ...args: any[]) =&gt; string): string; }">replace</span><span class="punctuation">(</span><span class="string">&quot;\n&quot;</span><span class="punctuation">,</span> <span class="string">&quot;\\n&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) =&gt; string): string; (searchValue: { ...; }, replaceValue: string): string; (searchValue: { ...; }, replacer: (substring: string, ...args: any[]) =&gt; string): string; }">replace</span><span class="punctuation">(</span><span class="string">&quot;\r&quot;</span><span class="punctuation">,</span> <span class="string">&quot;\\r&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) =&gt; string): string; (searchValue: { ...; }, replaceValue: string): string; (searchValue: { ...; }, replacer: (substring: string, ...args: any[]) =&gt; string): string; }">replace</span><span class="punctuation">(</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> <span class="string">&quot;\\t&quot;</span><span class="punctuation">)</span><span class="punctuation">;</span>
 <span class="punctuation">}</span>
 </code></pre>
 

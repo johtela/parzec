@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>parzec - README</title>
+    <title>parzec - Introduction</title>
     <link rel="icon" type="image/icon" href="images/favicon.png" />
     <link rel="stylesheet" href="css/main.css" />
     
@@ -36,9 +36,9 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"/></svg>
         <span>Previous:</span>
     </a>
-    <a class="enabled" href="src/index.html">
+    <a class="enabled" href="src/test/exprparser.html">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
-        <span>Next: index</span>
+        <span>Next: exprparser</span>
     </a>
         </div>
         
@@ -59,54 +59,16 @@
         
     <li>
         
-        <a href="README.html" class="highlight">README</a>
+        <a href="README.html" class="highlight">Introduction</a>
         
     </li>
     <li>
+        <button class="accordion">
+        Examples
+        </button>
+            
+    <ul>
         
-        <a href="src/index.html">index</a>
-        
-    </li>
-    <li>
-        
-        <a href="src/input.html">input</a>
-        
-    </li>
-    <li>
-        
-        <a href="src/result.html">result</a>
-        
-    </li>
-    <li>
-        
-        <a href="src/error.html">error</a>
-        
-    </li>
-    <li>
-        
-        <a href="src/lexer.html">lexer</a>
-        
-    </li>
-    <li>
-        
-        <a href="src/ref.html">ref</a>
-        
-    </li>
-    <li>
-        
-        <a href="src/parser.html">parser</a>
-        
-    </li>
-    <li>
-        
-        <a href="src/arrayparsers.html">arrayparsers</a>
-        
-    </li>
-    <li>
-        
-        <a href="src/utils.html">utils</a>
-        
-    </li>
     <li>
         
         <a href="src/test/exprparser.html">exprparser</a>
@@ -128,6 +90,62 @@
         
     </li>
     </ul>
+    </li>
+    <li>
+        <button class="accordion">
+        Implementation
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="src/index.html">Library Exports</a>
+        
+    </li>
+    <li>
+        
+        <a href="src/input.html">Parser Input</a>
+        
+    </li>
+    <li>
+        
+        <a href="src/result.html">Parser Result</a>
+        
+    </li>
+    <li>
+        
+        <a href="src/error.html">Error Reporting</a>
+        
+    </li>
+    <li>
+        
+        <a href="src/ref.html">Reference Cells</a>
+        
+    </li>
+    <li>
+        
+        <a href="src/lexer.html">Lexical Analyzer</a>
+        
+    </li>
+    <li>
+        
+        <a href="src/parser.html">Parser Monad and Combinators</a>
+        
+    </li>
+    <li>
+        
+        <a href="src/arrayparsers.html">Parsing Arrays and Expressions</a>
+        
+    </li>
+    <li>
+        
+        <a href="src/utils.html">Utility Functions</a>
+        
+    </li>
+    </ul>
+    </li>
+    </ul>
     </div>
             
         </div>
@@ -142,13 +160,13 @@
         <div class="scrollingarea closepopups">
             
     <div class="contentarea">
-        <h1 id="code-parzec-code-parser-combinators-for-typescript"><code>parzec</code> - Parser Combinators for Typescript</h1>
-<p>Parzec is a parser combinator library inspired by <a href="http://hackage.haskell.org/package/parsec">Parsec</a>. A parser
-combinator library is basically a set of <a href="https://en.wikipedia.org/wiki/Higher-order_function">higher order functions</a> which make
-it easy to build <a href="https://en.wikipedia.org/wiki/Recursive_descent_parser">recursive descent parsers</a>. Parsers composed from Parzec's
-combinators can recognize languages in the <a href="https://en.wikipedia.org/wiki/Parsing_expression_grammar">PEG</a> class of grammars. PEG
-grammars can be context-sensitive, so the parsers have infinite lookahead and
-backtracking capabilities.</p>
+        <h1 id="parser-combinators-for-typescript">Parser Combinators for Typescript</h1>
+<p>Parzec is a parser combinator library adapted from <a href="http://hackage.haskell.org/package/parsec">Parsec</a>. A parser
+combinator library consist of <a href="https://en.wikipedia.org/wiki/Higher-order_function">higher order functions</a> which make it easy to
+build <a href="https://en.wikipedia.org/wiki/Recursive_descent_parser">recursive descent parsers</a>. Parsers composed from Parzec's combinators
+can recognize languages in the <a href="https://en.wikipedia.org/wiki/Parsing_expression_grammar">PEG</a> class of grammars. PEG grammars can be
+context-sensitive, so the parsers have infinite lookahead and backtracking
+capabilities.</p>
 <p>Parzec also supports efficient parsing of <a href="https://en.wikipedia.org/wiki/LL_parser">LL(1)</a> grammars by enabling the
 backtracking only when a special combinator is used. Also, to improve
 performance, some combinators have been inlined rather than built from lower

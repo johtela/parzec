@@ -19,8 +19,8 @@ declare module './parser' {
         followedBy<U>(after: Parser<U, S>): Parser<T, S>
         surroundedBy<U>(surround: Parser<U, S>): Parser<T, S>
         bracketedBy<U, V>(open: Parser<U, S>, close: Parser<V, S>): Parser<T, S>
-        chainOneOrMore(operation: Parser<BinaryOperation<T>, S>): Parser<T, S>
-        chainZeroOrMore(operation: Parser<BinaryOperation<T>, S>, value: T):
+        chainOneOrMore(operation: Parser<BinaryOp<T>, S>): Parser<T, S>
+        chainZeroOrMore(operation: Parser<BinaryOp<T>, S>, value: T):
             Parser<T, S>
     }
 }
@@ -28,7 +28,7 @@ declare module './parser' {
  * Type definition for a binary function that has the same domain and range 
  * type.
  */
-export type BinaryOperation<T> = (x: T, y: T) => T
+export type BinaryOp<T> = (x: T, y: T) => T
 /**
  * ## Parsing Separated Lists
  * 
@@ -92,11 +92,11 @@ par.Parser.prototype.bracketedBy = function<T, U, V, S>(this: par.Parser<T, S>,
  * expression grammars.
  */
 par.Parser.prototype.chainOneOrMore = function<T, S>(this: par.Parser<T, S>,
-    operation: par.Parser<BinaryOperation<T>, S>): par.Parser<T, S> {
+    operation: par.Parser<BinaryOp<T>, S>): par.Parser<T, S> {
     return this.bind(
         x => operation.bind(
             f => this.bind(
-            y => par.mret([f, y] as [BinaryOperation<T>, T]))).zeroOrMore().bind(
+            y => par.mret([f, y] as [BinaryOp<T>, T]))).zeroOrMore().bind(
         fys => par.mret(fys.reduce((z, [f, y]) => f(z, y), x))))
 }
 /**
@@ -106,7 +106,7 @@ par.Parser.prototype.chainOneOrMore = function<T, S>(this: par.Parser<T, S>,
  * zero occurrences of `parser`, the `value` is returned.
  */
 par.Parser.prototype.chainZeroOrMore = function<T, S>(this: par.Parser<T, S>,
-    operation: par.Parser<BinaryOperation<T>, S>, value: T): par.Parser<T, S> {
+    operation: par.Parser<BinaryOp<T>, S>, value: T): par.Parser<T, S> {
     return this.chainOneOrMore(operation).or(par.mret(value))
 }
 /**

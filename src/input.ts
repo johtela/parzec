@@ -1,45 +1,51 @@
 /**
- * Parser Input
- * ============
- * Input to parsers is a stream of data items of type `S`. The input is represented
- * by an abstract interface which extends the `Iterator<S>` interface. It provides 
+ * # Parser Input
+ * 
+ * Parsers input is a stream of data of type `S`. The input is represented by 
+ * an abstract interface which extends the `Iterator<S>` interface. It provides 
  * the `next()` method to iterate through the stream. 
  */
 export interface ParserInput<S> extends Iterator<S> {
     /**
      * Position in the input stream is represented by a number. The number has 
-     * to increase as input is consumed, but not necessarily linearly. Backtracking
-     * is done by setting the `position` explicitly.
+     * to increase as input is consumed, but not necessarily linearly. 
+     * Backtracking is done by setting the `position` explicitly.
      */
     position: number
     /**
-     * The last item read from the stream. This is cached for efficiency.
+     * The latest item read from the stream is cached for efficiency.
      */
     readonly current: S
     /**
-     * User-managed state can be carried along the parsing. It is useful especially
-     * with context-sensitive grammars. The input stores a reference to `any` data
-     * that can be modified by special combinators: `getState`, `setState`, 
-     * `mutateState`, etc.
+     * User-managed state can be carried along the parsing. State is needed 
+     * especially with context-sensitive grammars. The input stores a reference 
+     * to `any` data that can be modified by special combinators: `getState`, 
+     * `setState`, `mutateState`, etc.
      */
     state: any
 }
-
 /**
- * Array Input
- * -----------
- * To parse an array we provide wrapper that encapsulates it in the ParserInput 
- * interface. The items of the array may have any type `S`. The class is not
- * exported outside the module. Users can create it using the `arrayInput()` 
+ * ## Array Input
+ * 
+ * Arrays are the most common input data type. Therefore we provide a generic
+ * implementation for them. Array items may have any type `S`. The class is 
+ * not exported outside the module. Users can create it using the `arrayInput` 
  * function.
  */
 class ArrayInput<S> implements ParserInput<S> {
+    /**
+     * Inherited properties.
+     */
     position: number
     current: S
     state: any
+    /**
+     * Wrapped array.
+     */
     private array: S[];
     /**
-     * Create an ArrayInput object.
+     * We set the position initially to -1 to indicate that no input has been
+     * consumed. The current item is `undefined`.
      */
     constructor(array: S[]) {
         this.array = array
@@ -61,8 +67,8 @@ class ArrayInput<S> implements ParserInput<S> {
 }
 
 /**
- * Exported Functions
- * ------------------
+ * ## Exported Functions
+ * 
  * Create a ParserInput wrapper for an array.
  */
 export function arrayInput<S>(array: S[]): ParserInput<S> {
