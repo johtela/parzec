@@ -18,10 +18,9 @@ const lexer = new pz.Lexer<ExprToken>(
     [/[\t\n\r ]+/, ExprToken.Whitespace]);
 
 // Terminals
-const optws = pz.terminal(ExprToken.Whitespace, "<whitespace>").map(t => t.text)
-    .optional("")
-const number = pz.terminal(ExprToken.Number, "<number>").map(t => Number(t.text))
-    .followedBy(optws)
+const optws = pz.terminal(ExprToken.Whitespace, "<whitespace>").optionalRef()
+const number = pz.terminal(ExprToken.Number, "<number>")
+    .map(t => Number(t.text)).followedBy(optws)
 const openParen = pz.terminal(ExprToken.OpenParen, "(").followedBy(optws)
 const closeParen = pz.terminal(ExprToken.CloseParen, ")").followedBy(optws)
 const plus = pz.terminal(ExprToken.Plus, "+").followedBy(optws)

@@ -52,7 +52,7 @@ const arbExpr = fc.letrec(tie => (
 ))
 
 describe("Test arbitrary expressions", () =>
-    check("Arbitrary expressions evaluate", 
+    check("Evaluate arbitrary expressions", 
         fc.property(arbExpr.expr, e => {
             let res1 = eval(e)
             let res2 = evaluateExpression(e)
