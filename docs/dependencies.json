@@ -66,8 +66,8 @@
     "src/test/exprtests": {
         "url": "src/test/exprtests.html",
         "dependencies": [
-            "src/test/exprparser",
             "chai",
+            "src/test/exprparser",
             "fast-check",
             "src/test/fc-helpers",
             "src/index"

@@ -1,3 +1,9 @@
+/**
+ * # Library Structure
+ * 
+ * Parzec library consists of following modules. All of them are exported 
+ * outside the library.
+ */
 export * from './ref'
 export * from './error'
 export * from './input'

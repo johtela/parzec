@@ -1,9 +1,8 @@
-import { evaluateExpression } from "./exprparser"
 import { expect } from "chai"
+import * as ep from "./exprparser"
 import * as fc from "fast-check"
-import { check } from "./fc-helpers"
+import * as fh from "./fc-helpers"
 import * as pz from ".."
-import { Arbitrary } from "fast-check"
 
 describe("Test parsing of predefined expressions", () => {
     let testset: string[] = [
@@ -16,7 +15,7 @@ describe("Test parsing of predefined expressions", () => {
         let expr = testset[i]
         let res = eval(expr)
         it(`expression '${expr}' should evaluate to ${res}`, () => {
-            let calcres = evaluateExpression(expr);
+            let calcres = ep.evaluateExpression(expr);
             expect(calcres).to.equal(res);
         })
     }
@@ -32,7 +31,7 @@ describe("Test failing expressions", () => {
     for (let i = 0; i < testset.length; i++) {
         let expr = testset[i]
         it(`expression '${expr}' should not parse`, () => {
-            expect(() => evaluateExpression(expr)).to.throw(pz.ParseError)
+            expect(() => ep.evaluateExpression(expr)).to.throw(pz.ParseError)
         })
     }
 })
@@ -52,9 +51,9 @@ const arbExpr = fc.letrec(tie => (
 ))
 
 describe("Test arbitrary expressions", () =>
-    check("Evaluate arbitrary expressions", 
+    fh.check("Evaluate arbitrary expressions", 
         fc.property(arbExpr.expr, e => {
             let res1 = eval(e)
-            let res2 = evaluateExpression(e)
+            let res2 = ep.evaluateExpression(e)
             expect(res1).to.equal(res2)
         })))

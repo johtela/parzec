@@ -17,7 +17,7 @@
         <div class="navmenu">
             
     <a class="title enabled" href="index.html">
-        
+        <img src="images/millenniumfalcon_88882.svg" />
         <span>parzec</span>
     </a>
     <a class="enabled" href="https://www.npmjs.com/package/parzec">
@@ -38,7 +38,7 @@
     </a>
     <a class="enabled" href="src/test/exprparser.html">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
-        <span>Next: exprparser</span>
+        <span>Next: Parsing Arithmetic Epressions</span>
     </a>
         </div>
         
@@ -71,22 +71,27 @@
         
     <li>
         
-        <a href="src/test/exprparser.html">exprparser</a>
+        <a href="src/test/exprparser.html">Parsing Arithmetic Epressions</a>
         
     </li>
     <li>
         
-        <a href="src/test/exprtests.html">exprtests</a>
+        <a href="src/test/exprtests.html">Testing the Expression Parser</a>
         
     </li>
     <li>
         
-        <a href="src/test/jsonparser.html">jsonparser</a>
+        <a href="src/test/jsonparser.html">Parsing JSON</a>
         
     </li>
     <li>
         
-        <a href="src/test/jsontests.html">jsontests</a>
+        <a href="src/test/jsontests.html">Testing the JSON Parser</a>
+        
+    </li>
+    <li>
+        
+        <a href="src/test/fc-helpers.html">Helpers for FastCheck Library</a>
         
     </li>
     </ul>
@@ -100,7 +105,7 @@
         
     <li>
         
-        <a href="src/index.html">Library Exports</a>
+        <a href="src/index.html">Library Structure</a>
         
     </li>
     <li>
@@ -145,14 +150,16 @@
     </li>
     </ul>
     </li>
-    <li>
-        
-        <a href="src/test/fc-helpers.html">fc-helpers</a>
-        
-    </li>
     </ul>
     </div>
             
+    <div class="footer">
+        Copyright © 2020 Tommi Johtela
+        <div class="ad">
+            Created with <a href="https://github.com/johtela/litscript">LiTScript</a>
+        </div>
+    </div>
+
         </div>
         <div class="sideicon collapsible">
             
@@ -166,17 +173,17 @@
             
     <div class="contentarea">
         <h1 id="parser-combinators-for-typescript">Parser Combinators for Typescript</h1>
-<p>Parzec is a parser combinator library adapted from <a href="http://hackage.haskell.org/package/parsec">Parsec</a>. A parser
-combinator library consist of <a href="https://en.wikipedia.org/wiki/Higher-order_function">higher order functions</a> which make it easy to
-build <a href="https://en.wikipedia.org/wiki/Recursive_descent_parser">recursive descent parsers</a>. Parsers composed from Parzec's combinators
-can recognize languages in the <a href="https://en.wikipedia.org/wiki/Parsing_expression_grammar">PEG</a> class of grammars. PEG grammars can be
-context-sensitive, so the parsers have infinite lookahead and backtracking
-capabilities.</p>
+<p>Parzec is a parser combinator library adapted from Haskell's famous <a href="http://hackage.haskell.org/package/parsec">Parsec</a>
+library. A parser combinator library consist of <a href="https://en.wikipedia.org/wiki/Higher-order_function">higher order functions</a> which
+make it easy to build <a href="https://en.wikipedia.org/wiki/Recursive_descent_parser">recursive descent parsers</a>. Parsers composed from
+Parzec's combinators can recognize languages in the <a href="https://en.wikipedia.org/wiki/Parsing_expression_grammar">PEG</a> class of grammars.
+PEG grammars can be context-sensitive, so the parsers have infinite lookahead
+and backtracking capabilities.</p>
 <p>Parzec also supports efficient parsing of <a href="https://en.wikipedia.org/wiki/LL_parser">LL(1)</a> grammars by enabling the
 backtracking only when a special combinator is used. Also, to improve
 performance, some combinators have been inlined rather than built from lower
 level combinators.</p>
-<p>Parzec's input is represented by an abstract <a href="src/input.ts">interface</a>. Consequently, the
+<p>Parzec's input is represented by an abstract <a href="src/input.html">interface</a>. Consequently, the
 parsers' input can be anything from simple strings to files, or even tokenized
 data streams. Parzec includes functionality to create <a href="https://en.wikipedia.org/wiki/Lexical_analysis">lexical analyzers</a> or
 <em>lexers</em> from <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expressions</a>. The lexer converts input strings into
@@ -193,13 +200,6 @@ tokens, and makes the parsing simpler and more efficient.</p>
             </ul>
     </div>
                 
-    <div class="footer">
-        Copyright © 2020 Tommi Johtela
-        <div class="ad">
-            Created with <a href="https://github.com/johtela/litscript">LiTScript</a>
-        </div>
-    </div>
-
             </div>
         </div>
     </div>

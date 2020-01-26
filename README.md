@@ -1,11 +1,11 @@
 # Parser Combinators for Typescript
 
-Parzec is a parser combinator library adapted from [Parsec][]. A parser 
-combinator library consist of [higher order functions][] which make it easy to 
-build [recursive descent parsers][]. Parsers composed from Parzec's combinators 
-can recognize languages in the [PEG][] class of grammars. PEG grammars can be 
-context-sensitive, so the parsers have infinite lookahead and backtracking 
-capabilities. 
+Parzec is a parser combinator library adapted from Haskell's famous [Parsec][]
+library. A parser combinator library consist of [higher order functions][] which 
+make it easy to build [recursive descent parsers][]. Parsers composed from 
+Parzec's combinators can recognize languages in the [PEG][] class of grammars. 
+PEG grammars can be context-sensitive, so the parsers have infinite lookahead 
+and backtracking capabilities. 
 
 Parzec also supports efficient parsing of [LL(1)][] grammars by enabling the 
 backtracking only when a special combinator is used. Also, to improve 
@@ -23,6 +23,6 @@ tokens, and makes the parsing simpler and more efficient.
 [recursive descent parsers]: https://en.wikipedia.org/wiki/Recursive_descent_parser
 [PEG]: https://en.wikipedia.org/wiki/Parsing_expression_grammar
 [LL(1)]: https://en.wikipedia.org/wiki/LL_parser
-[interface]: src/input.ts
+[interface]: src/input.html
 [lexical analyzers]: https://en.wikipedia.org/wiki/Lexical_analysis
 [regular expressions]: https://en.wikipedia.org/wiki/Regular_expression
