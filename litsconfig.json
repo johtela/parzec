@@ -2,7 +2,8 @@
     "exclude": [
         "node_modules",
         "lib",
-        "testdata"
+        "testdata",
+        "src/extras/*"
     ],
     "updateToc": true,
     "frontMatter": {

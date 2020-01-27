@@ -57,23 +57,6 @@
             "src/utils"
         ]
     },
-    "src/extras/visualizers": {
-        "url": "src/extras/visualizers.html",
-        "dependencies": [
-            "src/extras/litscript/lib/visualizer",
-            "lits-extras",
-            "src/extras/lits-extras/styles/dependency-diag.less"
-        ]
-    },
-    "src/extras/litscript/lib/visualizer": {
-        "dependencies": []
-    },
-    "lits-extras": {
-        "dependencies": []
-    },
-    "src/extras/lits-extras/styles/dependency-diag.less": {
-        "dependencies": []
-    },
     "src/test/exprparser": {
         "url": "src/test/exprparser.html",
         "dependencies": [

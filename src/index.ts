@@ -1,12 +1,16 @@
 /**
  * # Library Structure
  * 
+ * Below is the dependency graph showing the module hierarchy. Note that it
+ * shows also the testing modules which are not included in the published 
+ * package. You can jump to a module by clicking it in the diagram.
+ * 
+ * <<v:dependency-diag ../dependencies.json src\/(?!extras)>>
+ * 
+ * ## Exports
+ * 
  * Parzec library consists of following modules. All of them are exported 
  * outside the library.
- * 
- * Below is the dependency graph showing the module hierarchy.
- * 
- * <<v:dependency-diag ../dependencies.json src/*>>
  */
 export * from './ref'
 export * from './error'

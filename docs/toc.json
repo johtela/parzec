@@ -28,8 +28,8 @@
                 "desc": ""
             },
             {
-                "page": "Helpers for FastCheck Library",
-                "file": "src/test/fc-helpers.html",
+                "page": "Helpers for Tests",
+                "file": "src/test/test-helpers.html",
                 "desc": ""
             }
         ]
@@ -87,21 +87,6 @@
     {
         "page": "License",
         "file": "license.html",
-        "desc": ""
-    },
-    {
-        "page": "test-helpers",
-        "file": "src/test/test-helpers.html",
-        "desc": ""
-    },
-    {
-        "page": "visualizers",
-        "file": "src/test/visualizers.html",
-        "desc": ""
-    },
-    {
-        "page": "visualizers",
-        "file": "src/extras/visualizers.html",
         "desc": ""
     }
 ]
