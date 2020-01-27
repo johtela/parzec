@@ -6,7 +6,7 @@
  * 
  * Below is the dependency graph showing the module hierarchy.
  * 
- * <<v:dependency-diag ../dependencies.json !src/extras/**>>
+ * <<v:dependency-diag ../dependencies.json src/*>>
  */
 export * from './ref'
 export * from './error'
