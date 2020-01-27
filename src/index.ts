@@ -3,6 +3,10 @@
  * 
  * Parzec library consists of following modules. All of them are exported 
  * outside the library.
+ * 
+ * Below is the dependency graph showing the module hierarchy.
+ * 
+ * <<v:dependency-diag ../dependencies.json !src/extras/**>>
  */
 export * from './ref'
 export * from './error'

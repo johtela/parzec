@@ -1,7 +1,7 @@
 import { expect } from "chai"
 import * as ep from "./exprparser"
 import * as fc from "fast-check"
-import * as fh from "./fc-helpers"
+import * as th from "./test-helpers"
 import * as pz from ".."
 
 describe("Test parsing of predefined expressions", () => {
@@ -51,7 +51,7 @@ const arbExpr = fc.letrec(tie => (
 ))
 
 describe("Test arbitrary expressions", () =>
-    fh.check("Evaluate arbitrary expressions", 
+    th.check("Evaluate arbitrary expressions", 
         fc.property(arbExpr.expr, e => {
             let res1 = eval(e)
             let res2 = ep.evaluateExpression(e)

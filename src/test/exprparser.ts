@@ -92,7 +92,7 @@ const mulop = pz.operators(
 const term = new pz.Ref<pz.Parser<number, pz.Token<ExprToken>>>()
 /**
  * Expressions consist of terms that are added or subtracted together. Note how
- * the grammare implicitly defines the precedence order as terms are recognized 
+ * the grammar implicitly defines the precedence order as terms are recognized 
  * before the expressions.
  */
 const expr = pz.forwardRef(term).chainOneOrMore(addop)

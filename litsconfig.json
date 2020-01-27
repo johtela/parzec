@@ -13,6 +13,12 @@
         "footerLocation": "toc-menu",
         "userTheme": "./user-theme.less",
         "logo": "images/millenniumfalcon_88882.svg",
-        "syntaxHighlight": "solarized-light"
+        "syntaxHighlight": "solarized-light",
+        "visualizers": [
+            {
+                "path": "./src/extras/visualizers.ts",
+                "includeStyles": true
+            }
+        ]
     }
 }

@@ -2,7 +2,7 @@ import { parseJson } from "./jsonparser"
 import { readFileSync, readdirSync } from "fs"
 import { expect } from "chai"
 import * as fc from "fast-check"
-import { check } from "./fc-helpers"
+import { check } from "./test-helpers"
 
 function testParsingFile(fileName: string) {
     let buf = readFileSync(fileName);

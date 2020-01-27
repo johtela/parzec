@@ -46,6 +46,32 @@
     },
     "src/index": {
         "url": "src/index.html",
+        "dependencies": [
+            "src/ref",
+            "src/error",
+            "src/input",
+            "src/result",
+            "src/lexer",
+            "src/parser",
+            "src/arrayparsers",
+            "src/utils"
+        ]
+    },
+    "src/extras/visualizers": {
+        "url": "src/extras/visualizers.html",
+        "dependencies": [
+            "src/extras/litscript/lib/visualizer",
+            "lits-extras",
+            "src/extras/lits-extras/styles/dependency-diag.less"
+        ]
+    },
+    "src/extras/litscript/lib/visualizer": {
+        "dependencies": []
+    },
+    "lits-extras": {
+        "dependencies": []
+    },
+    "src/extras/lits-extras/styles/dependency-diag.less": {
         "dependencies": []
     },
     "src/test/exprparser": {
@@ -54,8 +80,8 @@
             "src/index"
         ]
     },
-    "src/test/fc-helpers": {
-        "url": "src/test/fc-helpers.html",
+    "src/test/test-helpers": {
+        "url": "src/test/test-helpers.html",
         "dependencies": [
             "fast-check"
         ]
@@ -69,7 +95,7 @@
             "chai",
             "src/test/exprparser",
             "fast-check",
-            "src/test/fc-helpers",
+            "src/test/test-helpers",
             "src/index"
         ]
     },
@@ -89,7 +115,7 @@
             "fs",
             "chai",
             "fast-check",
-            "src/test/fc-helpers"
+            "src/test/test-helpers"
         ]
     },
     "fs": {

@@ -8,7 +8,7 @@
     <title>parzec - Library Structure</title>
     <link rel="icon" type="image/icon" href="../images/favicon.png" />
     <link rel="stylesheet" href="../css/main.css" />
-    
+    <link rel="stylesheet" href="../css/visualizers.css" />
     
 </head>
 <body>
@@ -150,6 +150,26 @@
     </li>
     </ul>
     </li>
+    <li>
+        
+        <a href="../license.html">License</a>
+        
+    </li>
+    <li>
+        
+        <a href="test/test-helpers.html">test-helpers</a>
+        
+    </li>
+    <li>
+        
+        <a href="test/visualizers.html">visualizers</a>
+        
+    </li>
+    <li>
+        
+        <a href="extras/visualizers.html">visualizers</a>
+        
+    </li>
     </ul>
     </div>
             
@@ -175,6 +195,8 @@
         <h1 id="library-structure">Library Structure</h1>
 <p>Parzec library consists of following modules. All of them are exported
 outside the library.</p>
+<p>Below is the dependency graph showing the module hierarchy.</p>
+<div class="visualizer" id="visualizer1"></div>
 <pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="punctuation">*</span> <span class="keyword">from</span> <span class="string">&#039;./ref&#039;</span>
 <span class="keyword">export</span> <span class="punctuation">*</span> <span class="keyword">from</span> <span class="string">&#039;./error&#039;</span>
 <span class="keyword">export</span> <span class="punctuation">*</span> <span class="keyword">from</span> <span class="string">&#039;./input&#039;</span>
@@ -201,6 +223,9 @@ outside the library.</p>
         </div>
     </div>
     <script src="../js/main.js"></script>
-    
+    <script src="../js/visualizers.js"></script>
+<script>
+window.runVisualizer("dependency-diag", "../dependencies.json !src/extras/**", "visualizer1");
+</script>
 </body>
 </html>

@@ -83,5 +83,25 @@
                 "desc": ""
             }
         ]
+    },
+    {
+        "page": "License",
+        "file": "license.html",
+        "desc": ""
+    },
+    {
+        "page": "test-helpers",
+        "file": "src/test/test-helpers.html",
+        "desc": ""
+    },
+    {
+        "page": "visualizers",
+        "file": "src/test/visualizers.html",
+        "desc": ""
+    },
+    {
+        "page": "visualizers",
+        "file": "src/extras/visualizers.html",
+        "desc": ""
     }
 ]
