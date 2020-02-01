@@ -1,10 +1,9 @@
-import { expect } from "chai"
+import { test } from "zora"
 import * as ep from "./exprparser"
 import * as fc from "fast-check"
-import * as th from "./test-helpers"
 import * as pz from ".."
 
-describe("Test parsing of predefined expressions", () => {
+test("Test parsing of predefined expressions", t => {
     let testset: string[] = [
         "1 + -1", 
         "2 + 3 * 3", 
@@ -14,25 +13,22 @@ describe("Test parsing of predefined expressions", () => {
     for (let i = 0; i < testset.length; i++) {
         let expr = testset[i]
         let res = eval(expr)
-        it(`expression '${expr}' should evaluate to ${res}`, () => {
-            let calcres = ep.evaluateExpression(expr);
-            expect(calcres).to.equal(res);
-        })
+        let calcres = ep.evaluateExpression(expr)
+        t.equal(calcres, res, `expression '${expr}' should evaluate to ${res}`)
     }
 })
 
-describe("Test failing expressions", () => {
+test("Test failing expressions", t => {
     let testset: string[] = [
         "1 + ", 
         "2 ++ 3 * 3", 
         "- 1 - 1", 
         "",
         "a + 1" ]
-    for (let i = 0; i < testset.length; i++) {
+        for (let i = 0; i < testset.length; i++) {
         let expr = testset[i]
-        it(`expression '${expr}' should not parse`, () => {
-            expect(() => ep.evaluateExpression(expr)).to.throw(pz.ParseError)
-        })
+        t.throws(() => ep.evaluateExpression(expr), pz.ParseError, 
+            `expression '${expr}' should not parse`)
     }
 })
 
@@ -50,10 +46,10 @@ const arbExpr = fc.letrec(tie => (
     }
 ))
 
-describe("Test arbitrary expressions", () =>
-    th.check("Evaluate arbitrary expressions", 
+test("Test arbitrary expressions", t =>
+    fc.assert( 
         fc.property(arbExpr.expr, e => {
             let res1 = eval(e)
             let res2 = ep.evaluateExpression(e)
-            expect(res1).to.equal(res2)
+            t.equal(res1, res2, `expression '${e}' should evaluate to ${res1}`)
         })))
