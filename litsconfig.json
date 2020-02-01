@@ -17,8 +17,12 @@
         "syntaxHighlight": "solarized-light",
         "visualizers": [
             {
-                "path": "./src/extras/visualizers.ts",
+                "path": "./src/visualizers/dependency-diag.ts",
                 "includeStyles": true
+            },
+            {
+                "path": "./src/visualizers/run-expr-tests.ts",
+                "includeStyles": false
             }
         ]
     }

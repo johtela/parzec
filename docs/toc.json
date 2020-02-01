@@ -88,5 +88,15 @@
         "page": "License",
         "file": "license.html",
         "desc": ""
+    },
+    {
+        "page": "dependency-diag",
+        "file": "src/visualizers/dependency-diag.html",
+        "desc": ""
+    },
+    {
+        "page": "run-expr-tests",
+        "file": "src/visualizers/run-expr-tests.html",
+        "desc": ""
     }
 ]

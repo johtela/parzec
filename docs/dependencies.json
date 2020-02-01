@@ -103,5 +103,29 @@
     },
     "fs": {
         "dependencies": []
+    },
+    "src/visualizers/dependency-diag": {
+        "url": "src/visualizers/dependency-diag.html",
+        "dependencies": [
+            "src/visualizers/litscript/lib/visualizer",
+            "lits-extras",
+            "src/visualizers/lits-extras/styles/dependency-diag.less"
+        ]
+    },
+    "src/visualizers/litscript/lib/visualizer": {
+        "dependencies": []
+    },
+    "lits-extras": {
+        "dependencies": []
+    },
+    "src/visualizers/lits-extras/styles/dependency-diag.less": {
+        "dependencies": []
+    },
+    "src/visualizers/run-expr-tests": {
+        "url": "src/visualizers/run-expr-tests.html",
+        "dependencies": [
+            "src/visualizers/litscript/lib/visualizer",
+            "lits-extras"
+        ]
     }
 }
