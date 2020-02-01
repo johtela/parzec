@@ -63,26 +63,19 @@
             "src/index"
         ]
     },
-    "src/test/test-helpers": {
-        "url": "src/test/test-helpers.html",
-        "dependencies": [
-            "fast-check"
-        ]
-    },
-    "fast-check": {
-        "dependencies": []
-    },
     "src/test/exprtests": {
         "url": "src/test/exprtests.html",
         "dependencies": [
-            "chai",
+            "zora",
             "src/test/exprparser",
             "fast-check",
-            "src/test/test-helpers",
             "src/index"
         ]
     },
-    "chai": {
+    "zora": {
+        "dependencies": []
+    },
+    "fast-check": {
         "dependencies": []
     },
     "src/test/jsonparser": {
@@ -95,37 +88,8 @@
         "url": "src/test/jsontests.html",
         "dependencies": [
             "src/test/jsonparser",
-            "fs",
-            "chai",
-            "fast-check",
-            "src/test/test-helpers"
-        ]
-    },
-    "fs": {
-        "dependencies": []
-    },
-    "src/visualizers/dependency-diag": {
-        "url": "src/visualizers/dependency-diag.html",
-        "dependencies": [
-            "src/visualizers/litscript/lib/visualizer",
-            "lits-extras",
-            "src/visualizers/lits-extras/styles/dependency-diag.less"
-        ]
-    },
-    "src/visualizers/litscript/lib/visualizer": {
-        "dependencies": []
-    },
-    "lits-extras": {
-        "dependencies": []
-    },
-    "src/visualizers/lits-extras/styles/dependency-diag.less": {
-        "dependencies": []
-    },
-    "src/visualizers/run-expr-tests": {
-        "url": "src/visualizers/run-expr-tests.html",
-        "dependencies": [
-            "src/visualizers/litscript/lib/visualizer",
-            "lits-extras"
+            "zora",
+            "fast-check"
         ]
     }
 }

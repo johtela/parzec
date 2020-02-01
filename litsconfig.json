@@ -3,7 +3,7 @@
         "node_modules",
         "lib",
         "testdata",
-        "src/extras/*"
+        "src/visualizers/*"
     ],
     "updateToc": true,
     "frontMatter": {
