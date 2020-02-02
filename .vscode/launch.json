@@ -7,19 +7,9 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Mocha Tests",
-            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-            "args": [
-                "-u",
-                "tdd",
-                "--timeout",
-                "999999",
-                "--colors",
-                "--require",
-                "ts-node/register",
-                "-b",
-                "${relativeFile}"
-            ],
+            "name": "Run Tests",
+            "args": [ "${workspaceFolder}/${relativeFile}" ],
+            "runtimeArgs": ["-r", "ts-node/register"],
             "internalConsoleOptions": "openOnSessionStart"
         },
         {

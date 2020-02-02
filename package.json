@@ -4,7 +4,7 @@
   "description": "Parser combinators for Typescript",
   "main": "lib/index.js",
   "scripts": {
-    "test": "node ./lib/test/exprtests.js & node ./lib/test/jsontests.js",
+    "test": "node ./lib/test/exprtests.js && node ./lib/test/jsontests.js",
     "build": "tsc",
     "prepare": "npm run build",
     "prepublishOnly": "npm test",
@@ -26,8 +26,7 @@
     "@types/node": "^10.17.13",
     "fast-check": "^1.21.0",
     "lits-extras": "file:../lits-extras",
-    "ts-node": "^8.6.2",
-    "zora": "^3.1.8"
+    "ts-node": "^8.6.2"
   },
   "dependencies": {}
 }

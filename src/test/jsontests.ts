@@ -1,5 +1,5 @@
 import { parseJson } from "./jsonparser"
-import { test } from "zora"
+import { test } from "lits-extras/lib/tester"
 import * as fc from "fast-check"
 
 test("Test arbitrary JSON data", t =>
