@@ -24,7 +24,7 @@ test("Test parsing of predefined expressions", t => {
         "2 + 3 * 3", 
         "1 - 1 / 2", 
         "(1 - 1) / 2",
-        "(1) + (((2)) + )" ]
+        "(1) + (((2)) + 5)" ]
     for (let i = 0; i < testset.length; i++) {
         let expr = testset[i]
         let res = eval(expr)
