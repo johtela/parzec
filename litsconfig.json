@@ -14,16 +14,6 @@
         "footerLocation": "toc-menu",
         "userTheme": "./user-theme.less",
         "logo": "images/millenniumfalcon_88882.svg",
-        "syntaxHighlight": "solarized-light",
-        "visualizers": [
-            {
-                "path": "./src/visualizers/dependency-diag.ts",
-                "includeStyles": true
-            },
-            {
-                "path": "./src/visualizers/run-expr-tests.ts",
-                "includeStyles": false
-            }
-        ]
+        "syntaxHighlight": "solarized-light"
     }
 }

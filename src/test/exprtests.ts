@@ -1,3 +1,18 @@
+/**
+ * ---
+ * {
+ *  "visualizers": [
+ *      {
+ *          "path": "./src/visualizers/run-expr-tests.ts",
+ *          "includeStyles": false
+ *      }
+ *  ]
+ * }
+ * ---
+ * # Testing Expression Parser
+ * 
+ * <<v:run-expr-tests>>
+ */
 import { test } from "lits-extras/lib/tester"
 import * as ep from "./exprparser"
 import * as fc from "fast-check"
@@ -9,7 +24,7 @@ test("Test parsing of predefined expressions", t => {
         "2 + 3 * 3", 
         "1 - 1 / 2", 
         "(1 - 1) / 2",
-        "(1) + (((2)) + 4)" ]
+        "(1) + (((2)) + )" ]
     for (let i = 0; i < testset.length; i++) {
         let expr = testset[i]
         let res = eval(expr)

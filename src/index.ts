@@ -1,4 +1,14 @@
 /**
+ * ---
+ * {
+ *  "visualizers": [
+ *      {
+ *          "path": "./src/visualizers/dependency-diag.ts",
+ *          "includeStyles": true
+ *      }
+ *  ]
+ * }
+ * ---
  * # Library Structure
  * 
  * Below is the dependency graph showing the module hierarchy. Note that it

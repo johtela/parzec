@@ -66,13 +66,13 @@
     "src/test/exprtests": {
         "url": "src/test/exprtests.html",
         "dependencies": [
-            "zora",
+            "src/test/lits-extras/lib/tester",
             "src/test/exprparser",
             "fast-check",
             "src/index"
         ]
     },
-    "zora": {
+    "src/test/lits-extras/lib/tester": {
         "dependencies": []
     },
     "fast-check": {
@@ -88,7 +88,7 @@
         "url": "src/test/jsontests.html",
         "dependencies": [
             "src/test/jsonparser",
-            "zora",
+            "src/test/lits-extras/lib/tester",
             "fast-check"
         ]
     }
