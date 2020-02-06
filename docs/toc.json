@@ -26,11 +26,6 @@
                 "page": "Testing the JSON Parser",
                 "file": "src/test/jsontests.html",
                 "desc": ""
-            },
-            {
-                "page": "Helpers for Tests",
-                "file": "src/test/test-helpers.html",
-                "desc": ""
             }
         ]
     },
@@ -87,16 +82,6 @@
     {
         "page": "License",
         "file": "license.html",
-        "desc": ""
-    },
-    {
-        "page": "dependency-diag",
-        "file": "src/visualizers/dependency-diag.html",
-        "desc": ""
-    },
-    {
-        "page": "run-expr-tests",
-        "file": "src/visualizers/run-expr-tests.html",
         "desc": ""
     }
 ]
