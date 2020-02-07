@@ -399,7 +399,19 @@ export function peek<S>(): Parser<S, S> {
         input.position = pos
         return next.done ?
             pr.failed(input.position, "end of input") :
-            pr.succeeded(input.position, next.value)
+            pr.succeeded(pos, next.value)
+    })
+}
+/**
+ * Succeed, if there are no more input to be read.
+ */
+export function endOfInput<S>(): Parser<undefined, S> {
+    return new Parser(input => {
+        let next = input.next()
+        return next.done ?
+            pr.succeeded(input.position, undefined) :
+            pr.failed(input.position, JSON.stringify(next.value), 
+                ["end of input"])
     })
 }
 /**

@@ -21,7 +21,7 @@ export enum JsonToken {
     Colon, Number, String, Whitespace, Comment
 }
 //#region -c Debug settings
-pz.parserDebug.debugging = false
+pz.parserDebug.debugging = true
 //#endregion
 /**
  * ## Lexer
@@ -146,7 +146,8 @@ element.target = pz.choose(
  * Finally we can define the root parser for JSON. It is just an `element` 
  * parser preceded by optional whitespace. 
  */
-const json = whitespace.seq(element.target).trace("json")
+const json = whitespace.seq(element.target).followedBy(pz.endOfInput())
+    .trace("json")
 /**
  * If you compare the definitions above to the official grammar in [json.org][],
  * you'll find that they are almost identical. The only difference is that we 
