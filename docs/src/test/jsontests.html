@@ -8,7 +8,7 @@
     <title>parzec - Testing the JSON Parser</title>
     <link rel="icon" type="image/icon" href="../../images/favicon.png" />
     <link rel="stylesheet" href="../../css/main.css" />
-    
+    <link rel="stylesheet" href="../../css/run-json-tests.css" />
     
 </head>
 <body>
@@ -172,16 +172,31 @@
         <div class="scrollingarea closepopups">
             
     <div class="contentarea">
-        <pre class="syntaxhighlight"><code><span class="keyword">import</span> <span class="punctuation">{</span> <span id="8" data-toggle="tooltip" data-title="(text: string) =&gt; any">parseJson</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&quot;./jsonparser&quot;</span>
-<span class="keyword">import</span> <span class="punctuation">{</span> <span id="50" data-toggle="tooltip" data-title="(description: string, spec: SpecFunction, options?: object | undefined) =&gt; Promise&lt;TestResult&gt;">test</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&quot;lits-extras/lib/tester&quot;</span>
-<span class="keyword">import</span> <span class="punctuation">*</span> <span class="keyword">as</span> <span id="95" data-toggle="tooltip" data-title="typeof fc">fc</span> <span class="keyword">from</span> <span class="string">&quot;fast-check&quot;</span>
-
-<a href="jsontests.html#50"><span data-toggle="tooltip" data-title="(description: string, spec: SpecFunction, options?: object | undefined) =&gt; Promise&lt;TestResult&gt;">test</span></a><span class="punctuation">(</span><span class="string">&quot;Test arbitrary JSON data&quot;</span><span class="punctuation">,</span> <span id="157" data-toggle="tooltip" data-title="Assert">t</span> <span class="punctuation">=&gt;</span>
-    <a href="jsontests.html#95"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ &lt;Ts&gt;(property: fc.IAsyncProperty&lt;Ts&gt;, params?: fc.Parameters&lt;Ts&gt; | undefined): Promise&lt;void&gt;; &lt;Ts&gt;(property: fc.IProperty&lt;Ts&gt;, params?: fc.Parameters&lt;Ts&gt; | undefined): void; &lt;Ts&gt;(property: fc.IRawProperty&lt;...&gt;, params?: fc.Parameters&lt;...&gt; | undefined): void | Promise&lt;...&gt;; }">assert</span><span class="punctuation">(</span>
-        <a href="jsontests.html#95"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ &lt;T0&gt;(arb0: fc.Arbitrary&lt;T0&gt;, predicate: (t0: T0) =&gt; boolean | void): Property&lt;[T0]&gt;; &lt;T0, T1&gt;(arb0: fc.Arbitrary&lt;T0&gt;, arb1: fc.Arbitrary&lt;T1&gt;, predicate: (t0: T0, t1: T1) =&gt; boolean | void): Property&lt;...&gt;; &lt;T0, T1, T2&gt;(arb0: fc.Arbitrary&lt;...&gt;, arb1: fc.Arbitrary&lt;...&gt;, arb2: fc.Arbitrary&lt;...&gt;, predicate: (t0: T0, t1...">property</span><span class="punctuation">(</span><a href="jsontests.html#95"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ (): fc.Arbitrary&lt;string&gt;; (maxDepth: number): fc.Arbitrary&lt;string&gt;; }">json</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span id="210" data-toggle="tooltip" data-title="string">str</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
-            <span class="keyword">let</span> <span id="236" data-toggle="tooltip" data-title="any">obj1</span> <span class="punctuation">=</span> <span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(text: string, reviver?: ((this: any, key: string, value: any) =&gt; any) | undefined) =&gt; any">parse</span><span class="punctuation">(</span><a href="jsontests.html#210"><span data-toggle="tooltip" data-title="string">str</span></a><span class="punctuation">)</span>
-            <span class="keyword">let</span> <span id="276" data-toggle="tooltip" data-title="any">obj2</span> <span class="punctuation">=</span> <a href="jsontests.html#8"><span data-toggle="tooltip" data-title="(text: string) =&gt; any">parseJson</span></a><span class="punctuation">(</span><a href="jsontests.html#210"><span data-toggle="tooltip" data-title="string">str</span></a><span class="punctuation">)</span>
-            <a href="jsontests.html#157"><span data-toggle="tooltip" data-title="Assert">t</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="ComparatorAssertionFunction">deepEqual</span><span class="punctuation">(</span><a href="jsontests.html#276"><span data-toggle="tooltip" data-title="any">obj2</span></a><span class="punctuation">,</span> <a href="jsontests.html#236"><span data-toggle="tooltip" data-title="any">obj1</span></a><span class="punctuation">)</span>
+        
+<h1 id="testing-json-parser">Testing JSON Parser</h1>
+<p>To manually test the parser enter or paste some JSON to the text box below.
+Try also add comments anywhere inside JSON.</p>
+<div class="visualizer" id="visualizer1"></div>
+<p>Manually entering test data becomes boring soon, so we'll again use
+<strong>fast-check</strong> to automate test case generation. In this case we can use the
+built-in combinator that generates arbitrary JSON data. So, our job is made
+easy for us.</p>
+<pre class="syntaxhighlight"><code><span class="keyword">import</span> <span class="punctuation">{</span> <span id="639" data-toggle="tooltip" data-title="(text: string) =&gt; any">parseJson</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&quot;./jsonparser&quot;</span>
+<span class="keyword">import</span> <span class="punctuation">{</span> <span id="681" data-toggle="tooltip" data-title="(description: string, spec: SpecFunction, options?: object | undefined) =&gt; Promise&lt;TestResult&gt;">test</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&quot;lits-extras/lib/tester&quot;</span>
+<span class="keyword">import</span> <span class="punctuation">*</span> <span class="keyword">as</span> <span id="726" data-toggle="tooltip" data-title="typeof fc">fc</span> <span class="keyword">from</span> <span class="string">&quot;fast-check&quot;</span>
+</code></pre>
+<p>We should get interesting test data. You can check the test cases below.</p>
+<div class="visualizer" id="visualizer2"></div>
+<p>Using <code>JSON.parse</code> as the baseline for our parser, we can check that it and
+our parsing functions produce identical JavaScript objects. We use the
+<code>deepEqual</code> assertion to check that.</p>
+<pre class="syntaxhighlight"><code><a href="jsontests.html#681"><span data-toggle="tooltip" data-title="(description: string, spec: SpecFunction, options?: object | undefined) =&gt; Promise&lt;TestResult&gt;">test</span></a><span class="punctuation">(</span><span class="string">&quot;Test arbitrary JSON data&quot;</span><span class="punctuation">,</span> <span id="1115" data-toggle="tooltip" data-title="Assert">t</span> <span class="punctuation">=&gt;</span>
+    <a href="jsontests.html#726"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ &lt;Ts&gt;(property: fc.IAsyncProperty&lt;Ts&gt;, params?: fc.Parameters&lt;Ts&gt; | undefined): Promise&lt;void&gt;; &lt;Ts&gt;(property: fc.IProperty&lt;Ts&gt;, params?: fc.Parameters&lt;Ts&gt; | undefined): void; &lt;Ts&gt;(property: fc.IRawProperty&lt;...&gt;, params?: fc.Parameters&lt;...&gt; | undefined): void | Promise&lt;...&gt;; }">assert</span><span class="punctuation">(</span>
+        <a href="jsontests.html#726"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ &lt;T0&gt;(arb0: fc.Arbitrary&lt;T0&gt;, predicate: (t0: T0) =&gt; boolean | void): Property&lt;[T0]&gt;; &lt;T0, T1&gt;(arb0: fc.Arbitrary&lt;T0&gt;, arb1: fc.Arbitrary&lt;T1&gt;, predicate: (t0: T0, t1: T1) =&gt; boolean | void): Property&lt;...&gt;; &lt;T0, T1, T2&gt;(arb0: fc.Arbitrary&lt;...&gt;, arb1: fc.Arbitrary&lt;...&gt;, arb2: fc.Arbitrary&lt;...&gt;, predicate: (t0: T0, t1...">property</span><span class="punctuation">(</span><a href="jsontests.html#726"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ (): fc.Arbitrary&lt;string&gt;; (maxDepth: number): fc.Arbitrary&lt;string&gt;; }">json</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span id="1168" data-toggle="tooltip" data-title="string">str</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
+            <span class="keyword">let</span> <span id="1194" data-toggle="tooltip" data-title="any">obj1</span> <span class="punctuation">=</span> <span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(text: string, reviver?: ((this: any, key: string, value: any) =&gt; any) | undefined) =&gt; any">parse</span><span class="punctuation">(</span><a href="jsontests.html#1168"><span data-toggle="tooltip" data-title="string">str</span></a><span class="punctuation">)</span>
+            <span class="keyword">let</span> <span id="1234" data-toggle="tooltip" data-title="any">obj2</span> <span class="punctuation">=</span> <a href="jsontests.html#639"><span data-toggle="tooltip" data-title="(text: string) =&gt; any">parseJson</span></a><span class="punctuation">(</span><a href="jsontests.html#1168"><span data-toggle="tooltip" data-title="string">str</span></a><span class="punctuation">)</span>
+            <a href="jsontests.html#1115"><span data-toggle="tooltip" data-title="Assert">t</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="ComparatorAssertionFunction">deepEqual</span><span class="punctuation">(</span><a href="jsontests.html#1234"><span data-toggle="tooltip" data-title="any">obj2</span></a><span class="punctuation">,</span> <a href="jsontests.html#1194"><span data-toggle="tooltip" data-title="any">obj1</span></a><span class="punctuation">,</span> <span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (value: any, replacer?: ((this: any, key: string, value: any) =&gt; any) | undefined, space?: string | number | undefined): string; (value: any, replacer?: (string | number)[] | null | undefined, space?: string | ... 1 more ... | undefined): string; }">stringify</span><span class="punctuation">(</span><a href="jsontests.html#1234"><span data-toggle="tooltip" data-title="any">obj2</span></a><span class="punctuation">)</span> <span class="punctuation">+</span> 
+                <span class="string">&quot; should be deep equal to &quot;</span> <span class="punctuation">+</span> <span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (value: any, replacer?: ((this: any, key: string, value: any) =&gt; any) | undefined, space?: string | number | undefined): string; (value: any, replacer?: (string | number)[] | null | undefined, space?: string | ... 1 more ... | undefined): string; }">stringify</span><span class="punctuation">(</span><a href="jsontests.html#1194"><span data-toggle="tooltip" data-title="any">obj1</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
         <span class="punctuation">}</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span>
 </code></pre>
 
@@ -200,6 +215,10 @@
         </div>
     </div>
     <script src="../../js/main.js"></script>
-    
+    <script src="../../js/run-json-tests.js"></script>
+<script>
+window.runVisualizer("json-parser", "", "visualizer1");
+window.runVisualizer("run-json-tests", "JSON tests", "visualizer2");
+</script>
 </body>
 </html>

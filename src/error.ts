@@ -35,7 +35,7 @@ export class ParseError extends Error {
         /**
          * Constructor formats the error message using the parameters provided.
          */
-        super(`${source} error at position ${position}.\n` +
+        super(`${source} error at position ${position + 1}.\n` +
             `\tFound: "${found}"\n` +
             `\tExpected: ${expected.map(s => `"${s}"`).join(", ")}`);
     }
