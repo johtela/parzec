@@ -21,7 +21,7 @@ export enum JsonToken {
     Colon, Number, String, Whitespace, Comment
 }
 //#region -c Debug settings
-pz.parserDebug.debugging = true
+pz.parserDebug.debugging = false
 //#endregion
 /**
  * ## Lexer

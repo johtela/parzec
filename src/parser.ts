@@ -410,8 +410,7 @@ export function endOfInput<S>(): Parser<undefined, S> {
         let next = input.next()
         return next.done ?
             pr.succeeded(input.position, undefined) :
-            pr.failed(input.position, JSON.stringify(next.value), 
-                ["end of input"])
+            pr.failed(input.position, `${next.value}`, ["end of input"])
     })
 }
 /**
