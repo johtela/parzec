@@ -18,10 +18,15 @@
   },
   "author": "Tommi Johtela",
   "license": "MPL-2.0",
+  "keywords": [
+    "typescript", 
+    "parser",
+    "combinator" 
+  ],
   "bugs": {
     "url": "https://github.com/johtela/parzec/issues"
   },
-  "homepage": "https://github.com/johtela/parzec#readme",
+  "homepage": "https://johtela.github.io/parzec",
   "devDependencies": {
     "@types/node": "^10.17.14",
     "fast-check": "^1.22.1",
