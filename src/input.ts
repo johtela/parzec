@@ -2,16 +2,23 @@
  * # Parser Input
  * 
  * Parsers input is a stream of data of type `S`. The input is represented by 
- * an abstract interface which extends the `Iterator<S>` interface. It provides 
- * the `next()` method to iterate through the stream. 
+ * an abstract interface which provides the `next()` method to iterate through 
+ * the stream. 
  */
-export interface ParserInput<S> extends Iterator<S> {
+export interface ParserInput<S> {
     /**
      * Position in the input stream is represented by a number. The number has 
      * to increase as input is consumed, but not necessarily linearly. 
      * Backtracking is done by setting the `position` explicitly.
      */
     position: number
+    /**
+     * Return the next item in the stream. Note that there is no explicit
+     * flag that tells when we have gone past the last item. Instead, the input
+     * implementations add a special `EOF` item at the end. Parsers should 
+     * recognize it and terminate before the stream is exhausted.
+     */
+    next(): S
     /**
      * The latest item read from the stream is cached for efficiency.
      */
@@ -39,6 +46,7 @@ class ArrayInput<S> implements ParserInput<S> {
     position: number
     current: S
     state: any
+    eof: S
     /**
      * Wrapped array.
      */
@@ -47,22 +55,23 @@ class ArrayInput<S> implements ParserInput<S> {
      * We set the position initially to -1 to indicate that no input has been
      * consumed. The current item is `undefined`.
      */
-    constructor(array: S[]) {
+    constructor(array: S[], eof: S) {
         this.array = array
         this.position = -1
         this.current = <S><unknown>undefined
+        this.eof = eof
     }
     /**
      * Return the next item in the array. Update `position` and
-     * `current` fields. Inherited from the `Iterator<S>` interface.
+     * `current` fields. 
      */
-    next(): IteratorResult<S> {
+    next(): S {
         let pos = this.position + 1
         if (pos >= this.array.length)
-            return { done: true, value: <S><unknown>undefined }
+            return this.eof
         this.position = pos
         this.current = this.array[pos]
-        return { done: false, value: this.current }
+        return this.current
     }
 }
 
@@ -71,6 +80,6 @@ class ArrayInput<S> implements ParserInput<S> {
  * 
  * Create a ParserInput wrapper for an array.
  */
-export function arrayInput<S>(array: S[]): ParserInput<S> {
-    return new ArrayInput<S>(array);
+export function arrayInput<S>(array: S[], eof: S): ParserInput<S> {
+    return new ArrayInput<S>(array, eof);
 }

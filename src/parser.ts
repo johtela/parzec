@@ -346,10 +346,7 @@ export function fail<T, S>(found: string, ...expected: string[]): Parser<T, S> {
 export function satisfy<T>(predicate: (value: T) => boolean): Parser<T, T> {
     return new Parser(input => {
         let pos = input.position
-        let next = input.next()
-        if (next.done)
-            return pr.failed(input.position, "end of input")
-        let item = next.value
+        let item = input.next()
         if (predicate(item))
             return pr.succeeded(input.position, item)
         input.position = pos
@@ -397,20 +394,7 @@ export function peek<S>(): Parser<S, S> {
         let pos = input.position
         let next = input.next()
         input.position = pos
-        return next.done ?
-            pr.failed(input.position, "end of input") :
-            pr.succeeded(pos, next.value)
-    })
-}
-/**
- * Succeed, if there are no more input to be read.
- */
-export function endOfInput<S>(): Parser<undefined, S> {
-    return new Parser(input => {
-        let next = input.next()
-        return next.done ?
-            pr.succeeded(input.position, undefined) :
-            pr.failed(input.position, `${next.value}`, ["end of input"])
+        return pr.succeeded(pos, next)
     })
 }
 /**

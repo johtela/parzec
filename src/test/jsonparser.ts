@@ -18,7 +18,7 @@ import * as pz from "..";
  */
 export enum JsonToken {
     True, False, Null, LeftBrace, RightBrace, LeftBracket, RightBracket, Comma,
-    Colon, Number, String, Whitespace, Comment
+    Colon, Number, String, Whitespace, Comment, EOF
 }
 //#region -c Debug settings
 pz.parserDebug.debugging = false
@@ -86,6 +86,7 @@ const beginarray = pz.terminal(JsonToken.LeftBracket, "[").followedBy(whitespace
 const endarray = pz.terminal(JsonToken.RightBracket, "]").followedBy(whitespace)
 const beginobject = pz.terminal(JsonToken.LeftBrace, "{").followedBy(whitespace)
 const endobject = pz.terminal(JsonToken.RightBrace, "}").followedBy(whitespace)
+const eof = pz.terminal(JsonToken.EOF, "<end of input>")
 /**
  * ## Nonterminals 
  * 
@@ -146,8 +147,7 @@ element.target = pz.choose(
  * Finally we can define the root parser for JSON. It is just an `element` 
  * parser preceded by optional whitespace. 
  */
-const json = whitespace.seq(element.target).followedBy(pz.endOfInput())
-    .trace("json")
+const json = whitespace.seq(element.target).followedBy(eof).trace("json")
 /**
  * If you compare the definitions above to the official grammar in [json.org][],
  * you'll find that they are almost identical. The only difference is that we 
@@ -161,7 +161,8 @@ const json = whitespace.seq(element.target).followedBy(pz.endOfInput())
  * string.
  */
 export function jsonInput(text: string): pz.ParserInput<pz.Token<JsonToken>> {
-    return pz.lexerInput<JsonToken>(text, lexer);
+    return pz.lexerInput<JsonToken>(text, lexer, 
+        new pz.Token(JsonToken.EOF, "<end of input>"));
 }
 /**
  * Then we can define a function that takes a string and returns a JS object. 

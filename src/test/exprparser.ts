@@ -14,7 +14,8 @@ import * as pz from "../";
  * Tokens include numbers, parenthesis, operators, and whitespace.
  */
 export enum ExprToken { 
-    Number, OpenParen, CloseParen, Plus, Minus, Multiply, Divide, Whitespace 
+    Number, OpenParen, CloseParen, Plus, Minus, Multiply, Divide, Whitespace, 
+    EOF 
 }
 /**
  * To turn on debugging, set on the following flag. It outputs evaluated
@@ -68,6 +69,10 @@ const minus = pz.terminal(ExprToken.Minus, "-").followedBy(optws)
 const multiply = pz.terminal(ExprToken.Multiply, "*").followedBy(optws)
 const divide = pz.terminal(ExprToken.Divide, "/").followedBy(optws)
 /**
+ * `eof` is a special terminal parser that recognizes end of input.
+ */
+const eof = pz.terminal(ExprToken.EOF, "<end of input>")
+/**
  * ### Nonterminals
  * 
  * The abstract nodes in a syntax tree are called nonterminals. We define a 
@@ -113,7 +118,7 @@ term.target = factor.chainOneOrMore(mulop)
  * before calling the expression parser. Whitespace in-between tokens is 
  * skipped by terminal parsers.
  */
-const rootExpr = optws.seq(expr)
+const rootExpr = optws.seq(expr).followedBy(eof)
 /**
  * ## Exported Parsing Function
  * 
@@ -126,5 +131,6 @@ const rootExpr = optws.seq(expr)
  * rule and the input as parameters.
   */
 export function evaluateExpression(expression: string): number {
-    return pz.parse(rootExpr, pz.lexerInput<ExprToken>(expression, lexer))
+    return pz.parse(rootExpr, pz.lexerInput<ExprToken>(expression, lexer, 
+        new pz.Token(ExprToken.EOF, "<end of input>")))
 }

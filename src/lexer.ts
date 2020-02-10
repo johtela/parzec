@@ -110,17 +110,18 @@ class LexerInput<S> implements inp.ParserInput<Token<S>> {
     /**
      * We store the result designating end of the input.
      */
-    private eof = { done: true, value: <Token<S>><unknown>undefined }
+    private eof: Token<S>
     /**
      * Create an input stream for given string and lexer. Initialize the
      * instance variables.
      */
-    constructor(input: string, lexer: Lexer<S>) {
+    constructor(input: string, lexer: Lexer<S>, eof: Token<S>) {
         this.input = input
         this.lexer = lexer
         this.tokens = new Array<Token<S>>(input.length)
         this.position = -1
-        this.current = this.eof.value
+        this.eof = eof
+        this.current = this.eof
     }
     /**
      * The iterator implementation is fairly straightforward. We need to make 
@@ -130,7 +131,7 @@ class LexerInput<S> implements inp.ParserInput<Token<S>> {
      * a match, we update the caché. If the lexer cannot recognize the next 
      * token, we throw a `ParseError`.
      */
-    next(): IteratorResult<Token<S>> {
+    next(): Token<S> {
         let pos = this.position
         pos += this.tokens[pos] ? this.tokens[pos].text.length : 1
         if (pos >= this.input.length)
@@ -142,13 +143,13 @@ class LexerInput<S> implements inp.ParserInput<Token<S>> {
                 this.input.substr(pos, 10) + "...", ["<valid token>"])
         this.tokens[pos] = match
         this.current = match
-        return { done: false, value: match };
+        return match
     }
 }
 /**
  * Create an input stream for given `text` string using the given `lexer`.
  */
-export function lexerInput<S>(text: string, lexer: Lexer<S>):
+export function lexerInput<S>(text: string, lexer: Lexer<S>, eof: Token<S>):
     inp.ParserInput<Token<S>> {
-    return new LexerInput<S>(text, lexer)
+    return new LexerInput<S>(text, lexer, eof)
 }
