@@ -34,7 +34,7 @@ import * as fc from "fast-check"
  * our parsing functions produce identical JavaScript objects. We use the
  * `deepEqual` assertion to check that.
  */
-test("Test arbitrary JSON data", t =>
+test("Test arbitrary JSON data", async t =>
     fc.assert(
         fc.property(fc.json(), str => {
             let obj1 = JSON.parse(str)

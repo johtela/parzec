@@ -28,7 +28,7 @@ import * as pz from ".."
  * First, let's test some valid expressions. Since our expressions are valid
  * in JavaScript too, we can use the `eval` function as the baseline.
  */
-test("Test parsing of predefined expressions", t => {
+test("Test parsing of predefined expressions", async t => {
     let testset: string[] = [
         "1 + -1",
         "2 + 3 * 3",
@@ -45,7 +45,7 @@ test("Test parsing of predefined expressions", t => {
 /**
  * Then we test expression that should not be valid.
  */
-test("Test failing expressions", t => {
+test("Test failing expressions", async t => {
     let testset: string[] = [
         "1 + ",
         "2 ++ 3 * 3",
@@ -114,7 +114,7 @@ const arbExpr = fc.letrec(tie => (
  * by checking that JS `eval` and our `evaluateExpression` functions return the
  * same result for all input data.
  */
-test("Test arbitrary expressions", t =>
+test("Test arbitrary expressions", async t =>
     fc.assert(
         fc.property(arbExpr.expr, e => {
             let res1 = eval(e)
