@@ -1,5 +1,8 @@
 # Parser Combinators for Typescript
 
+![Build status](https://travis-ci.org/johtela/parzec.svg?branch=master)
+![Version](https://img.shields.io/npm/v/parzec)
+
 Parzec is a parser combinator library adapted from Haskell's famous [Parsec][]
 library. A parser combinator library consist of [higher order functions][] which 
 make it easy to build [recursive descent parsers][]. Parsers composed from 
