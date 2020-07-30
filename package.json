@@ -28,11 +28,11 @@
   },
   "homepage": "https://johtela.github.io/parzec",
   "devDependencies": {
-    "@types/node": "^10.17.17",
-    "fast-check": "^1.23.0",
-    "lits-extras": "^1.0.1",
-    "litscript": "^1.1.6",
-    "ts-node": "^8.6.2"
+    "@types/node": "^10.17.28",
+    "fast-check": "^1.26.0",
+    "lits-extras": "^1.0.2",
+    "litscript": "^1.1.8",
+    "ts-node": "^8.10.2"
   },
   "dependencies": {}
 }
