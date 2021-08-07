@@ -1,6 +1,6 @@
 {
   "name": "parzec",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Parser combinators for Typescript",
   "main": "lib/index.js",
   "scripts": {
