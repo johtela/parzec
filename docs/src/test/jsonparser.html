@@ -1,212 +1,402 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>parzec - Parsing JSON</title>
-    <link rel="icon" type="image/icon" href="../../images/favicon.png" />
-    <link rel="stylesheet" href="../../css/main.css" />
-    
-    
-</head>
-<body>
-    
-    <div class="navbar">
-        <div class="navmenu">
-            
-    <a class="title enabled" href="../../index.html">
-        <img src="../../images/millenniumfalcon_88882.svg" />
-        <span>parzec</span>
-    </a>
-    <a class="enabled" href="https://www.npmjs.com/package/parzec">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"/></svg>
-        <span>Download</span>
-    </a>
-    <a class="enabled" href="https://github.com/johtela/parzec">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-        <span>GitHub</span>
-    </a>
-    <a class="enabled" href="../../license.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM64 72c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8V72zm0 64c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8v-16zm192.81 248H304c8.84 0 16 7.16 16 16s-7.16 16-16 16h-47.19c-16.45 0-31.27-9.14-38.64-23.86-2.95-5.92-8.09-6.52-10.17-6.52s-7.22.59-10.02 6.19l-7.67 15.34a15.986 15.986 0 0 1-14.31 8.84c-.38 0-.75-.02-1.14-.05-6.45-.45-12-4.75-14.03-10.89L144 354.59l-10.61 31.88c-5.89 17.66-22.38 29.53-41 29.53H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h12.39c4.83 0 9.11-3.08 10.64-7.66l18.19-54.64c3.3-9.81 12.44-16.41 22.78-16.41s19.48 6.59 22.77 16.41l13.88 41.64c19.77-16.19 54.05-9.7 66 14.16 2.02 4.06 5.96 6.5 10.16 6.5zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"/></svg>
-        <span>License</span>
-    </a>
-    <a class="enabled" href="exprtests.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"/></svg>
-        <span>Previous: Testing the Expression Parser</span>
-    </a>
-    <a class="enabled" href="jsontests.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
-        <span>Next: Testing the JSON Parser</span>
-    </a>
-        </div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>
+            parzec - Parsing JSON
+        </title>
+        <link rel="icon" type="image/icon" href="../../images/favicon.svg" />
+        <link rel="stylesheet" href="../../dist/normal.css" />
         
+    </head>
+    <body data-syntax-highlight="monokai"
+        data-theme="purple-rain">
+        
+        <div id="navbar">
+            
+    <div class="navmenu ">
+        
+    <div class="navitem " >
+        <a class="title enabled" href="../../index.html" >
+            <img src="../../images/millenniumfalcon_88882.svg" />
+            <span>parzec</span>
+        </a>
+        
+    </div>
+    <div class="navitem " >
+        <a class="enabled" href="https://www.npmjs.com/package/parzec" >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-npm" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M1 8h22v7h-12v2h-4v-2h-6z" />
+            <path d="M7 8v7" />
+            <path d="M14 8v7" />
+            <path d="M17 11v4" />
+            <path d="M4 11v4" />
+            <path d="M11 11v1" />
+            <path d="M20 11v4" />
+        </svg>
+            <span>Download</span>
+        </a>
+        
+    </div>
+    <div class="navitem " >
+        <a class="enabled" href="https://github.com/johtela/parzec" >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+        </svg>
+            <span>GitHub</span>
+        </a>
+        
+    </div>
+    <div class="navitem " >
+        <a   >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 10l6 6l6 -6h-12" />
+        </svg>
+            <span>Syntax Highlight</span>
+        </a>
+        
+    <div class="navmenu toggle">
+        
+    <div class="navitem " id="coding-horror">
+        <a   onclick="document.body.syntaxHighlight('coding-horror')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+            <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+            <span>Coding Horror</span>
+        </a>
+        
+    </div>
+    <div class="navitem active" id="monokai">
+        <a   onclick="document.body.syntaxHighlight('monokai')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+            <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+            <span>Monokai</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="solarized-light">
+        <a   onclick="document.body.syntaxHighlight('solarized-light')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+            <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+            <span>Solarized Light</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="son-of-obsidian">
+        <a   onclick="document.body.syntaxHighlight('son-of-obsidian')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+            <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+            <span>Son of Obsidian</span>
+        </a>
+        
+    </div>
+    </div>
+    </div>
+    <div class="navitem " >
+        <a   >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 10l6 6l6 -6h-12" />
+        </svg>
+            <span>Theme</span>
+        </a>
+        
+    <div class="navmenu toggle">
+        
+    <div class="navitem " id="blueberry">
+        <a   onclick="document.body.theme('blueberry')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Blueberry</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="book-cover">
+        <a   onclick="document.body.theme('book-cover')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Book Cover</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="brownie">
+        <a   onclick="document.body.theme('brownie')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Brownie</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="chocolate">
+        <a   onclick="document.body.theme('chocolate')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Chocolate</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="ice-age">
+        <a   onclick="document.body.theme('ice-age')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Ice Age</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="monotone">
+        <a   onclick="document.body.theme('monotone')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Monotone</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="mustard">
+        <a   onclick="document.body.theme('mustard')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Mustard</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="peachy">
+        <a   onclick="document.body.theme('peachy')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Peachy</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="red-alert">
+        <a   onclick="document.body.theme('red-alert')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Red Alert</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="ultra-violet">
+        <a   onclick="document.body.theme('ultra-violet')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Ultra Violet</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="vintage">
+        <a   onclick="document.body.theme('vintage')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Vintage</span>
+        </a>
+        
+    </div>
+    </div>
+    </div>
+    </div>
+            
     <a class="hamburger">
         <div class="bar1"></div>
         <div class="bar2"></div>
         <div class="bar3"></div>
     </a>
-    </div>
-    
-    <div class="layout">
-        <div class="sidepane collapsible">
-            
-    <div class="tocmenu">
-        <h3>Table of Contents</h3>
+        </div>
         
+        <div class="layout">
+            <div class="sidepane narrow-scrollbars">
+                
+        <div class="tocmenu">
+            <h3>Table of Contents</h3>
+            
     <ul>
         
     <li>
-        
-        <a href="../../README.html">Introduction</a>
-        
+        <a href="../../README.html"><span>📔</span>Introduction</a>
     </li>
     <li>
-        <button class="accordion">
+        
+    <div class="accordion">
         Examples
-        </button>
-            
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 15l6 -6l6 6" />
+        </svg>
+    </div>
+    
     <ul>
         
     <li>
-        
-        <a href="exprparser.html">Parsing Arithmetic Epressions</a>
-        
+        <a href="exprparser.html"><span>📔</span>Parsing Arithmetic Epressions</a>
     </li>
     <li>
-        
-        <a href="exprtests.html">Testing the Expression Parser</a>
-        
+        <a href="exprtests.html"><span>📔</span>Testing the Expression Parser</a>
     </li>
     <li>
-        
-        <a href="jsonparser.html" class="highlight">Parsing JSON</a>
-        
+        <a href="jsonparser.html" class="highlight"><span>📔</span>Parsing JSON</a>
     </li>
     <li>
-        
-        <a href="jsontests.html">Testing the JSON Parser</a>
-        
+        <a href="jsontests.html"><span>📔</span>Testing the JSON Parser</a>
     </li>
     </ul>
     </li>
     <li>
-        <button class="accordion">
+        
+    <div class="accordion">
         Implementation
-        </button>
-            
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 15l6 -6l6 6" />
+        </svg>
+    </div>
+    
     <ul>
         
     <li>
-        
-        <a href="../index.html">Library Structure</a>
-        
+        <a href="../index.html"><span>📔</span>Library Structure</a>
     </li>
     <li>
-        
-        <a href="../input.html">Parser Input</a>
-        
+        <a href="../input.html"><span>📔</span>Parser Input</a>
     </li>
     <li>
-        
-        <a href="../result.html">Parser Result</a>
-        
+        <a href="../result.html"><span>📔</span>Parser Result</a>
     </li>
     <li>
-        
-        <a href="../error.html">Error Reporting</a>
-        
+        <a href="../error.html"><span>📔</span>Error Reporting</a>
     </li>
     <li>
-        
-        <a href="../ref.html">Reference Cells</a>
-        
+        <a href="../ref.html"><span>📔</span>Reference Cells</a>
     </li>
     <li>
-        
-        <a href="../lexer.html">Lexical Analyzer</a>
-        
+        <a href="../lexer.html"><span>📔</span>Lexical Analyzer</a>
     </li>
     <li>
-        
-        <a href="../parser.html">Parser Monad and Combinators</a>
-        
+        <a href="../parser.html"><span>📔</span>Parser Monad and Combinators</a>
     </li>
     <li>
-        
-        <a href="../arrayparsers.html">Parsing Arrays and Expressions</a>
-        
+        <a href="../arrayparsers.html"><span>📔</span>Parsing Arrays and Expressions</a>
     </li>
     <li>
-        
-        <a href="../utils.html">Utility Functions</a>
-        
+        <a href="../utils.html"><span>📔</span>Utility Functions</a>
     </li>
     </ul>
     </li>
     <li>
-        
-        <a href="../../license.html">License</a>
-        
+        <a href="../../license.html"><span>📔</span>License</a>
     </li>
     </ul>
-    </div>
-            
-    <div class="footer">
-        Copyright © 2020 Tommi Johtela
-        <div class="ad">
-            Created with <a href="https://github.com/johtela/litscript">LiTScript</a>
         </div>
-    </div>
-
-        </div>
-        <div class="sideicon collapsible">
+                <div class="toc-button"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevrons-right" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M7 7l5 5l-5 5" />
+            <path d="M13 7l5 5l-5 5" />
+        </svg></div>
+            </div>
             
-    <a class="hamburger">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-    </a>
-        </div>
-        <div class="scrollingarea closepopups">
-            
-    <div class="contentarea">
-        <h1 id="parsing-json">Parsing JSON</h1>
+        <div class="contentarea closepopups">
+            <h1 id="parsing-json">Parsing JSON</h1>
 <p>The next example parser converts JSON strings to JavaScript objects. It
 effectively does the same thing as the <code>JSON.parse</code> function. So, it serves
 no practical purpose, but is a nice example due to simplicity of the JSON
 grammar. To make our implementation marginally more useful, let's allow to
 include comments inside JSON.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">import</span> <span class="punctuation">*</span> <span class="keyword">as</span> <span id="389" data-toggle="tooltip" data-title="typeof pz">pz</span> <span class="keyword">from</span> <span class="string">&quot;..&quot;</span><span class="punctuation">;</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">import</span> <span class="punctuation">*</span> <span class="keyword">as</span> <span id="389" data-toggle="tooltip" data-title="typeof pz">pz</span> <span class="keyword">from</span> <span class="string">&quot;..&quot;</span><span class="punctuation">;</span>
 </code></pre>
 <h2 id="tokens">Tokens</h2>
 <p>First we define all the tokens that JSON files may contain. These are all
 specified in <a href="https://www.json.org">json.org</a>.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">enum</span> <span id="408" class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">enum</span> <span id="408" class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span> <span class="punctuation">{</span>
     <span id="613" data-toggle="tooltip" data-title="JsonToken.True">True</span><span class="punctuation">,</span> <span id="624" data-toggle="tooltip" data-title="JsonToken.False">False</span><span class="punctuation">,</span> <span id="631" data-toggle="tooltip" data-title="JsonToken.Null">Null</span><span class="punctuation">,</span> <span id="637" data-toggle="tooltip" data-title="JsonToken.LeftBrace">LeftBrace</span><span class="punctuation">,</span> <span id="648" data-toggle="tooltip" data-title="JsonToken.RightBrace">RightBrace</span><span class="punctuation">,</span> <span id="660" data-toggle="tooltip" data-title="JsonToken.LeftBracket">LeftBracket</span><span class="punctuation">,</span> <span id="673" data-toggle="tooltip" data-title="JsonToken.RightBracket">RightBracket</span><span class="punctuation">,</span> <span id="687" data-toggle="tooltip" data-title="JsonToken.Comma">Comma</span><span class="punctuation">,</span>
     <span id="694" data-toggle="tooltip" data-title="JsonToken.Colon">Colon</span><span class="punctuation">,</span> <span id="706" data-toggle="tooltip" data-title="JsonToken.Number">Number</span><span class="punctuation">,</span> <span id="714" data-toggle="tooltip" data-title="JsonToken.String">String</span><span class="punctuation">,</span> <span id="722" data-toggle="tooltip" data-title="JsonToken.Whitespace">Whitespace</span><span class="punctuation">,</span> <span id="734" data-toggle="tooltip" data-title="JsonToken.Comment">Comment</span><span class="punctuation">,</span> <span id="743" data-toggle="tooltip" data-title="JsonToken.EOF">EOF</span>
 <span class="punctuation">}</span>
 </code></pre>
 <details>
 <summary>Debug settings</summary>
-<pre class="syntaxhighlight"><code><a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#9606"><span data-toggle="tooltip" data-title="{ debugging: boolean; rulesEvaluated: number; errorMessages: boolean; indentation: number; indent(): void; unindent(): void; write(text: string): void; }">parserDebug</span></a><span class="punctuation">.</span><a href="../parser.html#9622"><span data-toggle="tooltip" data-title="boolean">debugging</span></a> <span class="punctuation">=</span> <span class="keyword">false</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#9606"><span data-toggle="tooltip" data-title="{ debugging: boolean; rulesEvaluated: number; errorMessages: boolean; indentation: number; indent(): void; unindent(): void; write(text: string): void; }">parserDebug</span></a><span class="punctuation">.</span><a href="../parser.html#9622"><span data-toggle="tooltip" data-title="boolean">debugging</span></a> <span class="punctuation">=</span> <span class="keyword">false</span>
 </code></pre>
 </details>
 <h2 id="lexer">Lexer</h2>
-<p>We define lexers for all the tokens. First we handle constants and separator
+<p><img src="../../images/number.png" alt="number">
+We define lexers for all the tokens. First we handle constants and separator
 characters. They are trivial to recognize.</p>
 <p>Numbers are a bit trickier as we need to support decimal formats with
 and without exponents.</p>
-<p><img src="../../images/number.png" alt="number"></p>
-<p>Strings can be a bit tricky as well, as there are special characters that
+<p><img src="../../images/string.png" alt="string">
+Strings can be a bit tricky as well, as there are special characters that
 have to be accounted for. Another notable thing is that we need to use the
 <code>u</code> specifier in our regex for unicode support.</p>
-<p><img src="../../images/string.png" alt="string"></p>
-<p>Below we see how whitespace is scanned in JSON. We'll add a lexer for inline
+<p><img src="../../images/whitespace.png" alt="string">
+Below we see how whitespace is scanned in JSON. We'll add a lexer for inline
 comments <code>//...</code> as well.</p>
-<p><img src="../../images/whitespace.png" alt="string"></p>
-<pre class="syntaxhighlight"><code><span class="keyword">const</span> <span id="1564" data-toggle="tooltip" data-title="pz.Lexer&lt;JsonToken&gt;">lexer</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#1693"><span class="typename" data-toggle="tooltip" data-title="typeof pz.Lexer">Lexer</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span></a><span class="punctuation">&gt;</span><span class="punctuation">(</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">const</span> <span id="1549" data-toggle="tooltip" data-title="pz.Lexer&lt;JsonToken&gt;">lexer</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#1693"><span class="typename" data-toggle="tooltip" data-title="typeof pz.Lexer">Lexer</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span></a><span class="punctuation">&gt;</span><span class="punctuation">(</span>
     <span class="punctuation">[</span><span class="string">/true/</span><span class="punctuation">,</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#613"><span data-toggle="tooltip" data-title="JsonToken.True">True</span></a><span class="punctuation">]</span><span class="punctuation">,</span>
     <span class="punctuation">[</span><span class="string">/false/</span><span class="punctuation">,</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#624"><span data-toggle="tooltip" data-title="JsonToken.False">False</span></a><span class="punctuation">]</span><span class="punctuation">,</span>
     <span class="punctuation">[</span><span class="string">/null/</span><span class="punctuation">,</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#631"><span data-toggle="tooltip" data-title="JsonToken.Null">Null</span></a><span class="punctuation">]</span><span class="punctuation">,</span>
@@ -227,54 +417,54 @@ comments <code>//...</code> as well.</p>
 we map the terminals to JavaScript types. We even cheat a bit, and convert
 strings using <code>JSON.parse</code>. We skip the trailing whitespace (including
 comments) for each token which makes our other rules simpler.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">const</span> <span id="2516" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">comment</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17483"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(token: T) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">token</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#734"><span data-toggle="tooltip" data-title="JsonToken.Comment">Comment</span></a><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="2561" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17483"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(token: T) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">token</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#722"><span data-toggle="tooltip" data-title="JsonToken.Whitespace">Whitespace</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#2607"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(other: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt; | U, pz.Token&lt;JsonToken&gt;&gt;">or</span></a><span class="punctuation">(</span><a href="jsonparser.html#2516"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">comment</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#4151"><span class="member" data-toggle="tooltip" data-title="() =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">zeroOrMore</span></a><span class="punctuation">(</span><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="2637" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">number</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#706"><span data-toggle="tooltip" data-title="JsonToken.Number">Number</span></a><span class="punctuation">,</span> <span class="string">&quot;&lt;number&gt;&quot;</span><span class="punctuation">)</span>
-    <span class="punctuation">.</span><a href="../parser.html#2286"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: pz.Token&lt;JsonToken&gt;) =&gt; U) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">map</span></a><span class="punctuation">(</span><span id="2699" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span> <span class="punctuation">=&gt;</span> <span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">&gt;</span><span class="typename" data-toggle="tooltip" data-title="NumberConstructor">Number</span><span class="punctuation">(</span><a href="jsonparser.html#2699"><span data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span></a><span class="punctuation">.</span><a href="../lexer.html#1456"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="2754" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">string</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#714"><span data-toggle="tooltip" data-title="JsonToken.String">String</span></a><span class="punctuation">,</span> <span class="string">&quot;&lt;string&gt;&quot;</span><span class="punctuation">)</span>
-    <span class="punctuation">.</span><a href="../parser.html#2286"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: pz.Token&lt;JsonToken&gt;) =&gt; U) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">map</span></a><span class="punctuation">(</span><span id="2816" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span> <span class="punctuation">=&gt;</span> <span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">&gt;</span><span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(text: string, reviver?: ((this: any, key: string, value: any) =&gt; any) | undefined) =&gt; any">parse</span><span class="punctuation">(</span><a href="jsonparser.html#2816"><span data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span></a><span class="punctuation">.</span><a href="../lexer.html#1456"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="2875" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">littrue</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#613"><span data-toggle="tooltip" data-title="JsonToken.True">True</span></a><span class="punctuation">,</span> <span class="string">&quot;true&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#2286"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: pz.Token&lt;JsonToken&gt;) =&gt; U) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">map</span></a><span class="punctuation">(</span><span id="2926" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span> <span class="punctuation">=&gt;</span> <span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">&gt;</span><span class="keyword">true</span><span class="punctuation">)</span>
-    <span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="2977" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">litfalse</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#624"><span data-toggle="tooltip" data-title="JsonToken.False">False</span></a><span class="punctuation">,</span> <span class="string">&quot;false&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#2286"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: pz.Token&lt;JsonToken&gt;) =&gt; U) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">map</span></a><span class="punctuation">(</span><span id="3031" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span> <span class="punctuation">=&gt;</span> <span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">&gt;</span><span class="keyword">false</span><span class="punctuation">)</span>
-    <span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="3083" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">litnull</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#631"><span data-toggle="tooltip" data-title="JsonToken.Null">Null</span></a><span class="punctuation">,</span> <span class="string">&quot;null&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#2286"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: pz.Token&lt;JsonToken&gt;) =&gt; U) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">map</span></a><span class="punctuation">(</span><span id="3134" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span> <span class="punctuation">=&gt;</span> <span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">&gt;</span><span class="keyword">null</span><span class="punctuation">)</span>
-    <span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="3185" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">comma</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#687"><span data-toggle="tooltip" data-title="JsonToken.Comma">Comma</span></a><span class="punctuation">,</span> <span class="string">&quot;,&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="3257" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">colon</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#694"><span data-toggle="tooltip" data-title="JsonToken.Colon">Colon</span></a><span class="punctuation">,</span> <span class="string">&quot;:&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="3329" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">beginarray</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#660"><span data-toggle="tooltip" data-title="JsonToken.LeftBracket">LeftBracket</span></a><span class="punctuation">,</span> <span class="string">&quot;[&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="3412" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">endarray</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#673"><span data-toggle="tooltip" data-title="JsonToken.RightBracket">RightBracket</span></a><span class="punctuation">,</span> <span class="string">&quot;]&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="3494" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">beginobject</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#637"><span data-toggle="tooltip" data-title="JsonToken.LeftBrace">LeftBrace</span></a><span class="punctuation">,</span> <span class="string">&quot;{&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="3576" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">endobject</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#648"><span data-toggle="tooltip" data-title="JsonToken.RightBrace">RightBrace</span></a><span class="punctuation">,</span> <span class="string">&quot;}&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="3657" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">eof</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#743"><span data-toggle="tooltip" data-title="JsonToken.EOF">EOF</span></a><span class="punctuation">,</span> <span class="string">&quot;&lt;end of input&gt;&quot;</span><span class="punctuation">)</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">const</span> <span id="2501" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">comment</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17483"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(token: T) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">token</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#734"><span data-toggle="tooltip" data-title="JsonToken.Comment">Comment</span></a><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="2546" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17483"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(token: T) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">token</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#722"><span data-toggle="tooltip" data-title="JsonToken.Whitespace">Whitespace</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#2607"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(other: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt; | U, pz.Token&lt;JsonToken&gt;&gt;">or</span></a><span class="punctuation">(</span><a href="jsonparser.html#2501"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">comment</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#4151"><span class="member" data-toggle="tooltip" data-title="() =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">zeroOrMore</span></a><span class="punctuation">(</span><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="2622" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">number</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#706"><span data-toggle="tooltip" data-title="JsonToken.Number">Number</span></a><span class="punctuation">,</span> <span class="string">&quot;&lt;number&gt;&quot;</span><span class="punctuation">)</span>
+    <span class="punctuation">.</span><a href="../parser.html#2286"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: pz.Token&lt;JsonToken&gt;) =&gt; U) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">map</span></a><span class="punctuation">(</span><span id="2684" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span> <span class="punctuation">=&gt;</span> <span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">&gt;</span><span class="typename" data-toggle="tooltip" data-title="NumberConstructor">Number</span><span class="punctuation">(</span><a href="jsonparser.html#2684"><span data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span></a><span class="punctuation">.</span><a href="../lexer.html#1456"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2546"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="2739" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">string</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#714"><span data-toggle="tooltip" data-title="JsonToken.String">String</span></a><span class="punctuation">,</span> <span class="string">&quot;&lt;string&gt;&quot;</span><span class="punctuation">)</span>
+    <span class="punctuation">.</span><a href="../parser.html#2286"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: pz.Token&lt;JsonToken&gt;) =&gt; U) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">map</span></a><span class="punctuation">(</span><span id="2801" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span> <span class="punctuation">=&gt;</span> <span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">&gt;</span><span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(text: string, reviver?: ((this: any, key: string, value: any) =&gt; any) | undefined) =&gt; any">parse</span><span class="punctuation">(</span><a href="jsonparser.html#2801"><span data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span></a><span class="punctuation">.</span><a href="../lexer.html#1456"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2546"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="2860" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">littrue</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#613"><span data-toggle="tooltip" data-title="JsonToken.True">True</span></a><span class="punctuation">,</span> <span class="string">&quot;true&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#2286"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: pz.Token&lt;JsonToken&gt;) =&gt; U) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">map</span></a><span class="punctuation">(</span><span id="2911" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span> <span class="punctuation">=&gt;</span> <span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">&gt;</span><span class="keyword">true</span><span class="punctuation">)</span>
+    <span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2546"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="2962" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">litfalse</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#624"><span data-toggle="tooltip" data-title="JsonToken.False">False</span></a><span class="punctuation">,</span> <span class="string">&quot;false&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#2286"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: pz.Token&lt;JsonToken&gt;) =&gt; U) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">map</span></a><span class="punctuation">(</span><span id="3016" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span> <span class="punctuation">=&gt;</span> <span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">&gt;</span><span class="keyword">false</span><span class="punctuation">)</span>
+    <span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2546"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="3068" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">litnull</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#631"><span data-toggle="tooltip" data-title="JsonToken.Null">Null</span></a><span class="punctuation">,</span> <span class="string">&quot;null&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#2286"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: pz.Token&lt;JsonToken&gt;) =&gt; U) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">map</span></a><span class="punctuation">(</span><span id="3119" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">t</span> <span class="punctuation">=&gt;</span> <span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">&gt;</span><span class="keyword">null</span><span class="punctuation">)</span>
+    <span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2546"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="3170" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">comma</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#687"><span data-toggle="tooltip" data-title="JsonToken.Comma">Comma</span></a><span class="punctuation">,</span> <span class="string">&quot;,&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2546"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="3242" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">colon</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#694"><span data-toggle="tooltip" data-title="JsonToken.Colon">Colon</span></a><span class="punctuation">,</span> <span class="string">&quot;:&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2546"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="3314" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">beginarray</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#660"><span data-toggle="tooltip" data-title="JsonToken.LeftBracket">LeftBracket</span></a><span class="punctuation">,</span> <span class="string">&quot;[&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2546"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="3397" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">endarray</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#673"><span data-toggle="tooltip" data-title="JsonToken.RightBracket">RightBracket</span></a><span class="punctuation">,</span> <span class="string">&quot;]&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2546"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="3479" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">beginobject</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#637"><span data-toggle="tooltip" data-title="JsonToken.LeftBrace">LeftBrace</span></a><span class="punctuation">,</span> <span class="string">&quot;{&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2546"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="3561" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">endobject</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#648"><span data-toggle="tooltip" data-title="JsonToken.RightBrace">RightBrace</span></a><span class="punctuation">,</span> <span class="string">&quot;}&quot;</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#2546"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="3642" data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">eof</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#17684"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; pz.Parser&lt;pz.Token&lt;T&gt;, pz.Token&lt;T&gt;&gt;">terminal</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#743"><span data-toggle="tooltip" data-title="JsonToken.EOF">EOF</span></a><span class="punctuation">,</span> <span class="string">&quot;&lt;end of input&gt;&quot;</span><span class="punctuation">)</span>
 </code></pre>
 <h2 id="nonterminals">Nonterminals</h2>
 <p>Now we can define parsers for nonterminals, the abstract and recursive part
 of the grammar. <code>element</code> is a recursive parsing rule that we need to define
 later since it depends on other rules. We create a reference cell for it and
 then define that multiple elements can be separated by comma.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">const</span> <span id="4062" data-toggle="tooltip" data-title="pz.Ref&lt;pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;&gt;">element</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../ref.html#0"><span class="typename" data-toggle="tooltip" data-title="typeof pz.Ref">Ref</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="any">pz</span></a><span class="punctuation">.</span><a href="../parser.html#870"><span class="typename" data-toggle="tooltip" data-title="pz.Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">,</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="any">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="pz.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">)</span>
-<span class="keyword">const</span> <span id="4129" data-toggle="tooltip" data-title="pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">elements</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#16514"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: pz.Ref&lt;pz.Parser&lt;T, S&gt;&gt;) =&gt; pz.Parser&lt;T, S&gt;">forwardRef</span></a><span class="punctuation">(</span><a href="jsonparser.html#4062"><span data-toggle="tooltip" data-title="pz.Ref&lt;pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;&gt;">element</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#700"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(separator: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">zeroOrMoreSeparatedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#3185"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">comma</span></a><span class="punctuation">)</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">const</span> <span id="4047" data-toggle="tooltip" data-title="pz.Ref&lt;pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;&gt;">element</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../ref.html#0"><span class="typename" data-toggle="tooltip" data-title="typeof pz.Ref">Ref</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="any">pz</span></a><span class="punctuation">.</span><a href="../parser.html#870"><span class="typename" data-toggle="tooltip" data-title="pz.Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">,</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="any">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="pz.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="4114" data-toggle="tooltip" data-title="pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">elements</span> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#16514"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: pz.Ref&lt;pz.Parser&lt;T, S&gt;&gt;) =&gt; pz.Parser&lt;T, S&gt;">forwardRef</span></a><span class="punctuation">(</span><a href="jsonparser.html#4047"><span data-toggle="tooltip" data-title="pz.Ref&lt;pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;&gt;">element</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#700"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(separator: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">zeroOrMoreSeparatedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#3170"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">comma</span></a><span class="punctuation">)</span>
     <span class="punctuation">.</span><a href="../parser.html#8242"><span class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">trace</span></a><span class="punctuation">(</span><span class="string">&quot;elements&quot;</span><span class="punctuation">)</span>
 </code></pre>
 <p>An array consists of list of elements separated by comma and bracketed by
 <code>[</code> and <code>]</code>.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">const</span> <span id="4329" data-toggle="tooltip" data-title="pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">array</span> <span class="punctuation">=</span> <a href="jsonparser.html#4129"><span data-toggle="tooltip" data-title="pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">elements</span></a><span class="punctuation">.</span><a href="../arrayparsers.html#896"><span class="member" data-toggle="tooltip" data-title="&lt;U, V&gt;(open: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;, close: pz.Parser&lt;V, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">bracketedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#3329"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">beginarray</span></a><span class="punctuation">,</span> <a href="jsonparser.html#3412"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">endarray</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#8242"><span class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">trace</span></a><span class="punctuation">(</span><span class="string">&quot;array&quot;</span><span class="punctuation">)</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">const</span> <span id="4314" data-toggle="tooltip" data-title="pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">array</span> <span class="punctuation">=</span> <a href="jsonparser.html#4114"><span data-toggle="tooltip" data-title="pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">elements</span></a><span class="punctuation">.</span><a href="../arrayparsers.html#896"><span class="member" data-toggle="tooltip" data-title="&lt;U, V&gt;(open: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;, close: pz.Parser&lt;V, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">bracketedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#3314"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">beginarray</span></a><span class="punctuation">,</span> <a href="jsonparser.html#3397"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">endarray</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#8242"><span class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">trace</span></a><span class="punctuation">(</span><span class="string">&quot;array&quot;</span><span class="punctuation">)</span>
 </code></pre>
 <p>A member (of an object) consist of a string key, a colon, and an element.
 The <code>member</code> parser returns a [<em>key</em>, <em>value</em>] pair. The <code>members</code> parses a
 list of members separated by commas and returns array of pairs.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">const</span> <span id="4640" data-toggle="tooltip" data-title="pz.Parser&lt;[string, any], pz.Token&lt;JsonToken&gt;&gt;">member</span> <span class="punctuation">=</span> <a href="jsonparser.html#2754"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">string</span></a><span class="punctuation">.</span><a href="../parser.html#1229"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: any) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">bind</span></a><span class="punctuation">(</span>
-        <span id="4662" data-toggle="tooltip" data-title="any">s</span> <span class="punctuation">=&gt;</span> <a href="jsonparser.html#3257"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">colon</span></a><span class="punctuation">.</span><a href="../parser.html#1229"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: pz.Token&lt;JsonToken&gt;) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">bind</span></a><span class="punctuation">(</span>
-        <span id="4688" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">c</span> <span class="punctuation">=&gt;</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#16514"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: pz.Ref&lt;pz.Parser&lt;T, S&gt;&gt;) =&gt; pz.Parser&lt;T, S&gt;">forwardRef</span></a><span class="punctuation">(</span><a href="jsonparser.html#4062"><span data-toggle="tooltip" data-title="pz.Ref&lt;pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;&gt;">element</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#1229"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: any) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">bind</span></a><span class="punctuation">(</span>
-        <span id="4731" data-toggle="tooltip" data-title="any">e</span> <span class="punctuation">=&gt;</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#11476"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(value: T) =&gt; pz.Parser&lt;T, S&gt;">mret</span></a><span class="punctuation">(</span><span class="punctuation">&lt;</span><span class="punctuation">[</span><span class="keyword">string</span><span class="punctuation">,</span> <span class="keyword">any</span><span class="punctuation">]</span><span class="punctuation">&gt;</span><span class="punctuation">[</span><a href="jsonparser.html#4662"><span data-toggle="tooltip" data-title="any">s</span></a><span class="punctuation">,</span> <a href="jsonparser.html#4731"><span data-toggle="tooltip" data-title="any">e</span></a><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">const</span> <span id="4625" data-toggle="tooltip" data-title="pz.Parser&lt;[string, any], pz.Token&lt;JsonToken&gt;&gt;">member</span> <span class="punctuation">=</span> <a href="jsonparser.html#2739"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">string</span></a><span class="punctuation">.</span><a href="../parser.html#1229"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: any) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">bind</span></a><span class="punctuation">(</span>
+        <span id="4647" data-toggle="tooltip" data-title="any">s</span> <span class="punctuation">=&gt;</span> <a href="jsonparser.html#3242"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">colon</span></a><span class="punctuation">.</span><a href="../parser.html#1229"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: pz.Token&lt;JsonToken&gt;) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">bind</span></a><span class="punctuation">(</span>
+        <span id="4673" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">c</span> <span class="punctuation">=&gt;</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#16514"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: pz.Ref&lt;pz.Parser&lt;T, S&gt;&gt;) =&gt; pz.Parser&lt;T, S&gt;">forwardRef</span></a><span class="punctuation">(</span><a href="jsonparser.html#4047"><span data-toggle="tooltip" data-title="pz.Ref&lt;pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;&gt;">element</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#1229"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: any) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">bind</span></a><span class="punctuation">(</span>
+        <span id="4716" data-toggle="tooltip" data-title="any">e</span> <span class="punctuation">=&gt;</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#11476"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(value: T) =&gt; pz.Parser&lt;T, S&gt;">mret</span></a><span class="punctuation">(</span><span class="punctuation">&lt;</span><span class="punctuation">[</span><span class="keyword">string</span><span class="punctuation">,</span> <span class="keyword">any</span><span class="punctuation">]</span><span class="punctuation">&gt;</span><span class="punctuation">[</span><a href="jsonparser.html#4647"><span data-toggle="tooltip" data-title="any">s</span></a><span class="punctuation">,</span> <a href="jsonparser.html#4716"><span data-toggle="tooltip" data-title="any">e</span></a><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span>
         <span class="punctuation">.</span><a href="../parser.html#8242"><span class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; pz.Parser&lt;[string, any], pz.Token&lt;JsonToken&gt;&gt;">trace</span></a><span class="punctuation">(</span><span class="string">&quot;member&quot;</span><span class="punctuation">)</span>                        
-<span class="keyword">const</span> <span id="4836" data-toggle="tooltip" data-title="pz.Parser&lt;[string, any][], pz.Token&lt;JsonToken&gt;&gt;">members</span> <span class="punctuation">=</span> <a href="jsonparser.html#4640"><span data-toggle="tooltip" data-title="pz.Parser&lt;[string, any], pz.Token&lt;JsonToken&gt;&gt;">member</span></a><span class="punctuation">.</span><a href="../arrayparsers.html#700"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(separator: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;[string, any][], pz.Token&lt;JsonToken&gt;&gt;">zeroOrMoreSeparatedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#3185"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">comma</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#8242"><span class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; pz.Parser&lt;[string, any][], pz.Token&lt;JsonToken&gt;&gt;">trace</span></a><span class="punctuation">(</span><span class="string">&quot;members&quot;</span><span class="punctuation">)</span>
+<span class="keyword">const</span> <span id="4821" data-toggle="tooltip" data-title="pz.Parser&lt;[string, any][], pz.Token&lt;JsonToken&gt;&gt;">members</span> <span class="punctuation">=</span> <a href="jsonparser.html#4625"><span data-toggle="tooltip" data-title="pz.Parser&lt;[string, any], pz.Token&lt;JsonToken&gt;&gt;">member</span></a><span class="punctuation">.</span><a href="../arrayparsers.html#700"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(separator: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;[string, any][], pz.Token&lt;JsonToken&gt;&gt;">zeroOrMoreSeparatedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#3170"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">comma</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#8242"><span class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; pz.Parser&lt;[string, any][], pz.Token&lt;JsonToken&gt;&gt;">trace</span></a><span class="punctuation">(</span><span class="string">&quot;members&quot;</span><span class="punctuation">)</span>
 </code></pre>
 <p>An object is list of members surrounded by <code>{</code> and <code>}</code>. The parser returns a
 JavaScript object which is created by the <code>initObject</code> helper function. It
 constructs an object from an array of [<em>key</em>, <em>value</em>] pairs.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">const</span> <span id="5144" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">object</span> <span class="punctuation">=</span> <a href="jsonparser.html#4836"><span data-toggle="tooltip" data-title="pz.Parser&lt;[string, any][], pz.Token&lt;JsonToken&gt;&gt;">members</span></a><span class="punctuation">.</span><a href="../arrayparsers.html#896"><span class="member" data-toggle="tooltip" data-title="&lt;U, V&gt;(open: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;, close: pz.Parser&lt;V, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;[string, any][], pz.Token&lt;JsonToken&gt;&gt;">bracketedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#3494"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">beginobject</span></a><span class="punctuation">,</span> <a href="jsonparser.html#3576"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">endobject</span></a><span class="punctuation">)</span>
-    <span class="punctuation">.</span><a href="../parser.html#2286"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: [string, any][]) =&gt; U) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">map</span></a><span class="punctuation">(</span><span id="5208" data-toggle="tooltip" data-title="[string, any][]">ms</span> <span class="punctuation">=&gt;</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../utils.html#0"><span class="member" data-toggle="tooltip" data-title="(members: [string, any][]) =&gt; any">initObject</span></a><span class="punctuation">(</span><a href="jsonparser.html#5208"><span data-toggle="tooltip" data-title="[string, any][]">ms</span></a><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#8242"><span class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">trace</span></a><span class="punctuation">(</span><span class="string">&quot;object&quot;</span><span class="punctuation">)</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">const</span> <span id="5129" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">object</span> <span class="punctuation">=</span> <a href="jsonparser.html#4821"><span data-toggle="tooltip" data-title="pz.Parser&lt;[string, any][], pz.Token&lt;JsonToken&gt;&gt;">members</span></a><span class="punctuation">.</span><a href="../arrayparsers.html#896"><span class="member" data-toggle="tooltip" data-title="&lt;U, V&gt;(open: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;, close: pz.Parser&lt;V, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;[string, any][], pz.Token&lt;JsonToken&gt;&gt;">bracketedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#3479"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">beginobject</span></a><span class="punctuation">,</span> <a href="jsonparser.html#3561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">endobject</span></a><span class="punctuation">)</span>
+    <span class="punctuation">.</span><a href="../parser.html#2286"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: [string, any][]) =&gt; U) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">map</span></a><span class="punctuation">(</span><span id="5193" data-toggle="tooltip" data-title="[string, any][]">ms</span> <span class="punctuation">=&gt;</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../utils.html#0"><span class="member" data-toggle="tooltip" data-title="(members: [string, any][]) =&gt; any">initObject</span></a><span class="punctuation">(</span><a href="jsonparser.html#5193"><span data-toggle="tooltip" data-title="[string, any][]">ms</span></a><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#8242"><span class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">trace</span></a><span class="punctuation">(</span><span class="string">&quot;object&quot;</span><span class="punctuation">)</span>
 </code></pre>
 <p>Now we can define the <code>element</code> rule. It chooses the next parser to be
 applied based on a lookahead token. If it is a left brace or bracket, we
@@ -282,24 +472,24 @@ parse an object or an array respectively. If it is a primitive element
 (string, number, boolean, or null), we jump directly to the correct parser.
 This speeds up parsing as we don't need to use the <code>or</code> combinator, which
 tries alternative parsers in turn.</p>
-<pre class="syntaxhighlight"><code><a href="jsonparser.html#4062"><span data-toggle="tooltip" data-title="pz.Ref&lt;pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;&gt;">element</span></a><span class="punctuation">.</span><a href="../ref.html#750"><span class="member" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">target</span></a> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#14060"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(selector: (input: S) =&gt; pz.Parser&lt;T, S&gt;) =&gt; pz.Parser&lt;T, S&gt;">choose</span></a><span class="punctuation">(</span>
-    <span class="punctuation">(</span><span id="5727" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">token</span><span class="punctuation">:</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="any">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="pz.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
-        <span class="keyword">switch</span> <span class="punctuation">(</span><a href="jsonparser.html#5727"><span data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">token</span></a><span class="punctuation">.</span><a href="../lexer.html#1438"><span data-toggle="tooltip" data-title="JsonToken">token</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
-            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#637"><span data-toggle="tooltip" data-title="JsonToken.LeftBrace">LeftBrace</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#5144"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">object</span></a>
-            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#660"><span data-toggle="tooltip" data-title="JsonToken.LeftBracket">LeftBracket</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#4329"><span data-toggle="tooltip" data-title="pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">array</span></a>
-            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#714"><span data-toggle="tooltip" data-title="JsonToken.String">String</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#2754"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">string</span></a>
-            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#706"><span data-toggle="tooltip" data-title="JsonToken.Number">Number</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#2637"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">number</span></a>
-            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#613"><span data-toggle="tooltip" data-title="JsonToken.True">True</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#2875"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">littrue</span></a>
-            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#624"><span data-toggle="tooltip" data-title="JsonToken.False">False</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#2977"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">litfalse</span></a>
-            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#631"><span data-toggle="tooltip" data-title="JsonToken.Null">Null</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#3083"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">litnull</span></a>
-            <span class="keyword">default</span><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#11840"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(found: string, ...expected: string[]) =&gt; pz.Parser&lt;T, S&gt;">fail</span></a><span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">,</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="any">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="pz.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><a href="jsonparser.html#5727"><span data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">token</span></a><span class="punctuation">.</span><a href="../lexer.html#1456"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">,</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><a href="jsonparser.html#4047"><span data-toggle="tooltip" data-title="pz.Ref&lt;pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;&gt;">element</span></a><span class="punctuation">.</span><a href="../ref.html#750"><span class="member" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">target</span></a> <span class="punctuation">=</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#14060"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(selector: (input: S) =&gt; pz.Parser&lt;T, S&gt;) =&gt; pz.Parser&lt;T, S&gt;">choose</span></a><span class="punctuation">(</span>
+    <span class="punctuation">(</span><span id="5712" data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">token</span><span class="punctuation">:</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="any">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="pz.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
+        <span class="keyword">switch</span> <span class="punctuation">(</span><a href="jsonparser.html#5712"><span data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">token</span></a><span class="punctuation">.</span><a href="../lexer.html#1438"><span data-toggle="tooltip" data-title="JsonToken">token</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#637"><span data-toggle="tooltip" data-title="JsonToken.LeftBrace">LeftBrace</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#5129"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">object</span></a>
+            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#660"><span data-toggle="tooltip" data-title="JsonToken.LeftBracket">LeftBracket</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#4314"><span data-toggle="tooltip" data-title="pz.Parser&lt;any[], pz.Token&lt;JsonToken&gt;&gt;">array</span></a>
+            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#714"><span data-toggle="tooltip" data-title="JsonToken.String">String</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#2739"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">string</span></a>
+            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#706"><span data-toggle="tooltip" data-title="JsonToken.Number">Number</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#2622"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">number</span></a>
+            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#613"><span data-toggle="tooltip" data-title="JsonToken.True">True</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#2860"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">littrue</span></a>
+            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#624"><span data-toggle="tooltip" data-title="JsonToken.False">False</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#2962"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">litfalse</span></a>
+            <span class="keyword">case</span> <a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#631"><span data-toggle="tooltip" data-title="JsonToken.Null">Null</span></a><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#3068"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">litnull</span></a>
+            <span class="keyword">default</span><span class="punctuation">:</span> <span class="keyword">return</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#11840"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(found: string, ...expected: string[]) =&gt; pz.Parser&lt;T, S&gt;">fail</span></a><span class="punctuation">&lt;</span><span class="keyword">any</span><span class="punctuation">,</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="any">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="pz.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><a href="jsonparser.html#5712"><span data-toggle="tooltip" data-title="pz.Token&lt;JsonToken&gt;">token</span></a><span class="punctuation">.</span><a href="../lexer.html#1456"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">,</span>
                 <span class="string">&quot;{&quot;</span><span class="punctuation">,</span> <span class="string">&quot;[&quot;</span><span class="punctuation">,</span> <span class="string">&quot;&lt;string&gt;&quot;</span><span class="punctuation">,</span> <span class="string">&quot;&lt;number&gt;&quot;</span><span class="punctuation">,</span> <span class="string">&quot;true&quot;</span><span class="punctuation">,</span> <span class="string">&quot;false&quot;</span><span class="punctuation">,</span> <span class="string">&quot;null&quot;</span><span class="punctuation">)</span>
         <span class="punctuation">}</span>
     <span class="punctuation">}</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#8242"><span class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">trace</span></a><span class="punctuation">(</span><span class="string">&quot;element&quot;</span><span class="punctuation">)</span>
 </code></pre>
 <p>Finally we can define the root parser for JSON. It is just an <code>element</code>
 parser preceded by optional whitespace.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">const</span> <span id="6473" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">json</span> <span class="punctuation">=</span> <a href="jsonparser.html#2561"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">.</span><a href="../parser.html#2035"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(other: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">seq</span></a><span class="punctuation">(</span><a href="jsonparser.html#4062"><span data-toggle="tooltip" data-title="pz.Ref&lt;pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;&gt;">element</span></a><span class="punctuation">.</span><a href="../ref.html#750"><span class="member" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">target</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#3657"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">eof</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#8242"><span class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">trace</span></a><span class="punctuation">(</span><span class="string">&quot;json&quot;</span><span class="punctuation">)</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">const</span> <span id="6458" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">json</span> <span class="punctuation">=</span> <a href="jsonparser.html#2546"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;[], pz.Token&lt;JsonToken&gt;&gt;">whitespace</span></a><span class="punctuation">.</span><a href="../parser.html#2035"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(other: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;">seq</span></a><span class="punctuation">(</span><a href="jsonparser.html#4047"><span data-toggle="tooltip" data-title="pz.Ref&lt;pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;&gt;">element</span></a><span class="punctuation">.</span><a href="../ref.html#750"><span class="member" data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">target</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../arrayparsers.html#775"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(after: pz.Parser&lt;U, pz.Token&lt;JsonToken&gt;&gt;) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">followedBy</span></a><span class="punctuation">(</span><a href="jsonparser.html#3642"><span data-toggle="tooltip" data-title="pz.Parser&lt;pz.Token&lt;JsonToken&gt;, pz.Token&lt;JsonToken&gt;&gt;">eof</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="../parser.html#8242"><span class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">trace</span></a><span class="punctuation">(</span><span class="string">&quot;json&quot;</span><span class="punctuation">)</span>
 </code></pre>
 <p>If you compare the definitions above to the official grammar in <a href="https://www.json.org">json.org</a>,
 you'll find that they are almost identical. The only difference is that we
@@ -309,34 +499,90 @@ grammar to Parzec combinators.</p>
 <h2 id="exported-parsing-functions">Exported Parsing Functions</h2>
 <p>First we provide a function that creates a lexer input stream for a JSON
 string.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="6541" class="member" data-toggle="tooltip" data-title="(text: string) =&gt; pz.ParserInput&lt;pz.Token&lt;JsonToken&gt;&gt;">jsonInput</span><span class="punctuation">(</span><span id="7069" data-toggle="tooltip" data-title="string">text</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="any">pz</span></a><span class="punctuation">.</span><a href="../input.html#0"><span class="typename" data-toggle="tooltip" data-title="pz.ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="any">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="pz.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
-    <span class="keyword">return</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#5367"><span class="member" data-toggle="tooltip" data-title="&lt;S&gt;(text: string, lexer: pz.Lexer&lt;S&gt;, eof: pz.Token&lt;S&gt;) =&gt; pz.ParserInput&lt;pz.Token&lt;S&gt;&gt;">lexerInput</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span></a><span class="punctuation">&gt;</span><span class="punctuation">(</span><a href="jsonparser.html#7069"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">,</span> <a href="jsonparser.html#1564"><span data-toggle="tooltip" data-title="pz.Lexer&lt;JsonToken&gt;">lexer</span></a><span class="punctuation">,</span> 
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="6526" class="member" data-toggle="tooltip" data-title="(text: string) =&gt; pz.ParserInput&lt;pz.Token&lt;JsonToken&gt;&gt;">jsonInput</span><span class="punctuation">(</span><span id="7054" data-toggle="tooltip" data-title="string">text</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="any">pz</span></a><span class="punctuation">.</span><a href="../input.html#0"><span class="typename" data-toggle="tooltip" data-title="pz.ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="any">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="pz.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+    <span class="keyword">return</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#5367"><span class="member" data-toggle="tooltip" data-title="&lt;S&gt;(text: string, lexer: pz.Lexer&lt;S&gt;, eof: pz.Token&lt;S&gt;) =&gt; pz.ParserInput&lt;pz.Token&lt;S&gt;&gt;">lexerInput</span></a><span class="punctuation">&lt;</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="JsonToken">JsonToken</span></a><span class="punctuation">&gt;</span><span class="punctuation">(</span><a href="jsonparser.html#7054"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">,</span> <a href="jsonparser.html#1549"><span data-toggle="tooltip" data-title="pz.Lexer&lt;JsonToken&gt;">lexer</span></a><span class="punctuation">,</span> 
         <span class="keyword">new</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="typeof pz.Token">Token</span></a><span class="punctuation">(</span><a href="jsonparser.html#408"><span class="typename" data-toggle="tooltip" data-title="typeof JsonToken">JsonToken</span></a><span class="punctuation">.</span><a href="jsonparser.html#743"><span data-toggle="tooltip" data-title="JsonToken.EOF">EOF</span></a><span class="punctuation">,</span> <span class="string">&quot;&lt;end of input&gt;&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">;</span>
 <span class="punctuation">}</span>
 </code></pre>
 <p>Then we can define a function that takes a string and returns a JS object.
 It throws an exception, if parsing fails. So, it works the same way as
 <code>JSON.parse</code>.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="7232" class="member" data-toggle="tooltip" data-title="(text: string) =&gt; any">parseJson</span><span class="punctuation">(</span><span id="7444" data-toggle="tooltip" data-title="string">text</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span><span class="punctuation">:</span> <span class="keyword">any</span> <span class="punctuation">{</span>
-    <span class="keyword">return</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#11096"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: pz.Parser&lt;T, S&gt;, input: pz.ParserInput&lt;S&gt;) =&gt; T">parse</span></a><span class="punctuation">(</span><a href="jsonparser.html#6473"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">json</span></a><span class="punctuation">,</span> <a href="jsonparser.html#6541"><span class="member" data-toggle="tooltip" data-title="(text: string) =&gt; pz.ParserInput&lt;pz.Token&lt;JsonToken&gt;&gt;">jsonInput</span></a><span class="punctuation">(</span><a href="jsonparser.html#7444"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="7217" class="member" data-toggle="tooltip" data-title="(text: string) =&gt; any">parseJson</span><span class="punctuation">(</span><span id="7429" data-toggle="tooltip" data-title="string">text</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span><span class="punctuation">:</span> <span class="keyword">any</span> <span class="punctuation">{</span>
+    <span class="keyword">return</span> <a href="jsonparser.html#389"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../parser.html#11096"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: pz.Parser&lt;T, S&gt;, input: pz.ParserInput&lt;S&gt;) =&gt; T">parse</span></a><span class="punctuation">(</span><a href="jsonparser.html#6458"><span data-toggle="tooltip" data-title="pz.Parser&lt;any, pz.Token&lt;JsonToken&gt;&gt;">json</span></a><span class="punctuation">,</span> <a href="jsonparser.html#6526"><span class="member" data-toggle="tooltip" data-title="(text: string) =&gt; pz.ParserInput&lt;pz.Token&lt;JsonToken&gt;&gt;">jsonInput</span></a><span class="punctuation">(</span><a href="jsonparser.html#7429"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 
-        
-    </div>
-            <div class="stickypane">
+        </div>
+            <div class="sidepane narrow-scrollbars">
                 
-    <div class="pagemenu">
-        <h3>On This Page</h3>
-            <ul class="pagetree">
-                
-            </ul>
-    </div>
-                
+        <div class="pagemenu">
+            <h3>On This Page</h3>
+                <ul class="pagetree">
+                </ul>
+        </div>
             </div>
         </div>
-    </div>
-    <script src="../../js/main.js"></script>
+        
+        <div class="footer">
+            <a class="footer-button" href="exprtests.html">
+            <p>Previous</p>
+            <p>« Testing the Expression Parser</p>
+        </a>
+            <div class="footer-text">
+                <p>Copyright © 2020 Tommi Johtela</p>
+                <p>Generated by 
+                    <a href="https://johtela.github.io/litscript">LiTScript</a>
+                </p>
+            </div>
+            <a class="footer-button" href="jsontests.html">
+            <p>Next</p>
+            <p>Testing the JSON Parser »</p>
+        </a>
+        </div>
     
-</body>
-</html>
+        <script src="../../dist/normal.js"></script>
+
+    <script>
+      function reloadLink(path) {
+        for (const link of document.getElementsByTagName("link")) {
+          const url = new URL(link.href)
+          if (url.host == location.host && url.pathname == path) {
+            const next = link.cloneNode()
+            next.href = path + '?' + Math.random().toString(36).slice(2)
+            next.onload = () => link.remove()
+            link.parentNode.insertBefore(next, link.nextSibling)
+            return
+          }
+        }
+      }
+      function scriptLoaded(path) {
+        for (const script of document.getElementsByTagName("script"))
+          if (script.src) {
+            const url = new URL(script.src)
+            if (url.host == location.host && url.pathname == path)
+              return true
+          }
+        return false
+      }
+      let ls = new EventSource('/litscript')
+      ls.onmessage = e => {
+        let updated = JSON.parse(e.data)
+        for (let i = 0; i < updated.length; ++i) {
+          let path = updated[i]
+          if (path.endsWith(".js")) {
+            if (scriptLoaded(path))
+              return location.reload()
+          }
+          else if (path.endsWith(".html")) {
+            if (path == location.pathname || 
+              (path.endsWith("index.html") && 
+                path.substring(0, path.length - 10) == location.pathname))
+              return location.reload()
+          }
+          else reloadLink(path)
+        }
+      }
+      window.addEventListener("beforeunload", () => ls.close())
+    </script>
+    </body>
+    </html>

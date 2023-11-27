@@ -3,7 +3,7 @@
         "node_modules",
         "lib",
         "testdata",
-        "src/visualizers/*"
+        "src/components/*"
     ],
     "updateToc": true,
     "frontMatter": {
@@ -11,9 +11,6 @@
         "repository": "https://github.com/johtela/parzec",
         "download": "https://www.npmjs.com/package/parzec",
         "footer": "Copyright © 2020 Tommi Johtela",
-        "footerLocation": "toc-menu",
-        "userTheme": "./user-theme.less",
-        "logo": "images/millenniumfalcon_88882.svg",
-        "syntaxHighlight": "solarized-light"
+        "logo": "images/millenniumfalcon_88882.svg"
     }
 }

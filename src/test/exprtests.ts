@@ -1,12 +1,7 @@
 /**
  * ---
  * {
- *  "visualizers": [
- *      {
- *          "path": "./src/visualizers/run-expr-tests.ts",
- *          "includeStyles": true
- *      }
- *  ]
+ *  "modules": [ "./src/components/run-expr-tests.ts" ]
  * }
  * ---
  * 
@@ -15,7 +10,7 @@
  * The easiest way to test our parser is to manually input some expressions 
  * (press `Enter` to calculate).
  * 
- * <<v:calculator>>
+ * <calculator-tests></calculator-tests>
  * 
  * But this becomes tedious soon, so let's write some automatic tests as well.
  * We use the `test` function from the **lits-extras** package.
@@ -74,7 +69,7 @@ test("Test failing expressions", async t => {
  * generate it with fast-check. It produces test cases we would very unlikely 
  * come up with ourselves. You can press `F5` to rerun the tests.
  * 
- * <<v:run-expr-tests Expression tests>>
+ * <test-runner name="Expression tests"></test-runner>
  * 
  * ### Generating Arbitrary Expressions
  * 

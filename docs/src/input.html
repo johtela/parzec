@@ -1,202 +1,392 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>parzec - Parser Input</title>
-    <link rel="icon" type="image/icon" href="../images/favicon.png" />
-    <link rel="stylesheet" href="../css/main.css" />
-    
-    
-</head>
-<body>
-    
-    <div class="navbar">
-        <div class="navmenu">
-            
-    <a class="title enabled" href="../index.html">
-        <img src="../images/millenniumfalcon_88882.svg" />
-        <span>parzec</span>
-    </a>
-    <a class="enabled" href="https://www.npmjs.com/package/parzec">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"/></svg>
-        <span>Download</span>
-    </a>
-    <a class="enabled" href="https://github.com/johtela/parzec">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-        <span>GitHub</span>
-    </a>
-    <a class="enabled" href="../license.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM64 72c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8V72zm0 64c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8v-16zm192.81 248H304c8.84 0 16 7.16 16 16s-7.16 16-16 16h-47.19c-16.45 0-31.27-9.14-38.64-23.86-2.95-5.92-8.09-6.52-10.17-6.52s-7.22.59-10.02 6.19l-7.67 15.34a15.986 15.986 0 0 1-14.31 8.84c-.38 0-.75-.02-1.14-.05-6.45-.45-12-4.75-14.03-10.89L144 354.59l-10.61 31.88c-5.89 17.66-22.38 29.53-41 29.53H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h12.39c4.83 0 9.11-3.08 10.64-7.66l18.19-54.64c3.3-9.81 12.44-16.41 22.78-16.41s19.48 6.59 22.77 16.41l13.88 41.64c19.77-16.19 54.05-9.7 66 14.16 2.02 4.06 5.96 6.5 10.16 6.5zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"/></svg>
-        <span>License</span>
-    </a>
-    <a class="enabled" href="index.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"/></svg>
-        <span>Previous: Library Structure</span>
-    </a>
-    <a class="enabled" href="result.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
-        <span>Next: Parser Result</span>
-    </a>
-        </div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>
+            parzec - Parser Input
+        </title>
+        <link rel="icon" type="image/icon" href="../images/favicon.svg" />
+        <link rel="stylesheet" href="../dist/normal.css" />
         
+    </head>
+    <body data-syntax-highlight="monokai"
+        data-theme="purple-rain">
+        
+        <div id="navbar">
+            
+    <div class="navmenu ">
+        
+    <div class="navitem " >
+        <a class="title enabled" href="../index.html" >
+            <img src="../images/millenniumfalcon_88882.svg" />
+            <span>parzec</span>
+        </a>
+        
+    </div>
+    <div class="navitem " >
+        <a class="enabled" href="https://www.npmjs.com/package/parzec" >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-npm" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M1 8h22v7h-12v2h-4v-2h-6z" />
+            <path d="M7 8v7" />
+            <path d="M14 8v7" />
+            <path d="M17 11v4" />
+            <path d="M4 11v4" />
+            <path d="M11 11v1" />
+            <path d="M20 11v4" />
+        </svg>
+            <span>Download</span>
+        </a>
+        
+    </div>
+    <div class="navitem " >
+        <a class="enabled" href="https://github.com/johtela/parzec" >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+        </svg>
+            <span>GitHub</span>
+        </a>
+        
+    </div>
+    <div class="navitem " >
+        <a   >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 10l6 6l6 -6h-12" />
+        </svg>
+            <span>Syntax Highlight</span>
+        </a>
+        
+    <div class="navmenu toggle">
+        
+    <div class="navitem " id="coding-horror">
+        <a   onclick="document.body.syntaxHighlight('coding-horror')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+            <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+            <span>Coding Horror</span>
+        </a>
+        
+    </div>
+    <div class="navitem active" id="monokai">
+        <a   onclick="document.body.syntaxHighlight('monokai')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+            <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+            <span>Monokai</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="solarized-light">
+        <a   onclick="document.body.syntaxHighlight('solarized-light')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+            <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+            <span>Solarized Light</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="son-of-obsidian">
+        <a   onclick="document.body.syntaxHighlight('son-of-obsidian')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+            <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+            <span>Son of Obsidian</span>
+        </a>
+        
+    </div>
+    </div>
+    </div>
+    <div class="navitem " >
+        <a   >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 10l6 6l6 -6h-12" />
+        </svg>
+            <span>Theme</span>
+        </a>
+        
+    <div class="navmenu toggle">
+        
+    <div class="navitem " id="blueberry">
+        <a   onclick="document.body.theme('blueberry')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Blueberry</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="book-cover">
+        <a   onclick="document.body.theme('book-cover')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Book Cover</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="brownie">
+        <a   onclick="document.body.theme('brownie')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Brownie</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="chocolate">
+        <a   onclick="document.body.theme('chocolate')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Chocolate</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="ice-age">
+        <a   onclick="document.body.theme('ice-age')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Ice Age</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="monotone">
+        <a   onclick="document.body.theme('monotone')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Monotone</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="mustard">
+        <a   onclick="document.body.theme('mustard')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Mustard</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="peachy">
+        <a   onclick="document.body.theme('peachy')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Peachy</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="red-alert">
+        <a   onclick="document.body.theme('red-alert')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Red Alert</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="ultra-violet">
+        <a   onclick="document.body.theme('ultra-violet')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Ultra Violet</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="vintage">
+        <a   onclick="document.body.theme('vintage')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Vintage</span>
+        </a>
+        
+    </div>
+    </div>
+    </div>
+    </div>
+            
     <a class="hamburger">
         <div class="bar1"></div>
         <div class="bar2"></div>
         <div class="bar3"></div>
     </a>
-    </div>
-    
-    <div class="layout">
-        <div class="sidepane collapsible">
-            
-    <div class="tocmenu">
-        <h3>Table of Contents</h3>
+        </div>
         
+        <div class="layout">
+            <div class="sidepane narrow-scrollbars">
+                
+        <div class="tocmenu">
+            <h3>Table of Contents</h3>
+            
     <ul>
         
     <li>
-        
-        <a href="../README.html">Introduction</a>
-        
+        <a href="../README.html"><span>📔</span>Introduction</a>
     </li>
     <li>
-        <button class="accordion">
+        
+    <div class="accordion">
         Examples
-        </button>
-            
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 15l6 -6l6 6" />
+        </svg>
+    </div>
+    
     <ul>
         
     <li>
-        
-        <a href="test/exprparser.html">Parsing Arithmetic Epressions</a>
-        
+        <a href="test/exprparser.html"><span>📔</span>Parsing Arithmetic Epressions</a>
     </li>
     <li>
-        
-        <a href="test/exprtests.html">Testing the Expression Parser</a>
-        
+        <a href="test/exprtests.html"><span>📔</span>Testing the Expression Parser</a>
     </li>
     <li>
-        
-        <a href="test/jsonparser.html">Parsing JSON</a>
-        
+        <a href="test/jsonparser.html"><span>📔</span>Parsing JSON</a>
     </li>
     <li>
-        
-        <a href="test/jsontests.html">Testing the JSON Parser</a>
-        
+        <a href="test/jsontests.html"><span>📔</span>Testing the JSON Parser</a>
     </li>
     </ul>
     </li>
     <li>
-        <button class="accordion">
+        
+    <div class="accordion">
         Implementation
-        </button>
-            
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 15l6 -6l6 6" />
+        </svg>
+    </div>
+    
     <ul>
         
     <li>
-        
-        <a href="index.html">Library Structure</a>
-        
+        <a href="index.html"><span>📔</span>Library Structure</a>
     </li>
     <li>
-        
-        <a href="input.html" class="highlight">Parser Input</a>
-        
+        <a href="input.html" class="highlight"><span>📔</span>Parser Input</a>
     </li>
     <li>
-        
-        <a href="result.html">Parser Result</a>
-        
+        <a href="result.html"><span>📔</span>Parser Result</a>
     </li>
     <li>
-        
-        <a href="error.html">Error Reporting</a>
-        
+        <a href="error.html"><span>📔</span>Error Reporting</a>
     </li>
     <li>
-        
-        <a href="ref.html">Reference Cells</a>
-        
+        <a href="ref.html"><span>📔</span>Reference Cells</a>
     </li>
     <li>
-        
-        <a href="lexer.html">Lexical Analyzer</a>
-        
+        <a href="lexer.html"><span>📔</span>Lexical Analyzer</a>
     </li>
     <li>
-        
-        <a href="parser.html">Parser Monad and Combinators</a>
-        
+        <a href="parser.html"><span>📔</span>Parser Monad and Combinators</a>
     </li>
     <li>
-        
-        <a href="arrayparsers.html">Parsing Arrays and Expressions</a>
-        
+        <a href="arrayparsers.html"><span>📔</span>Parsing Arrays and Expressions</a>
     </li>
     <li>
-        
-        <a href="utils.html">Utility Functions</a>
-        
+        <a href="utils.html"><span>📔</span>Utility Functions</a>
     </li>
     </ul>
     </li>
     <li>
-        
-        <a href="../license.html">License</a>
-        
+        <a href="../license.html"><span>📔</span>License</a>
     </li>
     </ul>
-    </div>
-            
-    <div class="footer">
-        Copyright © 2020 Tommi Johtela
-        <div class="ad">
-            Created with <a href="https://github.com/johtela/litscript">LiTScript</a>
         </div>
-    </div>
-
-        </div>
-        <div class="sideicon collapsible">
+                <div class="toc-button"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevrons-right" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M7 7l5 5l-5 5" />
+            <path d="M13 7l5 5l-5 5" />
+        </svg></div>
+            </div>
             
-    <a class="hamburger">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-    </a>
-        </div>
-        <div class="scrollingarea closepopups">
-            
-    <div class="contentarea">
-        <h1 id="parser-input">Parser Input</h1>
+        <div class="contentarea closepopups">
+            <h1 id="parser-input">Parser Input</h1>
 <p>Parsers input is a stream of data of type <code>S</code>. The input is represented by
 an abstract interface which provides the <code>next()</code> method to iterate through
 the stream.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">interface</span> <span id="0" class="typename" data-toggle="tooltip" data-title="ParserInput&lt;S&gt;">ParserInput</span><span class="punctuation">&lt;</span><span id="241" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">interface</span> <span id="0" class="typename" data-toggle="tooltip" data-title="ParserInput&lt;S&gt;">ParserInput</span><span class="punctuation">&lt;</span><span id="241" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
 </code></pre>
 <p>Position in the input stream is represented by a number. The number has
 to increase as input is consumed, but not necessarily linearly.
 Backtracking is done by setting the <code>position</code> explicitly.</p>
-<pre class="syntaxhighlight"><code>    <span id="245" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="245" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span>
 </code></pre>
 <p>Return the next item in the stream. Note that there is no explicit
 flag that tells when we have gone past the last item. Instead, the input
 implementations add a special <code>EOF</code> item at the end. Parsers should
 recognize it and terminate before the stream is exhausted.</p>
-<pre class="syntaxhighlight"><code>    <span id="506" class="member" data-toggle="tooltip" data-title="() =&gt; S">next</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="input.html#241"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="506" class="member" data-toggle="tooltip" data-title="() =&gt; S">next</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="input.html#241"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a>
 </code></pre>
 <p>The latest item read from the stream is cached for efficiency.</p>
-<pre class="syntaxhighlight"><code>    <span class="keyword">readonly</span> <span id="839" data-toggle="tooltip" data-title="S">current</span><span class="punctuation">:</span> <a href="input.html#241"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span class="keyword">readonly</span> <span id="839" data-toggle="tooltip" data-title="S">current</span><span class="punctuation">:</span> <a href="input.html#241"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a>
 </code></pre>
 <p>User-managed state can be carried along the parsing. State is needed
 especially with context-sensitive grammars. The input stores a reference
 to <code>any</code> data that can be modified by special combinators: <code>getState</code>,
 <code>setState</code>, <code>mutateState</code>, etc.</p>
-<pre class="syntaxhighlight"><code>    <span id="953" data-toggle="tooltip" data-title="any">state</span><span class="punctuation">:</span> <span class="keyword">any</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="953" data-toggle="tooltip" data-title="any">state</span><span class="punctuation">:</span> <span class="keyword">any</span>
 <span class="punctuation">}</span>
 </code></pre>
 <h2 id="array-input">Array Input</h2>
@@ -204,20 +394,20 @@ to <code>any</code> data that can be modified by special combinators: <code>getS
 implementation for them. Array items may have any type <code>S</code>. The class is
 not exported outside the module. Users can create it using the <code>arrayInput</code>
 function.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">class</span> <span id="1270" class="typename" data-toggle="tooltip" data-title="ArrayInput&lt;S&gt;">ArrayInput</span><span class="punctuation">&lt;</span><span id="1575" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span> <span class="keyword">implements</span> <a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">class</span> <span id="1270" class="typename" data-toggle="tooltip" data-title="ArrayInput&lt;S&gt;">ArrayInput</span><span class="punctuation">&lt;</span><span id="1575" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span> <span class="keyword">implements</span> <a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
 </code></pre>
 <p>Inherited properties.</p>
-<pre class="syntaxhighlight"><code>    <span id="1605" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="1605" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span>
     <span id="1675" data-toggle="tooltip" data-title="S">current</span><span class="punctuation">:</span> <a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a>
     <span id="1691" data-toggle="tooltip" data-title="any">state</span><span class="punctuation">:</span> <span class="keyword">any</span>
     <span id="1707" data-toggle="tooltip" data-title="S">eof</span><span class="punctuation">:</span> <a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a>
 </code></pre>
 <p>Wrapped array.</p>
-<pre class="syntaxhighlight"><code>    <span class="keyword">private</span> <span id="1719" data-toggle="tooltip" data-title="S[]">array</span><span class="punctuation">:</span> <a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">;</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span class="keyword">private</span> <span id="1719" data-toggle="tooltip" data-title="S[]">array</span><span class="punctuation">:</span> <a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">;</span>
 </code></pre>
 <p>We set the position initially to -1 to indicate that no input has been
 consumed. The current item is <code>undefined</code>.</p>
-<pre class="syntaxhighlight"><code>    <span class="keyword">constructor</span><span class="punctuation">(</span><span id="1951" data-toggle="tooltip" data-title="S[]">array</span><span class="punctuation">:</span> <a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> <span id="1962" data-toggle="tooltip" data-title="S">eof</span><span class="punctuation">:</span> <a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span class="keyword">constructor</span><span class="punctuation">(</span><span id="1951" data-toggle="tooltip" data-title="S[]">array</span><span class="punctuation">:</span> <a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> <span id="1962" data-toggle="tooltip" data-title="S">eof</span><span class="punctuation">:</span> <a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
         <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1719"><span data-toggle="tooltip" data-title="S[]">array</span></a> <span class="punctuation">=</span> <a href="input.html#1951"><span data-toggle="tooltip" data-title="S[]">array</span></a>
         <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1605"><span data-toggle="tooltip" data-title="number">position</span></a> <span class="punctuation">=</span> <span class="punctuation">-</span><span class="number">1</span>
         <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1675"><span data-toggle="tooltip" data-title="S">current</span></a> <span class="punctuation">=</span> <span class="punctuation">&lt;</span><a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">&lt;</span><span class="keyword">unknown</span><span class="punctuation">&gt;</span><span data-toggle="tooltip" data-title="undefined">undefined</span>
@@ -226,7 +416,7 @@ consumed. The current item is <code>undefined</code>.</p>
 </code></pre>
 <p>Return the next item in the array. Update <code>position</code> and
 <code>current</code> fields.</p>
-<pre class="syntaxhighlight"><code>    <span id="2105" class="member" data-toggle="tooltip" data-title="() =&gt; S">next</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="2105" class="member" data-toggle="tooltip" data-title="() =&gt; S">next</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="input.html#1575"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a> <span class="punctuation">{</span>
         <span class="keyword">let</span> <span id="2245" data-toggle="tooltip" data-title="number">pos</span> <span class="punctuation">=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1605"><span data-toggle="tooltip" data-title="number">position</span></a> <span class="punctuation">+</span> <span class="number">1</span>
         <span class="keyword">if</span> <span class="punctuation">(</span><a href="input.html#2245"><span data-toggle="tooltip" data-title="number">pos</span></a> <span class="punctuation">&gt;=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1719"><span data-toggle="tooltip" data-title="S[]">array</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">length</span><span class="punctuation">)</span>
             <span class="keyword">return</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="input.html#1707"><span data-toggle="tooltip" data-title="S">eof</span></a>
@@ -238,26 +428,82 @@ consumed. The current item is <code>undefined</code>.</p>
 </code></pre>
 <h2 id="exported-functions">Exported Functions</h2>
 <p>Create a ParserInput wrapper for an array.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="2445" class="member" data-toggle="tooltip" data-title="&lt;S&gt;(array: S[], eof: S) =&gt; ParserInput&lt;S&gt;">arrayInput</span><span class="punctuation">&lt;</span><span id="2564" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="2567" data-toggle="tooltip" data-title="S[]">array</span><span class="punctuation">:</span> <a href="input.html#2564"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> <span id="2578" data-toggle="tooltip" data-title="S">eof</span><span class="punctuation">:</span> <a href="input.html#2564"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="input.html#2564"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="2445" class="member" data-toggle="tooltip" data-title="&lt;S&gt;(array: S[], eof: S) =&gt; ParserInput&lt;S&gt;">arrayInput</span><span class="punctuation">&lt;</span><span id="2564" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="2567" data-toggle="tooltip" data-title="S[]">array</span><span class="punctuation">:</span> <a href="input.html#2564"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> <span id="2578" data-toggle="tooltip" data-title="S">eof</span><span class="punctuation">:</span> <a href="input.html#2564"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="input.html#2564"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="input.html#1270"><span class="typename" data-toggle="tooltip" data-title="typeof ArrayInput">ArrayInput</span></a><span class="punctuation">&lt;</span><a href="input.html#2564"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">(</span><a href="input.html#2567"><span data-toggle="tooltip" data-title="S[]">array</span></a><span class="punctuation">,</span> <a href="input.html#2578"><span data-toggle="tooltip" data-title="S">eof</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
 <span class="punctuation">}</span>
 </code></pre>
 
-        
-    </div>
-            <div class="stickypane">
+        </div>
+            <div class="sidepane narrow-scrollbars">
                 
-    <div class="pagemenu">
-        <h3>On This Page</h3>
-            <ul class="pagetree">
-                
-            </ul>
-    </div>
-                
+        <div class="pagemenu">
+            <h3>On This Page</h3>
+                <ul class="pagetree">
+                </ul>
+        </div>
             </div>
         </div>
-    </div>
-    <script src="../js/main.js"></script>
+        
+        <div class="footer">
+            <a class="footer-button" href="index.html">
+            <p>Previous</p>
+            <p>« Library Structure</p>
+        </a>
+            <div class="footer-text">
+                <p>Copyright © 2020 Tommi Johtela</p>
+                <p>Generated by 
+                    <a href="https://johtela.github.io/litscript">LiTScript</a>
+                </p>
+            </div>
+            <a class="footer-button" href="result.html">
+            <p>Next</p>
+            <p>Parser Result »</p>
+        </a>
+        </div>
     
-</body>
-</html>
+        <script src="../dist/normal.js"></script>
+
+    <script>
+      function reloadLink(path) {
+        for (const link of document.getElementsByTagName("link")) {
+          const url = new URL(link.href)
+          if (url.host == location.host && url.pathname == path) {
+            const next = link.cloneNode()
+            next.href = path + '?' + Math.random().toString(36).slice(2)
+            next.onload = () => link.remove()
+            link.parentNode.insertBefore(next, link.nextSibling)
+            return
+          }
+        }
+      }
+      function scriptLoaded(path) {
+        for (const script of document.getElementsByTagName("script"))
+          if (script.src) {
+            const url = new URL(script.src)
+            if (url.host == location.host && url.pathname == path)
+              return true
+          }
+        return false
+      }
+      let ls = new EventSource('/litscript')
+      ls.onmessage = e => {
+        let updated = JSON.parse(e.data)
+        for (let i = 0; i < updated.length; ++i) {
+          let path = updated[i]
+          if (path.endsWith(".js")) {
+            if (scriptLoaded(path))
+              return location.reload()
+          }
+          else if (path.endsWith(".html")) {
+            if (path == location.pathname || 
+              (path.endsWith("index.html") && 
+                path.substring(0, path.length - 10) == location.pathname))
+              return location.reload()
+          }
+          else reloadLink(path)
+        }
+      }
+      window.addEventListener("beforeunload", () => ls.close())
+    </script>
+    </body>
+    </html>

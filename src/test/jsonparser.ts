@@ -26,24 +26,21 @@ pz.parserDebug.debugging = false
 /**
  * ## Lexer
  * 
+ * ![number](../../images/number.png)
  * We define lexers for all the tokens. First we handle constants and separator
  * characters. They are trivial to recognize.
  * 
  * Numbers are a bit trickier as we need to support decimal formats with
  * and without exponents. 
  * 
- * ![number](../../images/number.png)
- * 
+ * ![string](../../images/string.png)
  * Strings can be a bit tricky as well, as there are special characters that
  * have to be accounted for. Another notable thing is that we need to use the
  * `u` specifier in our regex for unicode support.
  * 
- * ![string](../../images/string.png)
- * 
+ * ![string](../../images/whitespace.png)
  * Below we see how whitespace is scanned in JSON. We'll add a lexer for inline 
  * comments `//...` as well.
- * 
- * ![string](../../images/whitespace.png)
  */
 const lexer = new pz.Lexer<JsonToken>(
     [/true/, JsonToken.True],

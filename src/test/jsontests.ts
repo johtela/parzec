@@ -1,12 +1,7 @@
 /**
  * ---
  * {
- *  "visualizers": [
- *      {
- *          "path": "./src/visualizers/run-json-tests.ts",
- *          "includeStyles": true
- *      }
- *  ]
+ *  "modules": [ "./src/components/run-json-tests.ts" ]
  * }
  * ---
  * 
@@ -15,7 +10,7 @@
  * To manually test the parser enter or paste some JSON to the text box below.
  * Try also add comments anywhere inside JSON.
  * 
- * <<v:json-parser>>
+ * <json-parser></json-parser>
  * 
  * Manually entering test data becomes boring soon, so we'll again use 
  * **fast-check** to automate test case generation. In this case we can use the
@@ -28,7 +23,7 @@ import * as fc from "fast-check"
 /**
  * We should get interesting test data. You can check the test cases below.
  * 
- * <<v:run-json-tests JSON tests>>
+ * <test-runner name="JSON tests"></test-runner>
  * 
  * Using `JSON.parse` as the baseline for our parser, we can check that it and
  * our parsing functions produce identical JavaScript objects. We use the

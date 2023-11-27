@@ -4,19 +4,19 @@
             "fileMatch": [
                 "/litsconfig.json"
             ],
-            "url": "../../../AppData/Roaming/npm/node_modules/litscript/schemas/litsconfig-schema.json"
+            "url": "./node_modules/litscript/schemas/litsconfig-schema.json"
         },
         {
             "fileMatch": [
                 "/toc.json"
             ],
-            "url": "../../../AppData/Roaming/npm/node_modules/litscript/schemas/toc-schema.json"
+            "url": "./node_modules/litscript/schemas/toc-schema.json"
         },
         {
             "fileMatch": [
                 "/dependencies.json"
             ],
-            "url": "../../../AppData/Roaming/npm/node_modules/litscript/schemas/dependency-graph-schema.json"
+            "url": "./node_modules/litscript/schemas/dependency-graph-schema.json"
         }
     ]
 }

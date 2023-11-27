@@ -1,0 +1,18 @@
+.calculator {
+    display: flex;
+    align-items: center;
+    font-family: var(--sans-font);
+    margin: 10px 0;
+}
+.calculator input {
+    font-family: inherit;
+    font-size: 20px;
+}
+.result {
+    background-color: #efe;
+    margin: 0 20px;
+    padding: 4px 8px;
+    font-family: var(--mono-font);
+    font-size: 16px;
+    border-radius: 4px;
+}

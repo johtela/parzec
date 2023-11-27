@@ -6,10 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>
-            parzec - Introduction
+            parzec - run-json-tests
         </title>
-        <link rel="icon" type="image/icon" href="images/favicon.svg" />
-        <link rel="stylesheet" href="dist/normal.css" />
+        <link rel="icon" type="image/icon" href="../../images/favicon.svg" />
+        <link rel="stylesheet" href="../../dist/normal.css" />
         
     </head>
     <body data-syntax-highlight="monokai"
@@ -20,8 +20,8 @@
     <div class="navmenu ">
         
     <div class="navitem " >
-        <a class="title enabled" href="index.html" >
-            <img src="images/millenniumfalcon_88882.svg" />
+        <a class="title enabled" href="../../index.html" >
+            <img src="../../images/millenniumfalcon_88882.svg" />
             <span>parzec</span>
         </a>
         
@@ -280,7 +280,7 @@
     <ul>
         
     <li>
-        <a href="README.html" class="highlight"><span>📔</span>Introduction</a>
+        <a href="../../README.html"><span>📔</span>Introduction</a>
     </li>
     <li>
         
@@ -295,16 +295,16 @@
     <ul>
         
     <li>
-        <a href="src/test/exprparser.html"><span>📔</span>Parsing Arithmetic Epressions</a>
+        <a href="../test/exprparser.html"><span>📔</span>Parsing Arithmetic Epressions</a>
     </li>
     <li>
-        <a href="src/test/exprtests.html"><span>📔</span>Testing the Expression Parser</a>
+        <a href="../test/exprtests.html"><span>📔</span>Testing the Expression Parser</a>
     </li>
     <li>
-        <a href="src/test/jsonparser.html"><span>📔</span>Parsing JSON</a>
+        <a href="../test/jsonparser.html"><span>📔</span>Parsing JSON</a>
     </li>
     <li>
-        <a href="src/test/jsontests.html"><span>📔</span>Testing the JSON Parser</a>
+        <a href="../test/jsontests.html"><span>📔</span>Testing the JSON Parser</a>
     </li>
     </ul>
     </li>
@@ -321,36 +321,42 @@
     <ul>
         
     <li>
-        <a href="src/index.html"><span>📔</span>Library Structure</a>
+        <a href="../index.html"><span>📔</span>Library Structure</a>
     </li>
     <li>
-        <a href="src/input.html"><span>📔</span>Parser Input</a>
+        <a href="../input.html"><span>📔</span>Parser Input</a>
     </li>
     <li>
-        <a href="src/result.html"><span>📔</span>Parser Result</a>
+        <a href="../result.html"><span>📔</span>Parser Result</a>
     </li>
     <li>
-        <a href="src/error.html"><span>📔</span>Error Reporting</a>
+        <a href="../error.html"><span>📔</span>Error Reporting</a>
     </li>
     <li>
-        <a href="src/ref.html"><span>📔</span>Reference Cells</a>
+        <a href="../ref.html"><span>📔</span>Reference Cells</a>
     </li>
     <li>
-        <a href="src/lexer.html"><span>📔</span>Lexical Analyzer</a>
+        <a href="../lexer.html"><span>📔</span>Lexical Analyzer</a>
     </li>
     <li>
-        <a href="src/parser.html"><span>📔</span>Parser Monad and Combinators</a>
+        <a href="../parser.html"><span>📔</span>Parser Monad and Combinators</a>
     </li>
     <li>
-        <a href="src/arrayparsers.html"><span>📔</span>Parsing Arrays and Expressions</a>
+        <a href="../arrayparsers.html"><span>📔</span>Parsing Arrays and Expressions</a>
     </li>
     <li>
-        <a href="src/utils.html"><span>📔</span>Utility Functions</a>
+        <a href="../utils.html"><span>📔</span>Utility Functions</a>
     </li>
     </ul>
     </li>
     <li>
-        <a href="license.html"><span>📔</span>License</a>
+        <a href="../../license.html"><span>📔</span>License</a>
+    </li>
+    <li>
+        <a href="run-expr-tests.html"><span>📔</span>run-expr-tests</a>
+    </li>
+    <li>
+        <a href="run-json-tests.html" class="highlight"><span>📔</span>run-json-tests</a>
     </li>
     </ul>
         </div>
@@ -362,24 +368,46 @@
             </div>
             
         <div class="contentarea closepopups">
-            <h1 id="parser-combinators-for-typescript">Parser Combinators for Typescript</h1>
-<p><a href="https://travis-ci.org/github/johtela/parzec"><img src="https://travis-ci.org/johtela/parzec.svg?branch=master" alt="Build status"></a>
-<a href="https://www.npmjs.com/package/parzec"><img src="https://img.shields.io/npm/v/parzec" alt="Version"></a></p>
-<p>Parzec is a parser combinator library adapted from Haskell's famous <a href="http://hackage.haskell.org/package/parsec">Parsec</a>
-library. A parser combinator library consist of <a href="https://en.wikipedia.org/wiki/Higher-order_function">higher order functions</a> which
-make it easy to build <a href="https://en.wikipedia.org/wiki/Recursive_descent_parser">recursive descent parsers</a>. Parsers composed from
-Parzec's combinators can recognize languages in the <a href="https://en.wikipedia.org/wiki/Parsing_expression_grammar">PEG</a> class of grammars.
-PEG grammars can be context-sensitive, so the parsers have infinite lookahead
-and backtracking capabilities.</p>
-<p>Parzec also supports efficient parsing of <a href="https://en.wikipedia.org/wiki/LL_parser">LL(1)</a> grammars by enabling the
-backtracking only when a special combinator is used. Also, to improve
-performance, some combinators have been inlined rather than built from lower
-level combinators.</p>
-<p>Parzec's input is represented by an abstract <a href="src/input.html">interface</a>. Consequently, the
-parsers' input can be anything from simple strings to files, or even tokenized
-data streams. Parzec includes functionality to create <a href="https://en.wikipedia.org/wiki/Lexical_analysis">lexical analyzers</a> or
-<em>lexers</em> from <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expressions</a>. The lexer converts input strings into
-tokens, and makes the parsing simpler and more efficient.</p>
+            <pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">import</span> <span class="punctuation">{</span> <span id="8" data-toggle="tooltip" data-title="typeof StyledElement">StyledElement</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&#039;litscript/lib/src/custom-elem&#039;</span>
+<span class="keyword">import</span> <span class="string">&#039;lits-extras/lib/test-runner&#039;</span>
+<span class="keyword">import</span> <span class="punctuation">*</span> <span class="keyword">as</span> <span id="107" data-toggle="tooltip" data-title="typeof pz">pz</span> <span class="keyword">from</span> <span class="string">&#039;..&#039;</span>
+<span class="keyword">import</span> <span class="punctuation">*</span> <span class="keyword">as</span> <span id="133" data-toggle="tooltip" data-title="typeof jp">jp</span> <span class="keyword">from</span> <span class="string">&#039;../test/jsonparser&#039;</span>
+<span class="keyword">import</span> <span class="string">&#039;../test/jsontests&#039;</span>
+<span class="keyword">import</span> <span class="string">&#039;./run-json-tests.css&#039;</span>
+
+<span class="keyword">export</span> <span class="keyword">class</span> <span id="226" class="typename" data-toggle="tooltip" data-title="JsonParser">JsonParser</span> <span class="keyword">extends</span> <a href="run-json-tests.html#8"><span data-toggle="tooltip" data-title="typeof StyledElement">StyledElement</span></a> <span class="punctuation">{</span>
+    <span class="keyword">private</span> <span id="277" data-toggle="tooltip" data-title="HTMLTextAreaElement">textarea</span><span class="punctuation">:</span> <span class="typename" data-toggle="tooltip" data-title="HTMLTextAreaElement">HTMLTextAreaElement</span>
+    <span class="keyword">private</span> <span id="320" data-toggle="tooltip" data-title="HTMLDivElement">result</span><span class="punctuation">:</span> <span class="typename" data-toggle="tooltip" data-title="HTMLDivElement">HTMLDivElement</span>
+
+    <span class="keyword">constructor</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+        <span class="keyword">super</span><span class="punctuation">(</span><span class="string">&quot;run-json-tests&quot;</span><span class="punctuation">)</span>
+        <span class="keyword">this</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="HTMLElement">body</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="DOMTokenList">classList</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(...tokens: string[]) =&gt; void">add</span><span class="punctuation">(</span><span class="string">&quot;json-editor&quot;</span><span class="punctuation">)</span>
+        <span class="keyword">this</span><span class="punctuation">.</span><a href="run-json-tests.html#277"><span data-toggle="tooltip" data-title="HTMLTextAreaElement">textarea</span></a> <span class="punctuation">=</span> <span data-toggle="tooltip" data-title="Document">document</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ &lt;K extends keyof HTMLElementTagNameMap&gt;(tagName: K, options?: ElementCreationOptions | undefined): HTMLElementTagNameMap[K]; &lt;K extends keyof HTMLElementDeprecatedTagNameMap&gt;(tagName: K, options?: ElementCreationOptions | undefined): HTMLElementDeprecatedTagNameMap[K]; (tagName: string, options?: ElementCreationOp...">createElement</span><span class="punctuation">(</span><span class="string">&#039;textarea&#039;</span><span class="punctuation">)</span>
+        <span class="keyword">this</span><span class="punctuation">.</span><a href="run-json-tests.html#277"><span data-toggle="tooltip" data-title="HTMLTextAreaElement">textarea</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">cols</span> <span class="punctuation">=</span> <span class="number">40</span>
+        <span class="keyword">this</span><span class="punctuation">.</span><a href="run-json-tests.html#277"><span data-toggle="tooltip" data-title="HTMLTextAreaElement">textarea</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">rows</span> <span class="punctuation">=</span> <span class="number">10</span>
+        <span class="keyword">this</span><span class="punctuation">.</span><a href="run-json-tests.html#320"><span data-toggle="tooltip" data-title="HTMLDivElement">result</span></a> <span class="punctuation">=</span> <span data-toggle="tooltip" data-title="Document">document</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ &lt;K extends keyof HTMLElementTagNameMap&gt;(tagName: K, options?: ElementCreationOptions | undefined): HTMLElementTagNameMap[K]; &lt;K extends keyof HTMLElementDeprecatedTagNameMap&gt;(tagName: K, options?: ElementCreationOptions | undefined): HTMLElementDeprecatedTagNameMap[K]; (tagName: string, options?: ElementCreationOp...">createElement</span><span class="punctuation">(</span><span class="string">&#039;div&#039;</span><span class="punctuation">)</span>
+        <span class="keyword">this</span><span class="punctuation">.</span><a href="run-json-tests.html#320"><span data-toggle="tooltip" data-title="HTMLDivElement">result</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="DOMTokenList">classList</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(...tokens: string[]) =&gt; void">add</span><span class="punctuation">(</span><span class="string">&quot;result&quot;</span><span class="punctuation">)</span>
+        <span class="keyword">this</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="HTMLElement">body</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(...nodes: (string | Node)[]) =&gt; void">append</span><span class="punctuation">(</span><span class="keyword">this</span><span class="punctuation">.</span><a href="run-json-tests.html#277"><span data-toggle="tooltip" data-title="HTMLTextAreaElement">textarea</span></a><span class="punctuation">,</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="run-json-tests.html#320"><span data-toggle="tooltip" data-title="HTMLDivElement">result</span></a><span class="punctuation">)</span>
+    <span class="punctuation">}</span>
+    
+    <span class="keyword">protected</span> <span class="keyword">override</span> <span id="745" class="member" data-toggle="tooltip" data-title="() =&gt; void">connect</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+        <span class="keyword">this</span><span class="punctuation">.</span><a href="run-json-tests.html#277"><span data-toggle="tooltip" data-title="HTMLTextAreaElement">textarea</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ &lt;K extends keyof HTMLElementEventMap&gt;(type: K, listener: (this: HTMLTextAreaElement, ev: HTMLElementEventMap[K]) =&gt; any, options?: boolean | ... 1 more ... | undefined): void; (type: string, listener: EventListenerOrEventListenerObject, options?: boolean | ... 1 more ... | undefined): void; }">addEventListener</span><span class="punctuation">(</span><span class="string">&quot;input&quot;</span><span class="punctuation">,</span>  <span id="836" data-toggle="tooltip" data-title="Event">_</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
+            <span class="keyword">try</span> <span class="punctuation">{</span>
+                <span class="keyword">this</span><span class="punctuation">.</span><a href="run-json-tests.html#320"><span data-toggle="tooltip" data-title="HTMLDivElement">result</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="string">innerText</span> <span class="punctuation">=</span> <span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (value: any, replacer?: ((this: any, key: string, value: any) =&gt; any) | undefined, space?: string | number | undefined): string; (value: any, replacer?: (string | number)[] | null | undefined, space?: string | ... 1 more ... | undefined): string; }">stringify</span><span class="punctuation">(</span><a href="run-json-tests.html#133"><span data-toggle="tooltip" data-title="typeof jp">jp</span></a><span class="punctuation">.</span><a href="../test/jsonparser.html#7232"><span class="member" data-toggle="tooltip" data-title="(text: string) =&gt; any">parseJson</span></a><span class="punctuation">(</span>
+                    <span class="keyword">this</span><span class="punctuation">.</span><a href="run-json-tests.html#277"><span data-toggle="tooltip" data-title="HTMLTextAreaElement">textarea</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="string">value</span><span class="punctuation">)</span><span class="punctuation">)</span>
+            <span class="punctuation">}</span>
+            <span class="keyword">catch</span><span class="punctuation">(</span><span id="1011" data-toggle="tooltip" data-title="unknown">e</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+                <span class="keyword">if</span> <span class="punctuation">(</span><a href="run-json-tests.html#1011"><span data-toggle="tooltip" data-title="unknown">e</span></a> <span class="keyword">instanceof</span> <a href="run-json-tests.html#107"><span data-toggle="tooltip" data-title="typeof pz">pz</span></a><span class="punctuation">.</span><a href="../error.html#265"><span class="typename" data-toggle="tooltip" data-title="typeof pz.ParseError">ParseError</span></a><span class="punctuation">)</span>
+                    <span class="keyword">this</span><span class="punctuation">.</span><a href="run-json-tests.html#320"><span data-toggle="tooltip" data-title="HTMLDivElement">result</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="string">innerText</span> <span class="punctuation">=</span> <a href="run-json-tests.html#1011"><span data-toggle="tooltip" data-title="pz.ParseError">e</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="string">message</span>
+                <span class="keyword">else</span>
+                    <span class="keyword">throw</span> <a href="run-json-tests.html#1011"><span data-toggle="tooltip" data-title="unknown">e</span></a>
+            <span class="punctuation">}</span>
+        <span class="punctuation">}</span><span class="punctuation">)</span>
+    <span class="punctuation">}</span>
+<span class="punctuation">}</span>
+
+<span data-toggle="tooltip" data-title="CustomElementRegistry">customElements</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(name: string, constructor: CustomElementConstructor, options?: ElementDefinitionOptions | undefined) =&gt; void">define</span><span class="punctuation">(</span><span class="string">&quot;json-parser&quot;</span><span class="punctuation">,</span> <a href="run-json-tests.html#226"><span class="typename" data-toggle="tooltip" data-title="typeof JsonParser">JsonParser</span></a><span class="punctuation">)</span>
+</code></pre>
 
         </div>
             <div class="sidepane narrow-scrollbars">
@@ -393,8 +421,9 @@ tokens, and makes the parsing simpler and more efficient.</p>
         </div>
         
         <div class="footer">
-            <a class="footer-button disabled">
-            Previous
+            <a class="footer-button" href="run-expr-tests.html">
+            <p>Previous</p>
+            <p>« run-expr-tests</p>
         </a>
             <div class="footer-text">
                 <p>Copyright © 2020 Tommi Johtela</p>
@@ -402,13 +431,12 @@ tokens, and makes the parsing simpler and more efficient.</p>
                     <a href="https://johtela.github.io/litscript">LiTScript</a>
                 </p>
             </div>
-            <a class="footer-button" href="src/test/exprparser.html">
-            <p>Next</p>
-            <p>Parsing Arithmetic Epressions »</p>
+            <a class="footer-button disabled">
+            Next
         </a>
         </div>
     
-        <script src="dist/normal.js"></script>
+        <script src="../../dist/normal.js"></script>
 
     <script>
       function reloadLink(path) {

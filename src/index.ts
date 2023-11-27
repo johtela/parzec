@@ -1,11 +1,8 @@
 /**
  * ---
  * {
- *  "visualizers": [
- *      {
- *          "path": "./src/visualizers/dependency-diag.ts",
- *          "includeStyles": true
- *      }
+ *  "modules": [
+ *      "lits-extras"
  *  ]
  * }
  * ---
@@ -15,7 +12,8 @@
  * shows also the testing modules which are not included in the published 
  * package. You can jump to a module by clicking it in the diagram.
  * 
- * <<v:dependency-diag ../dependencies.json src\/(?!extras)>>
+ * <dependency-diagram url="../dependencies.json" filter="src\/(?!extras)">
+ * </dependency-diagram>
  * 
  * ## Exports
  * 

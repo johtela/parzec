@@ -1,182 +1,372 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>parzec - Parser Monad and Combinators</title>
-    <link rel="icon" type="image/icon" href="../images/favicon.png" />
-    <link rel="stylesheet" href="../css/main.css" />
-    
-    
-</head>
-<body>
-    
-    <div class="navbar">
-        <div class="navmenu">
-            
-    <a class="title enabled" href="../index.html">
-        <img src="../images/millenniumfalcon_88882.svg" />
-        <span>parzec</span>
-    </a>
-    <a class="enabled" href="https://www.npmjs.com/package/parzec">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"/></svg>
-        <span>Download</span>
-    </a>
-    <a class="enabled" href="https://github.com/johtela/parzec">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-        <span>GitHub</span>
-    </a>
-    <a class="enabled" href="../license.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM64 72c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8V72zm0 64c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8v-16zm192.81 248H304c8.84 0 16 7.16 16 16s-7.16 16-16 16h-47.19c-16.45 0-31.27-9.14-38.64-23.86-2.95-5.92-8.09-6.52-10.17-6.52s-7.22.59-10.02 6.19l-7.67 15.34a15.986 15.986 0 0 1-14.31 8.84c-.38 0-.75-.02-1.14-.05-6.45-.45-12-4.75-14.03-10.89L144 354.59l-10.61 31.88c-5.89 17.66-22.38 29.53-41 29.53H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h12.39c4.83 0 9.11-3.08 10.64-7.66l18.19-54.64c3.3-9.81 12.44-16.41 22.78-16.41s19.48 6.59 22.77 16.41l13.88 41.64c19.77-16.19 54.05-9.7 66 14.16 2.02 4.06 5.96 6.5 10.16 6.5zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"/></svg>
-        <span>License</span>
-    </a>
-    <a class="enabled" href="lexer.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"/></svg>
-        <span>Previous: Lexical Analyzer</span>
-    </a>
-    <a class="enabled" href="arrayparsers.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
-        <span>Next: Parsing Arrays and Expressions</span>
-    </a>
-        </div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>
+            parzec - Parser Monad and Combinators
+        </title>
+        <link rel="icon" type="image/icon" href="../images/favicon.svg" />
+        <link rel="stylesheet" href="../dist/normal.css" />
         
+    </head>
+    <body data-syntax-highlight="monokai"
+        data-theme="purple-rain">
+        
+        <div id="navbar">
+            
+    <div class="navmenu ">
+        
+    <div class="navitem " >
+        <a class="title enabled" href="../index.html" >
+            <img src="../images/millenniumfalcon_88882.svg" />
+            <span>parzec</span>
+        </a>
+        
+    </div>
+    <div class="navitem " >
+        <a class="enabled" href="https://www.npmjs.com/package/parzec" >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-npm" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M1 8h22v7h-12v2h-4v-2h-6z" />
+            <path d="M7 8v7" />
+            <path d="M14 8v7" />
+            <path d="M17 11v4" />
+            <path d="M4 11v4" />
+            <path d="M11 11v1" />
+            <path d="M20 11v4" />
+        </svg>
+            <span>Download</span>
+        </a>
+        
+    </div>
+    <div class="navitem " >
+        <a class="enabled" href="https://github.com/johtela/parzec" >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+        </svg>
+            <span>GitHub</span>
+        </a>
+        
+    </div>
+    <div class="navitem " >
+        <a   >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 10l6 6l6 -6h-12" />
+        </svg>
+            <span>Syntax Highlight</span>
+        </a>
+        
+    <div class="navmenu toggle">
+        
+    <div class="navitem " id="coding-horror">
+        <a   onclick="document.body.syntaxHighlight('coding-horror')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+            <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+            <span>Coding Horror</span>
+        </a>
+        
+    </div>
+    <div class="navitem active" id="monokai">
+        <a   onclick="document.body.syntaxHighlight('monokai')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+            <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+            <span>Monokai</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="solarized-light">
+        <a   onclick="document.body.syntaxHighlight('solarized-light')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+            <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+            <span>Solarized Light</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="son-of-obsidian">
+        <a   onclick="document.body.syntaxHighlight('son-of-obsidian')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+            <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+            <span>Son of Obsidian</span>
+        </a>
+        
+    </div>
+    </div>
+    </div>
+    <div class="navitem " >
+        <a   >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 10l6 6l6 -6h-12" />
+        </svg>
+            <span>Theme</span>
+        </a>
+        
+    <div class="navmenu toggle">
+        
+    <div class="navitem " id="blueberry">
+        <a   onclick="document.body.theme('blueberry')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Blueberry</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="book-cover">
+        <a   onclick="document.body.theme('book-cover')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Book Cover</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="brownie">
+        <a   onclick="document.body.theme('brownie')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Brownie</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="chocolate">
+        <a   onclick="document.body.theme('chocolate')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Chocolate</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="ice-age">
+        <a   onclick="document.body.theme('ice-age')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Ice Age</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="monotone">
+        <a   onclick="document.body.theme('monotone')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Monotone</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="mustard">
+        <a   onclick="document.body.theme('mustard')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Mustard</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="peachy">
+        <a   onclick="document.body.theme('peachy')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Peachy</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="red-alert">
+        <a   onclick="document.body.theme('red-alert')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Red Alert</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="ultra-violet">
+        <a   onclick="document.body.theme('ultra-violet')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Ultra Violet</span>
+        </a>
+        
+    </div>
+    <div class="navitem " id="vintage">
+        <a   onclick="document.body.theme('vintage')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Vintage</span>
+        </a>
+        
+    </div>
+    </div>
+    </div>
+    </div>
+            
     <a class="hamburger">
         <div class="bar1"></div>
         <div class="bar2"></div>
         <div class="bar3"></div>
     </a>
-    </div>
-    
-    <div class="layout">
-        <div class="sidepane collapsible">
-            
-    <div class="tocmenu">
-        <h3>Table of Contents</h3>
+        </div>
         
+        <div class="layout">
+            <div class="sidepane narrow-scrollbars">
+                
+        <div class="tocmenu">
+            <h3>Table of Contents</h3>
+            
     <ul>
         
     <li>
-        
-        <a href="../README.html">Introduction</a>
-        
+        <a href="../README.html"><span>📔</span>Introduction</a>
     </li>
     <li>
-        <button class="accordion">
+        
+    <div class="accordion">
         Examples
-        </button>
-            
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 15l6 -6l6 6" />
+        </svg>
+    </div>
+    
     <ul>
         
     <li>
-        
-        <a href="test/exprparser.html">Parsing Arithmetic Epressions</a>
-        
+        <a href="test/exprparser.html"><span>📔</span>Parsing Arithmetic Epressions</a>
     </li>
     <li>
-        
-        <a href="test/exprtests.html">Testing the Expression Parser</a>
-        
+        <a href="test/exprtests.html"><span>📔</span>Testing the Expression Parser</a>
     </li>
     <li>
-        
-        <a href="test/jsonparser.html">Parsing JSON</a>
-        
+        <a href="test/jsonparser.html"><span>📔</span>Parsing JSON</a>
     </li>
     <li>
-        
-        <a href="test/jsontests.html">Testing the JSON Parser</a>
-        
+        <a href="test/jsontests.html"><span>📔</span>Testing the JSON Parser</a>
     </li>
     </ul>
     </li>
     <li>
-        <button class="accordion">
+        
+    <div class="accordion">
         Implementation
-        </button>
-            
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 15l6 -6l6 6" />
+        </svg>
+    </div>
+    
     <ul>
         
     <li>
-        
-        <a href="index.html">Library Structure</a>
-        
+        <a href="index.html"><span>📔</span>Library Structure</a>
     </li>
     <li>
-        
-        <a href="input.html">Parser Input</a>
-        
+        <a href="input.html"><span>📔</span>Parser Input</a>
     </li>
     <li>
-        
-        <a href="result.html">Parser Result</a>
-        
+        <a href="result.html"><span>📔</span>Parser Result</a>
     </li>
     <li>
-        
-        <a href="error.html">Error Reporting</a>
-        
+        <a href="error.html"><span>📔</span>Error Reporting</a>
     </li>
     <li>
-        
-        <a href="ref.html">Reference Cells</a>
-        
+        <a href="ref.html"><span>📔</span>Reference Cells</a>
     </li>
     <li>
-        
-        <a href="lexer.html">Lexical Analyzer</a>
-        
+        <a href="lexer.html"><span>📔</span>Lexical Analyzer</a>
     </li>
     <li>
-        
-        <a href="parser.html" class="highlight">Parser Monad and Combinators</a>
-        
+        <a href="parser.html" class="highlight"><span>📔</span>Parser Monad and Combinators</a>
     </li>
     <li>
-        
-        <a href="arrayparsers.html">Parsing Arrays and Expressions</a>
-        
+        <a href="arrayparsers.html"><span>📔</span>Parsing Arrays and Expressions</a>
     </li>
     <li>
-        
-        <a href="utils.html">Utility Functions</a>
-        
+        <a href="utils.html"><span>📔</span>Utility Functions</a>
     </li>
     </ul>
     </li>
     <li>
-        
-        <a href="../license.html">License</a>
-        
+        <a href="../license.html"><span>📔</span>License</a>
     </li>
     </ul>
-    </div>
-            
-    <div class="footer">
-        Copyright © 2020 Tommi Johtela
-        <div class="ad">
-            Created with <a href="https://github.com/johtela/litscript">LiTScript</a>
         </div>
-    </div>
-
-        </div>
-        <div class="sideicon collapsible">
+                <div class="toc-button"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevrons-right" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M7 7l5 5l-5 5" />
+            <path d="M13 7l5 5l-5 5" />
+        </svg></div>
+            </div>
             
-    <a class="hamburger">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-    </a>
-        </div>
-        <div class="scrollingarea closepopups">
-            
-    <div class="contentarea">
-        <h1 id="parser-monad-and-basic-combinators">Parser Monad and Basic Combinators</h1>
+        <div class="contentarea closepopups">
+            <h1 id="parser-monad-and-basic-combinators">Parser Monad and Basic Combinators</h1>
 <p>This module defines the basic types and combinators for the parser monad.
 To learn about monadic parsers refer to the list of literature in the
 <a href="https://en.wikipedia.org/wiki/Parser_combinator">Wikipedia page</a>.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">import</span> <span class="punctuation">*</span> <span class="keyword">as</span> <span id="287" data-toggle="tooltip" data-title="typeof inp">inp</span> <span class="keyword">from</span> <span class="string">&quot;./input&quot;</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">import</span> <span class="punctuation">*</span> <span class="keyword">as</span> <span id="287" data-toggle="tooltip" data-title="typeof inp">inp</span> <span class="keyword">from</span> <span class="string">&quot;./input&quot;</span>
 <span class="keyword">import</span> <span class="punctuation">*</span> <span class="keyword">as</span> <span id="319" data-toggle="tooltip" data-title="typeof pr">pr</span> <span class="keyword">from</span> <span class="string">&quot;./result&quot;</span>
 <span class="keyword">import</span> <span class="punctuation">*</span> <span class="keyword">as</span> <span id="351" data-toggle="tooltip" data-title="typeof lex">lex</span> <span class="keyword">from</span> <span class="string">&quot;./lexer&quot;</span>
 <span class="keyword">import</span> <span class="punctuation">*</span> <span class="keyword">as</span> <span id="383" data-toggle="tooltip" data-title="typeof ref">ref</span> <span class="keyword">from</span> <span class="string">&quot;./ref&quot;</span>
@@ -188,22 +378,22 @@ To learn about monadic parsers refer to the list of literature in the
 <code>ParserInput&lt;S&gt;</code> stream as an argument and returns a <code>ParseResult&lt;T&gt;</code> object.
 The type of value to be parsed and the type of terminals in the input stream
 are given as type parameters <code>T</code> and <code>S</code>.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">type</span> <span id="471" class="typename" data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">Parse</span><span class="punctuation">&lt;</span><span id="814" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="816" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span> <span class="punctuation">=</span> <span class="punctuation">(</span><span id="823" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span><span class="punctuation">:</span> <a href="parser.html#287"><span data-toggle="tooltip" data-title="any">inp</span></a><span class="punctuation">.</span><a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="parser.html#816"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="parser.html#319"><span data-toggle="tooltip" data-title="any">pr</span></a><span class="punctuation">.</span><a href="result.html#826"><span class="typename" data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">ParseResult</span></a><span class="punctuation">&lt;</span><a href="parser.html#814"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">type</span> <span id="471" class="typename" data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">Parse</span><span class="punctuation">&lt;</span><span id="814" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="816" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span> <span class="punctuation">=</span> <span class="punctuation">(</span><span id="823" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span><span class="punctuation">:</span> <a href="parser.html#287"><span data-toggle="tooltip" data-title="any">inp</span></a><span class="punctuation">.</span><a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="parser.html#816"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="parser.html#319"><span data-toggle="tooltip" data-title="any">pr</span></a><span class="punctuation">.</span><a href="result.html#826"><span class="typename" data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">ParseResult</span></a><span class="punctuation">&lt;</span><a href="parser.html#814"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span>
 </code></pre>
 <h2 id="parser-class">Parser Class</h2>
 <p>The central type in the Parzec library is the <code>Parser&lt;T, S&gt;</code> class. It wraps
 a parsing function and provides the core combinators to combine parsers in
 various ways.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">class</span> <span id="870" class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span><span class="punctuation">&lt;</span><span id="1106" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="1108" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">class</span> <span id="870" class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span><span class="punctuation">&lt;</span><span id="1106" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="1108" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
 </code></pre>
 <p>Constructor wraps the parsing function.</p>
-<pre class="syntaxhighlight"><code>    <span class="keyword">constructor</span><span class="punctuation">(</span><span class="keyword">readonly</span> <span id="1197" data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">parse</span><span class="punctuation">:</span> <a href="parser.html#471"><span class="typename" data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">Parse</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span> <span class="punctuation">{</span> <span class="punctuation">}</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span class="keyword">constructor</span><span class="punctuation">(</span><span class="keyword">readonly</span> <span id="1197" data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">parse</span><span class="punctuation">:</span> <a href="parser.html#471"><span class="typename" data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">Parse</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span> <span class="punctuation">{</span> <span class="punctuation">}</span>
 </code></pre>
 <p>The monadic bind that corresponds to Haskell's <code>&gt;&gt;=</code> operator. Runs
 <code>this</code> parser, and if it succeeds, feeds its result to the <code>binder</code>
 function that returns a new Parser. This is the basic operation that is
 used in other combinators to glue parsers together.</p>
-<pre class="syntaxhighlight"><code>    <span id="1229" class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: T) =&gt; Parser&lt;U, S&gt;) =&gt; Parser&lt;U, S&gt;">bind</span><span class="punctuation">&lt;</span><span id="1553" class="typename" data-toggle="tooltip" data-title="U">U</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="1556" data-toggle="tooltip" data-title="(value: T) =&gt; Parser&lt;U, S&gt;">binder</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="1565" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1553"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1553"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="1229" class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: T) =&gt; Parser&lt;U, S&gt;) =&gt; Parser&lt;U, S&gt;">bind</span><span class="punctuation">&lt;</span><span id="1553" class="typename" data-toggle="tooltip" data-title="U">U</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="1556" data-toggle="tooltip" data-title="(value: T) =&gt; Parser&lt;U, S&gt;">binder</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="1565" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1553"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1553"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="1635" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
             <span class="keyword">let</span> <span id="1662" data-toggle="tooltip" data-title="number">pos</span> <span class="punctuation">=</span> <a href="parser.html#1635"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a>
             <span class="keyword">let</span> <span id="1700" data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">res1</span> <span class="punctuation">=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#1197"><span data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">parse</span></a><span class="punctuation">(</span><a href="parser.html#1635"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">)</span>
@@ -219,14 +409,14 @@ used in other combinators to glue parsers together.</p>
 </code></pre>
 <p>The sequence operator. Runs <code>this</code> parser, and if it succeeds, runs the
 <code>other</code> parser ignoring the result of <code>this</code> one.</p>
-<pre class="syntaxhighlight"><code>    <span id="2035" class="member" data-toggle="tooltip" data-title="&lt;U&gt;(other: Parser&lt;U, S&gt;) =&gt; Parser&lt;U, S&gt;">seq</span><span class="punctuation">&lt;</span><span id="2202" class="typename" data-toggle="tooltip" data-title="U">U</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="2205" data-toggle="tooltip" data-title="Parser&lt;U, S&gt;">other</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#2202"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#2202"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="2035" class="member" data-toggle="tooltip" data-title="&lt;U&gt;(other: Parser&lt;U, S&gt;) =&gt; Parser&lt;U, S&gt;">seq</span><span class="punctuation">&lt;</span><span id="2202" class="typename" data-toggle="tooltip" data-title="U">U</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="2205" data-toggle="tooltip" data-title="Parser&lt;U, S&gt;">other</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#2202"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#2202"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#1229"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: T) =&gt; Parser&lt;U, S&gt;) =&gt; Parser&lt;U, S&gt;">bind</span></a><span class="punctuation">(</span><span id="2268" data-toggle="tooltip" data-title="T">_</span> <span class="punctuation">=&gt;</span> <a href="parser.html#2205"><span data-toggle="tooltip" data-title="Parser&lt;U, S&gt;">other</span></a><span class="punctuation">)</span>
     <span class="punctuation">}</span>
 </code></pre>
 <p>Map result of the parser to another value. This function implements a
 <a href="https://en.wikipedia.org/wiki/Functor"><em>functor</em></a> which is a superclass
 of monad.</p>
-<pre class="syntaxhighlight"><code>    <span id="2286" class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: T) =&gt; U) =&gt; Parser&lt;U, S&gt;">map</span><span class="punctuation">&lt;</span><span id="2493" class="typename" data-toggle="tooltip" data-title="U">U</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="2496" data-toggle="tooltip" data-title="(value: T) =&gt; U">mapper</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="2505" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="parser.html#2493"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#2493"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="2286" class="member" data-toggle="tooltip" data-title="&lt;U&gt;(mapper: (value: T) =&gt; U) =&gt; Parser&lt;U, S&gt;">map</span><span class="punctuation">&lt;</span><span id="2493" class="typename" data-toggle="tooltip" data-title="U">U</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="2496" data-toggle="tooltip" data-title="(value: T) =&gt; U">mapper</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="2505" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="parser.html#2493"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#2493"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#1229"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: T) =&gt; Parser&lt;U, S&gt;) =&gt; Parser&lt;U, S&gt;">bind</span></a><span class="punctuation">(</span><span id="2563" data-toggle="tooltip" data-title="T">x</span> <span class="punctuation">=&gt;</span> <a href="parser.html#11476"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(value: T) =&gt; Parser&lt;T, S&gt;">mret</span></a><span class="punctuation">(</span><a href="parser.html#2496"><span data-toggle="tooltip" data-title="(value: T) =&gt; U">mapper</span></a><span class="punctuation">(</span><a href="parser.html#2563"><span data-toggle="tooltip" data-title="T">x</span></a><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="keyword">as</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#2493"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span>
     <span class="punctuation">}</span>
 </code></pre>
@@ -234,7 +424,7 @@ of monad.</p>
 <p>The ordered choice operation. Creates a parser that first runs <code>this</code>
 parser, and if that fails, runs the <code>other</code> one. Corresponds to the <code>/</code>
 operation in <a href="https://en.wikipedia.org/wiki/Parsing_expression_grammar">PEG grammars</a>.</p>
-<pre class="syntaxhighlight"><code>    <span id="2607" class="member" data-toggle="tooltip" data-title="&lt;U&gt;(other: Parser&lt;U, S&gt;) =&gt; Parser&lt;T | U, S&gt;">or</span><span class="punctuation">&lt;</span><span id="2929" class="typename" data-toggle="tooltip" data-title="U">U</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="2932" data-toggle="tooltip" data-title="Parser&lt;U, S&gt;">other</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#2929"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a> <span class="punctuation">|</span> <a href="parser.html#2929"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="2607" class="member" data-toggle="tooltip" data-title="&lt;U&gt;(other: Parser&lt;U, S&gt;) =&gt; Parser&lt;T | U, S&gt;">or</span><span class="punctuation">&lt;</span><span id="2929" class="typename" data-toggle="tooltip" data-title="U">U</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="2932" data-toggle="tooltip" data-title="Parser&lt;U, S&gt;">other</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#2929"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a> <span class="punctuation">|</span> <a href="parser.html#2929"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="3000" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
             <span class="keyword">let</span> <span id="3027" data-toggle="tooltip" data-title="number">pos</span> <span class="punctuation">=</span> <a href="parser.html#3000"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a><span class="punctuation">;</span>
             <span class="keyword">let</span> <span id="3066" data-toggle="tooltip" data-title="pr.ParseResult&lt;T | U&gt;">res1</span> <span class="punctuation">=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#1197"><span data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">parse</span></a><span class="punctuation">(</span><a href="parser.html#3000"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">)</span> <span class="keyword">as</span> <a href="parser.html#319"><span data-toggle="tooltip" data-title="any">pr</span></a><span class="punctuation">.</span><a href="result.html#826"><span class="typename" data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">ParseResult</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a> <span class="punctuation">|</span> <a href="parser.html#2929"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">&gt;</span>
@@ -252,19 +442,19 @@ operation in <a href="https://en.wikipedia.org/wiki/Parsing_expression_grammar">
 </code></pre>
 <p>Parse an optional value, if the parser fails then the default value is
 returned.</p>
-<pre class="syntaxhighlight"><code>    <span id="3441" class="member" data-toggle="tooltip" data-title="(defaultValue: T) =&gt; Parser&lt;T, S&gt;">optional</span><span class="punctuation">(</span><span id="3572" data-toggle="tooltip" data-title="T">defaultValue</span><span class="punctuation">:</span> <a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="3441" class="member" data-toggle="tooltip" data-title="(defaultValue: T) =&gt; Parser&lt;T, S&gt;">optional</span><span class="punctuation">(</span><span id="3572" data-toggle="tooltip" data-title="T">defaultValue</span><span class="punctuation">:</span> <a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#2607"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(other: Parser&lt;U, S&gt;) =&gt; Parser&lt;T | U, S&gt;">or</span></a><span class="punctuation">(</span><a href="parser.html#11476"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(value: T) =&gt; Parser&lt;T, S&gt;">mret</span></a><span class="punctuation">(</span><a href="parser.html#3572"><span data-toggle="tooltip" data-title="T">defaultValue</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
     <span class="punctuation">}</span>
 </code></pre>
 <p>Parse an optional reference value, if the parser fails then null is
 returned.</p>
-<pre class="syntaxhighlight"><code>    <span id="3655" class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T | null, S&gt;">optionalRef</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a> <span class="punctuation">|</span> <span class="keyword">null</span><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="3655" class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T | null, S&gt;">optionalRef</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a> <span class="punctuation">|</span> <span class="keyword">null</span><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#2607"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(other: Parser&lt;U, S&gt;) =&gt; Parser&lt;T | U, S&gt;">or</span></a><span class="punctuation">(</span><a href="parser.html#11476"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(value: T) =&gt; Parser&lt;T, S&gt;">mret</span></a><span class="punctuation">(</span><span class="keyword">null</span><span class="punctuation">)</span><span class="punctuation">)</span>
     <span class="punctuation">}</span>
 </code></pre>
 <p>Runs parser and checks that it succeeds and that the result it returns
 satisfies a given predicate.</p>
-<pre class="syntaxhighlight"><code>    <span id="3853" class="member" data-toggle="tooltip" data-title="(predicate: (value: T) =&gt; boolean) =&gt; Parser&lt;T, S&gt;">where</span><span class="punctuation">(</span><span id="3999" data-toggle="tooltip" data-title="(value: T) =&gt; boolean">predicate</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="4011" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="keyword">boolean</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="3853" class="member" data-toggle="tooltip" data-title="(predicate: (value: T) =&gt; boolean) =&gt; Parser&lt;T, S&gt;">where</span><span class="punctuation">(</span><span id="3999" data-toggle="tooltip" data-title="(value: T) =&gt; boolean">predicate</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="4011" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="keyword">boolean</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#1229"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: T) =&gt; Parser&lt;U, S&gt;) =&gt; Parser&lt;U, S&gt;">bind</span></a><span class="punctuation">(</span><span id="4075" data-toggle="tooltip" data-title="T">x</span> <span class="punctuation">=&gt;</span>
             <a href="parser.html#3999"><span data-toggle="tooltip" data-title="(value: T) =&gt; boolean">predicate</span></a><span class="punctuation">(</span><a href="parser.html#4075"><span data-toggle="tooltip" data-title="T">x</span></a><span class="punctuation">)</span> <span class="punctuation">?</span> <a href="parser.html#11476"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(value: T) =&gt; Parser&lt;T, S&gt;">mret</span></a><span class="punctuation">(</span><a href="parser.html#4075"><span data-toggle="tooltip" data-title="T">x</span></a><span class="punctuation">)</span> <span class="punctuation">:</span> <a href="parser.html#11840"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(found: string, ...expected: string[]) =&gt; Parser&lt;T, S&gt;">fail</span></a><span class="punctuation">(</span><span class="string">`${</span><a href="parser.html#4075"><span data-toggle="tooltip" data-title="T">x</span></a><span class="string">}`</span><span class="punctuation">,</span> <span class="string">&quot;predicate&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span>
     <span class="punctuation">}</span>
@@ -272,7 +462,7 @@ satisfies a given predicate.</p>
 <h2 id="parsing-multiple-items">Parsing Multiple Items</h2>
 <p>Creates a parser that will run <code>this</code> parser zero or more times. The
 results of the input parser are added to an array.</p>
-<pre class="syntaxhighlight"><code>    <span id="4151" class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T[], S&gt;">zeroOrMore</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="4151" class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T[], S&gt;">zeroOrMore</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="4413" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
             <span class="keyword">let</span> <span id="4440" data-toggle="tooltip" data-title="T[]">list</span><span class="punctuation">:</span> <a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">[</span><span class="punctuation">]</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span>
             <span class="keyword">while</span> <span class="punctuation">(</span><span class="keyword">true</span><span class="punctuation">)</span> <span class="punctuation">{</span>
@@ -287,7 +477,7 @@ results of the input parser are added to an array.</p>
     <span class="punctuation">}</span>
 </code></pre>
 <p>Creates a parser that runs <code>this</code> parser one or more times.</p>
-<pre class="syntaxhighlight"><code>    <span id="4797" class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T[], S&gt;">oneOrMore</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="4797" class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T[], S&gt;">oneOrMore</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="4946" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
             <span class="keyword">let</span> <span id="4973" data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">res</span> <span class="punctuation">=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#1197"><span data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">parse</span></a><span class="punctuation">(</span><a href="parser.html#4946"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">)</span>
             <span class="keyword">if</span> <span class="punctuation">(</span><a href="parser.html#4973"><span data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">res</span></a><span class="punctuation">.</span><a href="result.html#762"><span data-toggle="tooltip" data-title="&quot;ok&quot; | &quot;fail&quot;">kind</span></a> <span class="punctuation">==</span> <span class="string">&quot;fail&quot;</span><span class="punctuation">)</span>
@@ -305,7 +495,7 @@ results of the input parser are added to an array.</p>
     <span class="punctuation">}</span>
 </code></pre>
 <p>Parsing succeeds if <code>this</code> parser succeeds from <code>min</code> to <code>max</code> times.</p>
-<pre class="syntaxhighlight"><code>    <span id="5438" class="member" data-toggle="tooltip" data-title="(min: number, max: number) =&gt; Parser&lt;T[], S&gt;">occurrences</span><span class="punctuation">(</span><span id="5552" data-toggle="tooltip" data-title="number">min</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span> <span id="5564" data-toggle="tooltip" data-title="number">max</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="5438" class="member" data-toggle="tooltip" data-title="(min: number, max: number) =&gt; Parser&lt;T[], S&gt;">occurrences</span><span class="punctuation">(</span><span id="5552" data-toggle="tooltip" data-title="number">min</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span> <span id="5564" data-toggle="tooltip" data-title="number">max</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#4151"><span class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T[], S&gt;">zeroOrMore</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="parser.html#1229"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: T[]) =&gt; Parser&lt;U, S&gt;) =&gt; Parser&lt;U, S&gt;">bind</span></a><span class="punctuation">(</span><span id="5635" data-toggle="tooltip" data-title="T[]">list</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
             <span class="keyword">let</span> <span id="5661" data-toggle="tooltip" data-title="number">cnt</span> <span class="punctuation">=</span> <a href="parser.html#5635"><span data-toggle="tooltip" data-title="T[]">list</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">length</span>
             <span class="keyword">return</span> <a href="parser.html#5661"><span data-toggle="tooltip" data-title="number">cnt</span></a> <span class="punctuation">&gt;=</span> <a href="parser.html#5552"><span data-toggle="tooltip" data-title="number">min</span></a> <span class="punctuation">&amp;&amp;</span> <a href="parser.html#5661"><span data-toggle="tooltip" data-title="number">cnt</span></a> <span class="punctuation">&lt;=</span> <a href="parser.html#5564"><span data-toggle="tooltip" data-title="number">max</span></a> <span class="punctuation">?</span>
@@ -317,7 +507,7 @@ results of the input parser are added to an array.</p>
 <h2 id="lookahead-amp-backtracking">Lookahead &amp; Backtracking</h2>
 <p>Check that <code>this</code> parser succeeds without consuming any input.
 Corresponds to the <code>&amp;</code> operator in PEG grammars.</p>
-<pre class="syntaxhighlight"><code>    <span id="5848" class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T, S&gt;">and</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="5848" class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T, S&gt;">and</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="6095" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
             <span class="keyword">let</span> <span id="6122" data-toggle="tooltip" data-title="number">pos</span> <span class="punctuation">=</span> <a href="parser.html#6095"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a>
             <span class="keyword">let</span> <span id="6160" data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">res</span> <span class="punctuation">=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#1197"><span data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">parse</span></a><span class="punctuation">(</span><a href="parser.html#6095"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">)</span>
@@ -328,7 +518,7 @@ Corresponds to the <code>&amp;</code> operator in PEG grammars.</p>
 </code></pre>
 <p>Check that <code>this</code> parser fails without consuming any input. Corresponds
 to the <code>!</code> operator in PEG grammars.</p>
-<pre class="syntaxhighlight"><code>    <span id="6261" class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T, S&gt;">not</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="6261" class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T, S&gt;">not</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="6460" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
             <span class="keyword">let</span> <span id="6487" data-toggle="tooltip" data-title="number">pos</span> <span class="punctuation">=</span> <a href="parser.html#6460"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a>
             <span class="keyword">let</span> <span id="6525" data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">res</span> <span class="punctuation">=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#1197"><span data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">parse</span></a><span class="punctuation">(</span><a href="parser.html#6460"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">)</span>
@@ -347,7 +537,7 @@ parser has advanced in the input. Doing so would loose the position where
 the parsing failed and make error messages more vague. Sometimes,
 however, we need more input lookahead. In these cases, you can use the
 backtrack operation to retry the next rule.</p>
-<pre class="syntaxhighlight"><code>    <span id="6842" class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T, S&gt;">backtrack</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="6842" class="member" data-toggle="tooltip" data-title="() =&gt; Parser&lt;T, S&gt;">backtrack</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="7369" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
             <span class="keyword">let</span> <span id="7396" data-toggle="tooltip" data-title="number">pos</span> <span class="punctuation">=</span> <a href="parser.html#7369"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a>
             <span class="keyword">let</span> <span id="7434" data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">res</span> <span class="punctuation">=</span> <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#1197"><span data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">parse</span></a><span class="punctuation">(</span><a href="parser.html#7369"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">)</span>
@@ -360,7 +550,7 @@ backtrack operation to retry the next rule.</p>
 <h2 id="error-reporting-and-debugging">Error Reporting and Debugging</h2>
 <p>Give a human-readable name to the &quot;thing&quot; that the given parser matches.
 This name is reported as expected value, if the parsing fails.</p>
-<pre class="syntaxhighlight"><code>    <span id="7596" class="member" data-toggle="tooltip" data-title="(expected: string) =&gt; Parser&lt;T, S&gt;">expect</span><span class="punctuation">(</span><span id="7830" data-toggle="tooltip" data-title="string">expected</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="7596" class="member" data-toggle="tooltip" data-title="(expected: string) =&gt; Parser&lt;T, S&gt;">expect</span><span class="punctuation">(</span><span id="7830" data-toggle="tooltip" data-title="string">expected</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">if</span> <span class="punctuation">(</span><span class="punctuation">!</span><a href="parser.html#9606"><span data-toggle="tooltip" data-title="{ debugging: boolean; rulesEvaluated: number; errorMessages: boolean; indentation: number; indent(): void; unindent(): void; write(text: string): void; }">parserDebug</span></a><span class="punctuation">.</span><a href="parser.html#9865"><span data-toggle="tooltip" data-title="boolean">errorMessages</span></a><span class="punctuation">)</span>
             <span class="keyword">return</span> <span class="keyword">this</span>
         <span class="keyword">let</span> <span id="7942" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">resParser</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span class="punctuation">(</span><span id="7967" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span><span class="punctuation">:</span> <a href="parser.html#287"><span data-toggle="tooltip" data-title="any">inp</span></a><span class="punctuation">.</span><a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
@@ -377,7 +567,7 @@ triggered during parsing, you can add debugging info to any parser. This
 combinator produces a hierarchical tree of parser invocations which
 includes information about input symbol and its position. If debugging
 is disabled, this function does nothing.</p>
-<pre class="syntaxhighlight"><code>    <span id="8242" class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; Parser&lt;T, S&gt;">trace</span><span class="punctuation">(</span><span id="8636" data-toggle="tooltip" data-title="string">ruleName</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="8242" class="member" data-toggle="tooltip" data-title="(ruleName: string) =&gt; Parser&lt;T, S&gt;">trace</span><span class="punctuation">(</span><span id="8636" data-toggle="tooltip" data-title="string">ruleName</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#1106"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#1108"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">if</span> <span class="punctuation">(</span><span class="punctuation">!</span><a href="parser.html#9606"><span data-toggle="tooltip" data-title="{ debugging: boolean; rulesEvaluated: number; errorMessages: boolean; indentation: number; indent(): void; unindent(): void; write(text: string): void; }">parserDebug</span></a><span class="punctuation">.</span><a href="parser.html#9622"><span data-toggle="tooltip" data-title="boolean">debugging</span></a><span class="punctuation">)</span>
             <span class="keyword">return</span> <span class="keyword">this</span><span class="punctuation">;</span>
         <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="8760" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
@@ -401,34 +591,34 @@ is disabled, this function does nothing.</p>
 <h2 id="debugging-options">Debugging Options</h2>
 <p>The following object contains the global settings that control the parser
 reporting.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">const</span> <span id="9606" data-toggle="tooltip" data-title="{ debugging: boolean; rulesEvaluated: number; errorMessages: boolean; indentation: number; indent(): void; unindent(): void; write(text: string): void; }">parserDebug</span> <span class="punctuation">=</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">const</span> <span id="9606" data-toggle="tooltip" data-title="{ debugging: boolean; rulesEvaluated: number; errorMessages: boolean; indentation: number; indent(): void; unindent(): void; write(text: string): void; }">parserDebug</span> <span class="punctuation">=</span> <span class="punctuation">{</span>
 </code></pre>
 <p>When <code>debugging</code> flag is on parsers count the number of rules evaluated
 during their operation. The <code>rulesEvaluated</code> field contains this
 information.</p>
-<pre class="syntaxhighlight"><code>    <span id="9622" data-toggle="tooltip" data-title="boolean">debugging</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="9622" data-toggle="tooltip" data-title="boolean">debugging</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span>
     <span id="9841" data-toggle="tooltip" data-title="number">rulesEvaluated</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span>
 </code></pre>
 <p>If errorMessages flag is turned off, the expected information will not be
 available in parse errors. This speeds up the parsing nominally.</p>
-<pre class="syntaxhighlight"><code>    <span id="9865" data-toggle="tooltip" data-title="boolean">errorMessages</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="9865" data-toggle="tooltip" data-title="boolean">errorMessages</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span>
 </code></pre>
 <p>The current indentation level in the debugging output is stored in this
 field.</p>
-<pre class="syntaxhighlight"><code>    <span id="10065" data-toggle="tooltip" data-title="number">indentation</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="10065" data-toggle="tooltip" data-title="number">indentation</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span>
 </code></pre>
 <p>Indent the debug output by one level.</p>
-<pre class="syntaxhighlight"><code>    <span id="10200" class="member" data-toggle="tooltip" data-title="() =&gt; void">indent</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="10200" class="member" data-toggle="tooltip" data-title="() =&gt; void">indent</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
         <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#10065"><span data-toggle="tooltip" data-title="number">indentation</span></a><span class="punctuation">++</span>
     <span class="punctuation">}</span><span class="punctuation">,</span>
 </code></pre>
 <p>Unndent the debug output by one level.</p>
-<pre class="syntaxhighlight"><code>    <span id="10316" class="member" data-toggle="tooltip" data-title="() =&gt; void">unindent</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="10316" class="member" data-toggle="tooltip" data-title="() =&gt; void">unindent</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
         <span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#10065"><span data-toggle="tooltip" data-title="number">indentation</span></a><span class="punctuation">--</span>
     <span class="punctuation">}</span><span class="punctuation">,</span>
 </code></pre>
 <p>Write a string to the debug output.</p>
-<pre class="syntaxhighlight"><code>    <span id="10435" class="member" data-toggle="tooltip" data-title="(text: string) =&gt; void">write</span><span class="punctuation">(</span><span id="10509" data-toggle="tooltip" data-title="string">text</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code>    <span id="10435" class="member" data-toggle="tooltip" data-title="(text: string) =&gt; void">write</span><span class="punctuation">(</span><span id="10509" data-toggle="tooltip" data-title="string">text</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span> <span class="punctuation">{</span>
         <span class="keyword">let</span> <span id="10537" data-toggle="tooltip" data-title="string">tabs</span> <span class="punctuation">=</span> <span class="string">&quot;  &quot;</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(count: number) =&gt; string">repeat</span><span class="punctuation">(</span><span class="keyword">this</span><span class="punctuation">.</span><a href="parser.html#10065"><span data-toggle="tooltip" data-title="number">indentation</span></a><span class="punctuation">)</span>
         <span data-toggle="tooltip" data-title="Console">console</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (...data: any[]): void; (message?: any, ...optionalParams: any[]): void; }">log</span><span class="punctuation">(</span><a href="parser.html#10537"><span data-toggle="tooltip" data-title="string">tabs</span></a> <span class="punctuation">+</span> <a href="parser.html#10509"><span data-toggle="tooltip" data-title="string">text</span></a><span class="punctuation">)</span>
     <span class="punctuation">}</span>
@@ -437,7 +627,7 @@ field.</p>
 <h2 id="main-functions">Main Functions</h2>
 <p>Attempt to parse an input with a given parser. Takes a Parser and a
 ParserInput as arguments and return a ParseResult.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="10618" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: Parser&lt;T, S&gt;, input: inp.ParserInput&lt;S&gt;) =&gt; pr.ParseResult&lt;T&gt;">tryParse</span><span class="punctuation">&lt;</span><span id="10812" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="10814" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="10818" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">parser</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#10812"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#10814"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">,</span> <span id="10839" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span><span class="punctuation">:</span> <a href="parser.html#287"><span data-toggle="tooltip" data-title="any">inp</span></a><span class="punctuation">.</span><a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="parser.html#10814"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="10618" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: Parser&lt;T, S&gt;, input: inp.ParserInput&lt;S&gt;) =&gt; pr.ParseResult&lt;T&gt;">tryParse</span><span class="punctuation">&lt;</span><span id="10812" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="10814" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="10818" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">parser</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#10812"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#10814"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">,</span> <span id="10839" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span><span class="punctuation">:</span> <a href="parser.html#287"><span data-toggle="tooltip" data-title="any">inp</span></a><span class="punctuation">.</span><a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="parser.html#10814"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span>
     <a href="parser.html#319"><span data-toggle="tooltip" data-title="any">pr</span></a><span class="punctuation">.</span><a href="result.html#826"><span class="typename" data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">ParseResult</span></a><span class="punctuation">&lt;</span><a href="parser.html#10812"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <a href="parser.html#9606"><span data-toggle="tooltip" data-title="{ debugging: boolean; rulesEvaluated: number; errorMessages: boolean; indentation: number; indent(): void; unindent(): void; write(text: string): void; }">parserDebug</span></a><span class="punctuation">.</span><a href="parser.html#9841"><span data-toggle="tooltip" data-title="number">rulesEvaluated</span></a> <span class="punctuation">=</span> <span class="number">0</span>
     <span class="keyword">let</span> <span id="10937" data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">res</span> <span class="punctuation">=</span> <a href="parser.html#10818"><span data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">parser</span></a><span class="punctuation">.</span><a href="parser.html#1197"><span data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">parse</span></a><span class="punctuation">(</span><a href="parser.html#10839"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">)</span>
@@ -447,7 +637,7 @@ ParserInput as arguments and return a ParseResult.</p>
 <span class="punctuation">}</span>
 </code></pre>
 <p>Parse an input using a given parser, or throw an exception, if parsing fails.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="11096" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: Parser&lt;T, S&gt;, input: inp.ParserInput&lt;S&gt;) =&gt; T">parse</span><span class="punctuation">&lt;</span><span id="11212" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="11214" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="11218" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">parser</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#11212"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#11214"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">,</span> <span id="11239" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span><span class="punctuation">:</span> <a href="parser.html#287"><span data-toggle="tooltip" data-title="any">inp</span></a><span class="punctuation">.</span><a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="parser.html#11214"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#11212"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="11096" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: Parser&lt;T, S&gt;, input: inp.ParserInput&lt;S&gt;) =&gt; T">parse</span><span class="punctuation">&lt;</span><span id="11212" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="11214" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="11218" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">parser</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#11212"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#11214"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">,</span> <span id="11239" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span><span class="punctuation">:</span> <a href="parser.html#287"><span data-toggle="tooltip" data-title="any">inp</span></a><span class="punctuation">.</span><a href="input.html#0"><span class="typename" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">ParserInput</span></a><span class="punctuation">&lt;</span><a href="parser.html#11214"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#11212"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a> <span class="punctuation">{</span>
     <span class="keyword">var</span> <span id="11280" data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">res</span> <span class="punctuation">=</span> <a href="parser.html#10618"><span class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: Parser&lt;T, S&gt;, input: inp.ParserInput&lt;S&gt;) =&gt; pr.ParseResult&lt;T&gt;">tryParse</span></a><span class="punctuation">(</span><a href="parser.html#11218"><span data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">parser</span></a><span class="punctuation">,</span> <a href="parser.html#11239"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">)</span>
     <span class="keyword">if</span> <span class="punctuation">(</span><a href="parser.html#11280"><span data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">res</span></a><span class="punctuation">.</span><a href="result.html#762"><span data-toggle="tooltip" data-title="&quot;ok&quot; | &quot;fail&quot;">kind</span></a> <span class="punctuation">==</span> <span class="string">&quot;fail&quot;</span><span class="punctuation">)</span>
         <span class="keyword">throw</span> <span class="keyword">new</span> <a href="parser.html#447"><span data-toggle="tooltip" data-title="typeof err">err</span></a><span class="punctuation">.</span><a href="error.html#265"><span class="typename" data-toggle="tooltip" data-title="typeof err.ParseError">ParseError</span></a><span class="punctuation">(</span><a href="parser.html#447"><span data-toggle="tooltip" data-title="typeof err">err</span></a><span class="punctuation">.</span><a href="error.html#0"><span class="typename" data-toggle="tooltip" data-title="typeof err.ErrorSource">ErrorSource</span></a><span class="punctuation">.</span><a href="error.html#238"><span data-toggle="tooltip" data-title="err.ErrorSource.Parser">Parser</span></a><span class="punctuation">,</span> <a href="parser.html#11280"><span data-toggle="tooltip" data-title="Fail">res</span></a><span class="punctuation">.</span><a href="result.html#307"><span data-toggle="tooltip" data-title="number">position</span></a><span class="punctuation">,</span> 
@@ -459,20 +649,20 @@ ParserInput as arguments and return a ParseResult.</p>
 <p>Create a parser that always succeeds and returns the given value without
 consuming any input. This function implements the monadic return, that is,
 it lifts a value to the parser monad.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="11476" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(value: T) =&gt; Parser&lt;T, S&gt;">mret</span><span class="punctuation">&lt;</span><span id="11737" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="11739" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="11743" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#11737"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#11737"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#11739"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="11476" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(value: T) =&gt; Parser&lt;T, S&gt;">mret</span><span class="punctuation">&lt;</span><span id="11737" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="11739" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="11743" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#11737"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#11737"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#11739"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="11792" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <a href="parser.html#319"><span data-toggle="tooltip" data-title="typeof pr">pr</span></a><span class="punctuation">.</span><a href="result.html#1556"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(pos: number, res: T) =&gt; pr.ParseResult&lt;T&gt;">succeeded</span></a><span class="punctuation">(</span><a href="parser.html#11792"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a><span class="punctuation">,</span> <a href="parser.html#11743"><span data-toggle="tooltip" data-title="T">value</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 <p>Create a parser that always fails. The terminals reported as
 found or expected are given as an argument.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="11840" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(found: string, ...expected: string[]) =&gt; Parser&lt;T, S&gt;">fail</span><span class="punctuation">&lt;</span><span id="11986" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="11988" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="11992" data-toggle="tooltip" data-title="string">found</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">,</span> <span class="punctuation">...</span><span id="12006" data-toggle="tooltip" data-title="string[]">expected</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#11986"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#11988"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="11840" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(found: string, ...expected: string[]) =&gt; Parser&lt;T, S&gt;">fail</span><span class="punctuation">&lt;</span><span id="11986" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="11988" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="11992" data-toggle="tooltip" data-title="string">found</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">,</span> <span class="punctuation">...</span><span id="12006" data-toggle="tooltip" data-title="string[]">expected</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#11986"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#11988"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="12069" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <a href="parser.html#319"><span data-toggle="tooltip" data-title="typeof pr">pr</span></a><span class="punctuation">.</span><a href="result.html#1830"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(pos: number, fnd: string, exp?: string[]) =&gt; pr.ParseResult&lt;T&gt;">failed</span></a><span class="punctuation">(</span><a href="parser.html#12069"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a><span class="punctuation">,</span> <a href="parser.html#11992"><span data-toggle="tooltip" data-title="string">found</span></a><span class="punctuation">,</span> <a href="parser.html#12006"><span data-toggle="tooltip" data-title="string[]">expected</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 <h2 id="parsing-terminals">Parsing Terminals</h2>
 <p>Creates a parser that reads one terminal from the input and returns it, if it
 satisfies the given predicate; otherwise the parser fails.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="12124" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(predicate: (value: T) =&gt; boolean) =&gt; Parser&lt;T, T&gt;">satisfy</span><span class="punctuation">&lt;</span><span id="12336" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="12339" data-toggle="tooltip" data-title="(value: T) =&gt; boolean">predicate</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="12351" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#12336"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="keyword">boolean</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#12336"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#12336"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="12124" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(predicate: (value: T) =&gt; boolean) =&gt; Parser&lt;T, T&gt;">satisfy</span><span class="punctuation">&lt;</span><span id="12336" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="12339" data-toggle="tooltip" data-title="(value: T) =&gt; boolean">predicate</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="12351" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#12336"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="keyword">boolean</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#12336"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#12336"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="12412" data-toggle="tooltip" data-title="inp.ParserInput&lt;T&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">let</span> <span id="12435" data-toggle="tooltip" data-title="number">pos</span> <span class="punctuation">=</span> <a href="parser.html#12412"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;T&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a>
         <span class="keyword">let</span> <span id="12469" data-toggle="tooltip" data-title="T">item</span> <span class="punctuation">=</span> <a href="parser.html#12412"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;T&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#506"><span class="member" data-toggle="tooltip" data-title="() =&gt; T">next</span></a><span class="punctuation">(</span><span class="punctuation">)</span>
@@ -485,13 +675,13 @@ satisfies the given predicate; otherwise the parser fails.</p>
 </code></pre>
 <p>Creates a parser that reads one terminal from the input and returns it, if it
 does <strong>not</strong> satisfy a given predicate.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="12671" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(predicate: (value: T) =&gt; boolean) =&gt; Parser&lt;T, T&gt;">notSatisfy</span><span class="punctuation">&lt;</span><span id="12836" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="12839" data-toggle="tooltip" data-title="(value: T) =&gt; boolean">predicate</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="12851" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#12836"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="keyword">boolean</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#12836"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#12836"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="12671" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(predicate: (value: T) =&gt; boolean) =&gt; Parser&lt;T, T&gt;">notSatisfy</span><span class="punctuation">&lt;</span><span id="12836" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="12839" data-toggle="tooltip" data-title="(value: T) =&gt; boolean">predicate</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="12851" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#12836"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="keyword">boolean</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#12836"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#12836"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <a href="parser.html#12124"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(predicate: (value: T) =&gt; boolean) =&gt; Parser&lt;T, T&gt;">satisfy</span></a><span class="punctuation">(</span><span id="12909" data-toggle="tooltip" data-title="T">x</span> <span class="punctuation">=&gt;</span> <span class="punctuation">!</span><a href="parser.html#12839"><span data-toggle="tooltip" data-title="(value: T) =&gt; boolean">predicate</span></a><span class="punctuation">(</span><a href="parser.html#12909"><span data-toggle="tooltip" data-title="T">x</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 <p>Any of the given parsers must succeed. The operation is the same
 as the <code>or</code> combinator generalized to arbitrary number of choices.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="12931" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(...parsers: Parser&lt;T, S&gt;[]) =&gt; Parser&lt;T, S&gt;">any</span><span class="punctuation">&lt;</span><span id="13104" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="13106" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">...</span><span id="13110" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;[]">parsers</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#13104"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#13106"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#13104"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#13106"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="12931" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(...parsers: Parser&lt;T, S&gt;[]) =&gt; Parser&lt;T, S&gt;">any</span><span class="punctuation">&lt;</span><span id="13104" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="13106" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">...</span><span id="13110" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;[]">parsers</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#13104"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#13106"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#13104"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#13106"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">if</span> <span class="punctuation">(</span><a href="parser.html#13110"><span data-toggle="tooltip" data-title="Parser&lt;T, S&gt;[]">parsers</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">length</span> <span class="punctuation">==</span> <span class="number">0</span><span class="punctuation">)</span>
         <span class="keyword">throw</span> <span class="typename" data-toggle="tooltip" data-title="ErrorConstructor">Error</span><span class="punctuation">(</span><span class="string">&quot;At least one parser must be given.&quot;</span><span class="punctuation">)</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="13266" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
@@ -515,7 +705,7 @@ as the <code>or</code> combinator generalized to arbitrary number of choices.</p
 <span class="punctuation">}</span>
 </code></pre>
 <p>Peek next symbol in the input stream without changing the position.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="13752" class="member" data-toggle="tooltip" data-title="&lt;S&gt;() =&gt; Parser&lt;S, S&gt;">peek</span><span class="punctuation">&lt;</span><span id="13858" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#13858"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">,</span> <a href="parser.html#13858"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="13752" class="member" data-toggle="tooltip" data-title="&lt;S&gt;() =&gt; Parser&lt;S, S&gt;">peek</span><span class="punctuation">&lt;</span><span id="13858" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#13858"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">,</span> <a href="parser.html#13858"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="13902" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">let</span> <span id="13925" data-toggle="tooltip" data-title="number">pos</span> <span class="punctuation">=</span> <a href="parser.html#13902"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a>
         <span class="keyword">let</span> <span id="13959" data-toggle="tooltip" data-title="S">next</span> <span class="punctuation">=</span> <a href="parser.html#13902"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#506"><span class="member" data-toggle="tooltip" data-title="() =&gt; S">next</span></a><span class="punctuation">(</span><span class="punctuation">)</span>
@@ -528,7 +718,7 @@ as the <code>or</code> combinator generalized to arbitrary number of choices.</p
 function is an alternative to the the &quot;any&quot; combinator. It reduces
 backtracking when the parser to be applied can be deduced from the next
 symbol.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="14060" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(selector: (input: S) =&gt; Parser&lt;T, S&gt;) =&gt; Parser&lt;T, S&gt;">choose</span><span class="punctuation">&lt;</span><span id="14332" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="14334" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="14338" data-toggle="tooltip" data-title="(input: S) =&gt; Parser&lt;T, S&gt;">selector</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="14349" data-toggle="tooltip" data-title="S">input</span><span class="punctuation">:</span> <a href="parser.html#14334"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#14332"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#14334"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="14060" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(selector: (input: S) =&gt; Parser&lt;T, S&gt;) =&gt; Parser&lt;T, S&gt;">choose</span><span class="punctuation">&lt;</span><span id="14332" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="14334" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="14338" data-toggle="tooltip" data-title="(input: S) =&gt; Parser&lt;T, S&gt;">selector</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="14349" data-toggle="tooltip" data-title="S">input</span><span class="punctuation">:</span> <a href="parser.html#14334"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#14332"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#14334"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span>
     <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#14332"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#14334"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <a href="parser.html#13752"><span class="member" data-toggle="tooltip" data-title="&lt;S&gt;() =&gt; Parser&lt;S, S&gt;">peek</span></a><span class="punctuation">&lt;</span><a href="parser.html#14334"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">.</span><a href="parser.html#1229"><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(binder: (value: S) =&gt; Parser&lt;U, S&gt;) =&gt; Parser&lt;U, S&gt;">bind</span></a><span class="punctuation">(</span><a href="parser.html#14338"><span data-toggle="tooltip" data-title="(input: S) =&gt; Parser&lt;T, S&gt;">selector</span></a><span class="punctuation">)</span>
 <span class="punctuation">}</span>
@@ -537,27 +727,27 @@ symbol.</p>
 <p>A parser that returns the current position of the input. This is useful
 when binding parsers together and you want to know the position where you
 currently are. The position can be also used for backtracking.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="14436" class="member" data-toggle="tooltip" data-title="&lt;S&gt;() =&gt; Parser&lt;number, S&gt;">position</span><span class="punctuation">&lt;</span><span id="14731" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><span class="keyword">number</span><span class="punctuation">,</span> <a href="parser.html#14731"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="14436" class="member" data-toggle="tooltip" data-title="&lt;S&gt;() =&gt; Parser&lt;number, S&gt;">position</span><span class="punctuation">&lt;</span><span id="14731" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><span class="keyword">number</span><span class="punctuation">,</span> <a href="parser.html#14731"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="14780" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <a href="parser.html#319"><span data-toggle="tooltip" data-title="typeof pr">pr</span></a><span class="punctuation">.</span><a href="result.html#1556"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(pos: number, res: T) =&gt; pr.ParseResult&lt;T&gt;">succeeded</span></a><span class="punctuation">(</span><a href="parser.html#14780"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a><span class="punctuation">,</span> <a href="parser.html#14780"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 <h2 id="user-managed-state">User-Managed State</h2>
 <p>Get the current satellite state stored in the input.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="14837" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;() =&gt; Parser&lt;T, S&gt;">getState</span><span class="punctuation">&lt;</span><span id="14962" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="14964" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#14962"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#14964"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="14837" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;() =&gt; Parser&lt;T, S&gt;">getState</span><span class="punctuation">&lt;</span><span id="14962" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="14964" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#14962"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#14964"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="15009" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <a href="parser.html#319"><span data-toggle="tooltip" data-title="typeof pr">pr</span></a><span class="punctuation">.</span><a href="result.html#1556"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(pos: number, res: T) =&gt; pr.ParseResult&lt;T&gt;">succeeded</span></a><span class="punctuation">(</span><a href="parser.html#15009"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a><span class="punctuation">,</span> <span class="punctuation">&lt;</span><a href="parser.html#14962"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span><a href="parser.html#15009"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#953"><span data-toggle="tooltip" data-title="any">state</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 <p>Set the current satellite state stored in the input. The new state
 is not given explicitly. Rather, a funcion which returns the new
 state is specified.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="15066" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(newValue: () =&gt; T) =&gt; Parser&lt;T, S&gt;">setState</span><span class="punctuation">&lt;</span><span id="15267" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="15269" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="15273" data-toggle="tooltip" data-title="() =&gt; T">newValue</span><span class="punctuation">:</span> <span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="parser.html#15267"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#15267"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#15269"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="15066" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(newValue: () =&gt; T) =&gt; Parser&lt;T, S&gt;">setState</span><span class="punctuation">&lt;</span><span id="15267" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="15269" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="15273" data-toggle="tooltip" data-title="() =&gt; T">newValue</span><span class="punctuation">:</span> <span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="parser.html#15267"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#15267"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#15269"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="15331" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span>
         <a href="parser.html#319"><span data-toggle="tooltip" data-title="typeof pr">pr</span></a><span class="punctuation">.</span><a href="result.html#1556"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(pos: number, res: T) =&gt; pr.ParseResult&lt;T&gt;">succeeded</span></a><span class="punctuation">(</span><a href="parser.html#15331"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a><span class="punctuation">,</span> <a href="parser.html#15331"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#953"><span data-toggle="tooltip" data-title="any">state</span></a> <span class="punctuation">=</span> <a href="parser.html#15273"><span data-toggle="tooltip" data-title="() =&gt; T">newValue</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 <p>Mutate the satellite state stored in the input. The mutation is done
 with a function given as an argument.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="15407" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(mutate: (state: T) =&gt; void) =&gt; Parser&lt;T, S&gt;">mutateState</span><span class="punctuation">&lt;</span><span id="15563" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="15565" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="15569" data-toggle="tooltip" data-title="(state: T) =&gt; void">mutate</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="15578" data-toggle="tooltip" data-title="T">state</span><span class="punctuation">:</span> <a href="parser.html#15563"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="keyword">void</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#15563"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#15565"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="15407" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(mutate: (state: T) =&gt; void) =&gt; Parser&lt;T, S&gt;">mutateState</span><span class="punctuation">&lt;</span><span id="15563" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="15565" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="15569" data-toggle="tooltip" data-title="(state: T) =&gt; void">mutate</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="15578" data-toggle="tooltip" data-title="T">state</span><span class="punctuation">:</span> <a href="parser.html#15563"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="keyword">void</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#15563"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#15565"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="15636" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
         <a href="parser.html#15569"><span data-toggle="tooltip" data-title="(state: T) =&gt; void">mutate</span></a><span class="punctuation">(</span><a href="parser.html#15636"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#953"><span data-toggle="tooltip" data-title="any">state</span></a><span class="punctuation">)</span>
         <span class="keyword">return</span> <a href="parser.html#319"><span data-toggle="tooltip" data-title="typeof pr">pr</span></a><span class="punctuation">.</span><a href="result.html#1556"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(pos: number, res: T) =&gt; pr.ParseResult&lt;T&gt;">succeeded</span></a><span class="punctuation">(</span><a href="parser.html#15636"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a><span class="punctuation">,</span> <a href="parser.html#15636"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#953"><span data-toggle="tooltip" data-title="any">state</span></a><span class="punctuation">)</span>
@@ -566,7 +756,7 @@ with a function given as an argument.</p>
 </code></pre>
 <p>Check that the current state matches a predicate. If not, the result parser
 fails.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="15744" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(predicate: (state: T) =&gt; boolean) =&gt; Parser&lt;T, S&gt;">checkState</span><span class="punctuation">&lt;</span><span id="15875" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="15877" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="15881" data-toggle="tooltip" data-title="(state: T) =&gt; boolean">predicate</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="15893" data-toggle="tooltip" data-title="T">state</span><span class="punctuation">:</span> <a href="parser.html#15875"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="keyword">boolean</span><span class="punctuation">)</span><span class="punctuation">:</span> 
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="15744" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(predicate: (state: T) =&gt; boolean) =&gt; Parser&lt;T, S&gt;">checkState</span><span class="punctuation">&lt;</span><span id="15875" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="15877" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="15881" data-toggle="tooltip" data-title="(state: T) =&gt; boolean">predicate</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="15893" data-toggle="tooltip" data-title="T">state</span><span class="punctuation">:</span> <a href="parser.html#15875"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="keyword">boolean</span><span class="punctuation">)</span><span class="punctuation">:</span> 
     <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#15875"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#15877"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="15960" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <a href="parser.html#15881"><span data-toggle="tooltip" data-title="(state: T) =&gt; boolean">predicate</span></a><span class="punctuation">(</span><a href="parser.html#15960"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#953"><span data-toggle="tooltip" data-title="any">state</span></a><span class="punctuation">)</span> <span class="punctuation">?</span>
         <a href="parser.html#319"><span data-toggle="tooltip" data-title="typeof pr">pr</span></a><span class="punctuation">.</span><a href="result.html#1556"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(pos: number, res: T) =&gt; pr.ParseResult&lt;T&gt;">succeeded</span></a><span class="punctuation">(</span><a href="parser.html#15960"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#245"><span data-toggle="tooltip" data-title="number">position</span></a><span class="punctuation">,</span> <a href="parser.html#15960"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">.</span><a href="input.html#953"><span data-toggle="tooltip" data-title="any">state</span></a><span class="punctuation">)</span> <span class="punctuation">:</span>
@@ -575,7 +765,7 @@ fails.</p>
 </code></pre>
 <p>Clean up the current state after a parser has been executed. The clean-up
 function is run regardless of whether the parser succeeds or fails.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="16108" class="member" data-toggle="tooltip" data-title="&lt;T, U, S&gt;(parser: Parser&lt;T, S&gt;, cleanup: (state: U) =&gt; void) =&gt; Parser&lt;T, S&gt;">cleanupState</span><span class="punctuation">&lt;</span><span id="16300" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="16302" class="typename" data-toggle="tooltip" data-title="U">U</span><span class="punctuation">,</span> <span id="16305" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="16309" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">parser</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#16300"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#16305"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">,</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="16108" class="member" data-toggle="tooltip" data-title="&lt;T, U, S&gt;(parser: Parser&lt;T, S&gt;, cleanup: (state: U) =&gt; void) =&gt; Parser&lt;T, S&gt;">cleanupState</span><span class="punctuation">&lt;</span><span id="16300" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="16302" class="typename" data-toggle="tooltip" data-title="U">U</span><span class="punctuation">,</span> <span id="16305" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="16309" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">parser</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#16300"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#16305"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">,</span>
     <span id="16330" data-toggle="tooltip" data-title="(state: U) =&gt; void">cleanup</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="16346" data-toggle="tooltip" data-title="U">state</span><span class="punctuation">:</span> <a href="parser.html#16302"><span class="typename" data-toggle="tooltip" data-title="U">U</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="keyword">void</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#16300"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#16305"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="16404" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
         <span class="keyword">let</span> <span id="16427" data-toggle="tooltip" data-title="pr.ParseResult&lt;T&gt;">res</span> <span class="punctuation">=</span> <a href="parser.html#16309"><span data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">parser</span></a><span class="punctuation">.</span><a href="parser.html#1197"><span data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">parse</span></a><span class="punctuation">(</span><a href="parser.html#16404"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">)</span>
@@ -590,48 +780,104 @@ to write them in an order where all the dependent rules are defined. In these
 occasions, you can just create a <em>reference</em> to a parser and set its
 implementation later. To refer to the parser that is not yet defined, you can
 use this function.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="16514" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: ref.Ref&lt;Parser&lt;T, S&gt;&gt;) =&gt; Parser&lt;T, S&gt;">forwardRef</span><span class="punctuation">&lt;</span><span id="16947" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="16949" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="16953" data-toggle="tooltip" data-title="ref.Ref&lt;Parser&lt;T, S&gt;&gt;">parser</span><span class="punctuation">:</span> <a href="parser.html#383"><span data-toggle="tooltip" data-title="any">ref</span></a><span class="punctuation">.</span><a href="ref.html#0"><span class="typename" data-toggle="tooltip" data-title="ref.Ref&lt;T&gt;">Ref</span></a><span class="punctuation">&lt;</span><a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#16947"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#16949"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#16947"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#16949"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="16514" class="member" data-toggle="tooltip" data-title="&lt;T, S&gt;(parser: ref.Ref&lt;Parser&lt;T, S&gt;&gt;) =&gt; Parser&lt;T, S&gt;">forwardRef</span><span class="punctuation">&lt;</span><span id="16947" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">,</span> <span id="16949" class="typename" data-toggle="tooltip" data-title="S">S</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="16953" data-toggle="tooltip" data-title="ref.Ref&lt;Parser&lt;T, S&gt;&gt;">parser</span><span class="punctuation">:</span> <a href="parser.html#383"><span data-toggle="tooltip" data-title="any">ref</span></a><span class="punctuation">.</span><a href="ref.html#0"><span class="typename" data-toggle="tooltip" data-title="ref.Ref&lt;T&gt;">Ref</span></a><span class="punctuation">&lt;</span><a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#16947"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#16949"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#16947"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#16949"><span class="typename" data-toggle="tooltip" data-title="S">S</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <span class="keyword">new</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="typeof Parser">Parser</span></a><span class="punctuation">(</span><span id="17023" data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span> <span class="punctuation">=&gt;</span> <a href="parser.html#16953"><span data-toggle="tooltip" data-title="ref.Ref&lt;Parser&lt;T, S&gt;&gt;">parser</span></a><span class="punctuation">.</span><a href="ref.html#750"><span class="member" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">target</span></a><span class="punctuation">.</span><a href="parser.html#1197"><span data-toggle="tooltip" data-title="Parse&lt;T, S&gt;">parse</span></a><span class="punctuation">(</span><a href="parser.html#17023"><span data-toggle="tooltip" data-title="inp.ParserInput&lt;S&gt;">input</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 <h2 id="general-parsers">General Parsers</h2>
 <p>The catch-all parser that will match any symbol read from the input.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="17062" class="member" data-toggle="tooltip" data-title="&lt;T&gt;() =&gt; Parser&lt;T, T&gt;">anything</span><span class="punctuation">&lt;</span><span id="17200" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#17200"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#17200"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="17062" class="member" data-toggle="tooltip" data-title="&lt;T&gt;() =&gt; Parser&lt;T, T&gt;">anything</span><span class="punctuation">&lt;</span><span id="17200" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#17200"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#17200"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <a href="parser.html#12124"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(predicate: (value: T) =&gt; boolean) =&gt; Parser&lt;T, T&gt;">satisfy</span></a><span class="punctuation">&lt;</span><a href="parser.html#17200"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="17244" data-toggle="tooltip" data-title="T">_</span> <span class="punctuation">=&gt;</span> <span class="keyword">true</span><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 <p>Parser that succeeds if the symbol read from the input is equal (===) to
 given parameter; otherwise parsing fails.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="17257" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(value: T) =&gt; Parser&lt;T, T&gt;">is</span><span class="punctuation">&lt;</span><span id="17411" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="17414" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#17411"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#17411"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#17411"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="17257" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(value: T) =&gt; Parser&lt;T, T&gt;">is</span><span class="punctuation">&lt;</span><span id="17411" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="17414" data-toggle="tooltip" data-title="T">value</span><span class="punctuation">:</span> <a href="parser.html#17411"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#17411"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <a href="parser.html#17411"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <a href="parser.html#12124"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(predicate: (value: T) =&gt; boolean) =&gt; Parser&lt;T, T&gt;">satisfy</span></a><span class="punctuation">&lt;</span><a href="parser.html#17411"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="17463" data-toggle="tooltip" data-title="T">x</span> <span class="punctuation">=&gt;</span> <a href="parser.html#17463"><span data-toggle="tooltip" data-title="T">x</span></a> <span class="punctuation">===</span> <a href="parser.html#17414"><span data-toggle="tooltip" data-title="T">value</span></a><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 <p>Parse a specific token from the lexer input stream.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="17483" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(token: T) =&gt; Parser&lt;lex.Token&lt;T&gt;, lex.Token&lt;T&gt;&gt;">token</span><span class="punctuation">&lt;</span><span id="17573" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="17576" data-toggle="tooltip" data-title="T">token</span><span class="punctuation">:</span> <a href="parser.html#17573"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#351"><span data-toggle="tooltip" data-title="any">lex</span></a><span class="punctuation">.</span><a href="lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="lex.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="parser.html#17573"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span><span class="punctuation">,</span> <a href="parser.html#351"><span data-toggle="tooltip" data-title="any">lex</span></a><span class="punctuation">.</span><a href="lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="lex.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="parser.html#17573"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="17483" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(token: T) =&gt; Parser&lt;lex.Token&lt;T&gt;, lex.Token&lt;T&gt;&gt;">token</span><span class="punctuation">&lt;</span><span id="17573" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="17576" data-toggle="tooltip" data-title="T">token</span><span class="punctuation">:</span> <a href="parser.html#17573"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">)</span><span class="punctuation">:</span> <a href="parser.html#870"><span class="typename" data-toggle="tooltip" data-title="Parser&lt;T, S&gt;">Parser</span></a><span class="punctuation">&lt;</span><a href="parser.html#351"><span data-toggle="tooltip" data-title="any">lex</span></a><span class="punctuation">.</span><a href="lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="lex.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="parser.html#17573"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span><span class="punctuation">,</span> <a href="parser.html#351"><span data-toggle="tooltip" data-title="any">lex</span></a><span class="punctuation">.</span><a href="lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="lex.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="parser.html#17573"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <a href="parser.html#12124"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(predicate: (value: T) =&gt; boolean) =&gt; Parser&lt;T, T&gt;">satisfy</span></a><span class="punctuation">&lt;</span><a href="parser.html#351"><span data-toggle="tooltip" data-title="any">lex</span></a><span class="punctuation">.</span><a href="lexer.html#1200"><span class="typename" data-toggle="tooltip" data-title="lex.Token&lt;S&gt;">Token</span></a><span class="punctuation">&lt;</span><a href="parser.html#17573"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="17658" data-toggle="tooltip" data-title="lex.Token&lt;T&gt;">t</span> <span class="punctuation">=&gt;</span> <a href="parser.html#17658"><span data-toggle="tooltip" data-title="lex.Token&lt;T&gt;">t</span></a><span class="punctuation">.</span><a href="lexer.html#1438"><span data-toggle="tooltip" data-title="T">token</span></a> <span class="punctuation">===</span> <a href="parser.html#17576"><span data-toggle="tooltip" data-title="T">token</span></a><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 <p>Helper function to create a terminal parser.</p>
-<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="17684" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; Parser&lt;lex.Token&lt;T&gt;, lex.Token&lt;T&gt;&gt;">terminal</span><span class="punctuation">&lt;</span><span id="17770" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="17773" data-toggle="tooltip" data-title="T">tok</span><span class="punctuation">:</span> <a href="parser.html#17770"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <span id="17780" data-toggle="tooltip" data-title="string">name</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">function</span> <span id="17684" class="member" data-toggle="tooltip" data-title="&lt;T&gt;(tok: T, name: string) =&gt; Parser&lt;lex.Token&lt;T&gt;, lex.Token&lt;T&gt;&gt;">terminal</span><span class="punctuation">&lt;</span><span id="17770" class="typename" data-toggle="tooltip" data-title="T">T</span><span class="punctuation">&gt;</span><span class="punctuation">(</span><span id="17773" data-toggle="tooltip" data-title="T">tok</span><span class="punctuation">:</span> <a href="parser.html#17770"><span class="typename" data-toggle="tooltip" data-title="T">T</span></a><span class="punctuation">,</span> <span id="17780" data-toggle="tooltip" data-title="string">name</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span> <span class="punctuation">{</span>
     <span class="keyword">return</span> <a href="parser.html#17483"><span class="member" data-toggle="tooltip" data-title="&lt;T&gt;(token: T) =&gt; Parser&lt;lex.Token&lt;T&gt;, lex.Token&lt;T&gt;&gt;">token</span></a><span class="punctuation">(</span><a href="parser.html#17773"><span data-toggle="tooltip" data-title="T">tok</span></a><span class="punctuation">)</span><span class="punctuation">.</span><a href="parser.html#7596"><span class="member" data-toggle="tooltip" data-title="(expected: string) =&gt; Parser&lt;lex.Token&lt;T&gt;, lex.Token&lt;T&gt;&gt;">expect</span></a><span class="punctuation">(</span><a href="parser.html#17780"><span data-toggle="tooltip" data-title="string">name</span></a><span class="punctuation">)</span>
 <span class="punctuation">}</span>
 </code></pre>
 
-        
-    </div>
-            <div class="stickypane">
+        </div>
+            <div class="sidepane narrow-scrollbars">
                 
-    <div class="pagemenu">
-        <h3>On This Page</h3>
-            <ul class="pagetree">
-                
-            </ul>
-    </div>
-                
+        <div class="pagemenu">
+            <h3>On This Page</h3>
+                <ul class="pagetree">
+                </ul>
+        </div>
             </div>
         </div>
-    </div>
-    <script src="../js/main.js"></script>
+        
+        <div class="footer">
+            <a class="footer-button" href="lexer.html">
+            <p>Previous</p>
+            <p>« Lexical Analyzer</p>
+        </a>
+            <div class="footer-text">
+                <p>Copyright © 2020 Tommi Johtela</p>
+                <p>Generated by 
+                    <a href="https://johtela.github.io/litscript">LiTScript</a>
+                </p>
+            </div>
+            <a class="footer-button" href="arrayparsers.html">
+            <p>Next</p>
+            <p>Parsing Arrays and Expressions »</p>
+        </a>
+        </div>
     
-</body>
-</html>
+        <script src="../dist/normal.js"></script>
+
+    <script>
+      function reloadLink(path) {
+        for (const link of document.getElementsByTagName("link")) {
+          const url = new URL(link.href)
+          if (url.host == location.host && url.pathname == path) {
+            const next = link.cloneNode()
+            next.href = path + '?' + Math.random().toString(36).slice(2)
+            next.onload = () => link.remove()
+            link.parentNode.insertBefore(next, link.nextSibling)
+            return
+          }
+        }
+      }
+      function scriptLoaded(path) {
+        for (const script of document.getElementsByTagName("script"))
+          if (script.src) {
+            const url = new URL(script.src)
+            if (url.host == location.host && url.pathname == path)
+              return true
+          }
+        return false
+      }
+      let ls = new EventSource('/litscript')
+      ls.onmessage = e => {
+        let updated = JSON.parse(e.data)
+        for (let i = 0; i < updated.length; ++i) {
+          let path = updated[i]
+          if (path.endsWith(".js")) {
+            if (scriptLoaded(path))
+              return location.reload()
+          }
+          else if (path.endsWith(".html")) {
+            if (path == location.pathname || 
+              (path.endsWith("index.html") && 
+                path.substring(0, path.length - 10) == location.pathname))
+              return location.reload()
+          }
+          else reloadLink(path)
+        }
+      }
+      window.addEventListener("beforeunload", () => ls.close())
+    </script>
+    </body>
+    </html>

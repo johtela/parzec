@@ -1,0 +1,18 @@
+.json-editor {
+    display: flex;
+    align-items: center;
+    font-family: var(--mono-font);
+    margin: 10px 0;
+}    
+.json-editor textarea {
+        font-family: inherit;
+        font-size: 16px;
+        min-width: 400px;
+}
+.result {
+    background-color: #efe;
+    margin: 0 20px;
+    padding: 4px 8px;
+    font-size: 16px;
+    border-radius: 4px;
+}
