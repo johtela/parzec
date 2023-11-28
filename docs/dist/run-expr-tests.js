@@ -921,13 +921,15 @@ ${spec.toString()}
         .test-runner {
             font-family: var(--sans-font);
             font-size: 1rem;
-            overflow: auto;
         }    
+        .test-visualizer {
+            overflow: auto;
+        }
         .test-runner .summary {
             font-weight: bolder;
         }
         .test-runner .summary .count {
-            margin-left: 12px;
+            margin-left: 1rem;
         }
         .test-runner pre {
             background-color: #fff0f0;
