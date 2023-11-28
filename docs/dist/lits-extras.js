@@ -10404,8 +10404,7 @@ ${spec.toString()}
           this.styles = `
         .test-runner {
             font-family: var(--sans-font);
-            padding: 10px;
-            border-radius: 4px;
+            font-size: 1rem;
             overflow: auto;
         }    
         .test-runner .summary {

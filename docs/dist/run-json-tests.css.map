@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../../src/components/run-json-tests.css"],
-  "sourcesContent": [".json-editor {\r\n    display: flex;\r\n    align-items: center;\r\n    font-family: var(--mono-font);\r\n    margin: 10px 0;\r\n}    \r\n.json-editor textarea {\r\n        font-family: inherit;\r\n        font-size: 16px;\r\n        min-width: 400px;\r\n}\r\n.result {\r\n    background-color: #efe;\r\n    margin: 0 20px;\r\n    padding: 4px 8px;\r\n    font-size: 16px;\r\n    border-radius: 4px;\r\n}\r\n"],
-  "mappings": ";AAAA,CAAC;AACG,WAAS;AACT,eAAa;AACb,eAAa,IAAI;AACjB,UAAQ,KAAK;AACjB;AACA,CANC,YAMY;AACL,eAAa;AACb,aAAW;AACX,aAAW;AACnB;AACA,CAAC;AACG,oBAAkB;AAClB,UAAQ,EAAE;AACV,WAAS,IAAI;AACb,aAAW;AACX,iBAAe;AACnB;",
+  "sourcesContent": [".json-editor {\r\n    display: flex;\r\n    align-items: center;\r\n    font-family: var(--mono-font);\r\n    font-size: 0.9rem;\r\n    margin: 1rem 0;\r\n}    \r\n.json-editor textarea {\r\n    font-family: inherit;\r\n    font-size: 0.9rem;\r\n    width: 50%;\r\n}\r\n.result {\r\n    white-space: pre;\r\n    background-color: var(--col-prim);\r\n    margin: 0 1rem;\r\n    padding: 0.1rem 0.5rem;\r\n    border-radius: 0.5rem;\r\n    max-width: 50%;\r\n    overflow: auto;\r\n}\r\n"],
+  "mappings": ";AAAA,CAAC;AACG,WAAS;AACT,eAAa;AACb,eAAa,IAAI;AACjB,aAAW;AACX,UAAQ,KAAK;AACjB;AACA,CAPC,YAOY;AACT,eAAa;AACb,aAAW;AACX,SAAO;AACX;AACA,CAAC;AACG,eAAa;AACb,oBAAkB,IAAI;AACtB,UAAQ,EAAE;AACV,WAAS,OAAO;AAChB,iBAAe;AACf,aAAW;AACX,YAAU;AACd;",
   "names": []
 }

@@ -24,7 +24,7 @@ export class JsonParser extends StyledElement {
         this.textarea.addEventListener("input",  _ => {
             try {
                 this.result.innerText = JSON.stringify(jp.parseJson(
-                    this.textarea.value))
+                    this.textarea.value), undefined, 2)
             }
             catch(e) {
                 if (e instanceof pz.ParseError)

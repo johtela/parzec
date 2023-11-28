@@ -917,8 +917,7 @@ ${spec.toString()}
           this.styles = `
         .test-runner {
             font-family: var(--sans-font);
-            padding: 10px;
-            border-radius: 4px;
+            font-size: 1rem;
             overflow: auto;
         }    
         .test-runner .summary {
@@ -5873,7 +5872,7 @@ ${formatHints(hints)}`;
         try {
           this.result.innerText = JSON.stringify(parseJson(
             this.textarea.value
-          ));
+          ), void 0, 2);
         } catch (e) {
           if (e instanceof ParseError)
             this.result.innerText = e.message;
