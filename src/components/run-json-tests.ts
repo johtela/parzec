@@ -15,6 +15,7 @@ export class JsonParser extends StyledElement {
         this.textarea = document.createElement('textarea')
         this.textarea.cols = 40
         this.textarea.rows = 10
+        this.textarea.spellcheck = false
         this.result = document.createElement('div')
         this.result.classList.add("result")
         this.body.append(this.textarea, this.result)

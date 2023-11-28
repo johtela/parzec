@@ -18,5 +18,6 @@
             ],
             "url": "./node_modules/litscript/schemas/dependency-graph-schema.json"
         }
-    ]
+    ],
+    "liveServer.settings.root": "/docs"
 }

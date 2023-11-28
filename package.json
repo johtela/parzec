@@ -9,8 +9,8 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm test",
     "postversion": "git push && git push --tags",
-    "lits": "lits",
-    "lits-serve": "lits --serve"
+    "lits": "lits --deployMode prod",
+    "lits-serve": "lits --serve --outDir testOut"
   },
   "repository": {
     "type": "git",
