@@ -164,6 +164,18 @@
         </a>
         
     </div>
+    <div class="navitem " id="camouflage">
+        <a   onclick="document.body.theme('camouflage')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Camouflage</span>
+        </a>
+        
+    </div>
     <div class="navitem " id="chocolate">
         <a   onclick="document.body.theme('chocolate')">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -176,6 +188,18 @@
         </a>
         
     </div>
+    <div class="navitem " id="greyhound">
+        <a   onclick="document.body.theme('greyhound')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
+            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        </svg>
+            <span>Greyhound</span>
+        </a>
+        
+    </div>
     <div class="navitem " id="ice-age">
         <a   onclick="document.body.theme('ice-age')">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -185,18 +209,6 @@
             <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
         </svg>
             <span>Ice Age</span>
-        </a>
-        
-    </div>
-    <div class="navitem " id="monotone">
-        <a   onclick="document.body.theme('monotone')">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paint" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
-            <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1 -5 5l-5 0v2" />
-            <path d="M10 15m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
-        </svg>
-            <span>Monotone</span>
         </a>
         
     </div>
@@ -372,7 +384,7 @@ Try also add comments anywhere inside JSON.</p>
 built-in combinator that generates arbitrary JSON data. So, our job is made
 easy for us.</p>
 <pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">import</span> <span class="punctuation">{</span> <span id="560" data-toggle="tooltip" data-title="(text: string) =&gt; any">parseJson</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&quot;./jsonparser&quot;</span>
-<span class="keyword">import</span> <span class="punctuation">{</span> <span id="602" data-toggle="tooltip" data-title="(description: string, spec: SpecFunction, options?: object | undefined) =&gt; Promise&lt;TestResult&gt;">test</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&quot;lits-extras/lib/tester&quot;</span>
+<span class="keyword">import</span> <span class="punctuation">{</span> <span id="602" data-toggle="tooltip" data-title="(description: string, spec: SpecFunction, options?: object) =&gt; Promise&lt;TestResult&gt;">test</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&quot;lits-extras/lib/tester&quot;</span>
 <span class="keyword">import</span> <span class="punctuation">*</span> <span class="keyword">as</span> <span id="647" data-toggle="tooltip" data-title="typeof fc">fc</span> <span class="keyword">from</span> <span class="string">&quot;fast-check&quot;</span>
 </code></pre>
 <p>We should get interesting test data. You can check the test cases below.</p>
@@ -380,13 +392,13 @@ easy for us.</p>
 <p>Using <code>JSON.parse</code> as the baseline for our parser, we can check that it and
 our parsing functions produce identical JavaScript objects. We use the
 <code>deepEqual</code> assertion to check that.</p>
-<pre class="syntaxhighlight narrow-scrollbars"><code><a href="jsontests.html#602"><span data-toggle="tooltip" data-title="(description: string, spec: SpecFunction, options?: object | undefined) =&gt; Promise&lt;TestResult&gt;">test</span></a><span class="punctuation">(</span><span class="string">&quot;Test arbitrary JSON data&quot;</span><span class="punctuation">,</span> <span class="keyword">async</span> <span id="1056" data-toggle="tooltip" data-title="Assert">t</span> <span class="punctuation">=&gt;</span>
-    <a href="jsontests.html#647"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ &lt;Ts&gt;(property: fc.IAsyncProperty&lt;Ts&gt;, params?: fc.Parameters&lt;Ts&gt; | undefined): Promise&lt;void&gt;; &lt;Ts&gt;(property: fc.IProperty&lt;Ts&gt;, params?: fc.Parameters&lt;Ts&gt; | undefined): void; &lt;Ts&gt;(property: fc.IRawProperty&lt;...&gt;, params?: fc.Parameters&lt;...&gt; | undefined): void | Promise&lt;...&gt;; }">assert</span><span class="punctuation">(</span>
-        <a href="jsontests.html#647"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ &lt;T0&gt;(arb0: fc.Arbitrary&lt;T0&gt;, predicate: (t0: T0) =&gt; boolean | void): fc.IPropertyWithHooks&lt;[T0]&gt;; &lt;T0, T1&gt;(arb0: fc.Arbitrary&lt;T0&gt;, arb1: fc.Arbitrary&lt;T1&gt;, predicate: (t0: T0, t1: T1) =&gt; boolean | void): fc.IPropertyWithHooks&lt;...&gt;; &lt;T0, T1, T2&gt;(arb0: fc.Arbitrary&lt;...&gt;, arb1: fc.Arbitrary&lt;...&gt;, arb2: fc.Arbitrary&lt;.....">property</span><span class="punctuation">(</span><a href="jsontests.html#647"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ (): fc.Arbitrary&lt;string&gt;; (maxDepth: number): fc.Arbitrary&lt;string&gt;; (constraints: fc.JsonSharedConstraints): fc.Arbitrary&lt;unknown&gt;; }">json</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span id="1109" data-toggle="tooltip" data-title="string">str</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
-            <span class="keyword">let</span> <span id="1135" data-toggle="tooltip" data-title="any">obj1</span> <span class="punctuation">=</span> <span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(text: string, reviver?: ((this: any, key: string, value: any) =&gt; any) | undefined) =&gt; any">parse</span><span class="punctuation">(</span><a href="jsontests.html#1109"><span data-toggle="tooltip" data-title="string">str</span></a><span class="punctuation">)</span>
+<pre class="syntaxhighlight narrow-scrollbars"><code><a href="jsontests.html#602"><span data-toggle="tooltip" data-title="(description: string, spec: SpecFunction, options?: object) =&gt; Promise&lt;TestResult&gt;">test</span></a><span class="punctuation">(</span><span class="string">&quot;Test arbitrary JSON data&quot;</span><span class="punctuation">,</span> <span class="keyword">async</span> <span id="1056" data-toggle="tooltip" data-title="Assert">t</span> <span class="punctuation">=&gt;</span>
+    <a href="jsontests.html#647"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ &lt;Ts&gt;(property: fc.IAsyncProperty&lt;Ts&gt;, params?: fc.Parameters&lt;Ts&gt;): Promise&lt;void&gt;; &lt;Ts&gt;(property: fc.IProperty&lt;Ts&gt;, params?: fc.Parameters&lt;Ts&gt;): void; &lt;Ts&gt;(property: fc.IRawProperty&lt;Ts&gt;, params?: fc.Parameters&lt;Ts&gt;): Promise&lt;void&gt; | void; }">assert</span><span class="punctuation">(</span>
+        <a href="jsontests.html#647"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ &lt;T0&gt;(arb0: fc.Arbitrary&lt;T0&gt;, predicate: (t0: T0) =&gt; (boolean | void)): fc.IPropertyWithHooks&lt;[T0]&gt;; &lt;T0, T1&gt;(arb0: fc.Arbitrary&lt;T0&gt;, arb1: fc.Arbitrary&lt;T1&gt;, predicate: (t0: T0, t1: T1) =&gt; (boolean | void)): fc.IPropertyWithHooks&lt;[T0, T1]&gt;; &lt;T0, T1, T2&gt;(arb0: fc.Arbitrary&lt;T0&gt;, arb1: fc.Arbitrary&lt;T1&gt;, arb2: fc.Arbit...">property</span><span class="punctuation">(</span><a href="jsontests.html#647"><span data-toggle="tooltip" data-title="typeof fc">fc</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="{ (): fc.Arbitrary&lt;string&gt;; (maxDepth: number): fc.Arbitrary&lt;string&gt;; (constraints: fc.JsonSharedConstraints): fc.Arbitrary&lt;unknown&gt;; }">json</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span id="1109" data-toggle="tooltip" data-title="string">str</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
+            <span class="keyword">let</span> <span id="1135" data-toggle="tooltip" data-title="any">obj1</span> <span class="punctuation">=</span> <span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(text: string, reviver?: (this: any, key: string, value: any) =&gt; any) =&gt; any">parse</span><span class="punctuation">(</span><a href="jsontests.html#1109"><span data-toggle="tooltip" data-title="string">str</span></a><span class="punctuation">)</span>
             <span class="keyword">let</span> <span id="1175" data-toggle="tooltip" data-title="any">obj2</span> <span class="punctuation">=</span> <a href="jsontests.html#560"><span data-toggle="tooltip" data-title="(text: string) =&gt; any">parseJson</span></a><span class="punctuation">(</span><a href="jsontests.html#1109"><span data-toggle="tooltip" data-title="string">str</span></a><span class="punctuation">)</span>
-            <a href="jsontests.html#1056"><span data-toggle="tooltip" data-title="Assert">t</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="ComparatorAssertionFunction">deepEqual</span><span class="punctuation">(</span><a href="jsontests.html#1175"><span data-toggle="tooltip" data-title="any">obj2</span></a><span class="punctuation">,</span> <a href="jsontests.html#1135"><span data-toggle="tooltip" data-title="any">obj1</span></a><span class="punctuation">,</span> <span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (value: any, replacer?: ((this: any, key: string, value: any) =&gt; any) | undefined, space?: string | number | undefined): string; (value: any, replacer?: (string | number)[] | null | undefined, space?: string | ... 1 more ... | undefined): string; }">stringify</span><span class="punctuation">(</span><a href="jsontests.html#1175"><span data-toggle="tooltip" data-title="any">obj2</span></a><span class="punctuation">)</span> <span class="punctuation">+</span> 
-                <span class="string">&quot; should be deep equal to &quot;</span> <span class="punctuation">+</span> <span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (value: any, replacer?: ((this: any, key: string, value: any) =&gt; any) | undefined, space?: string | number | undefined): string; (value: any, replacer?: (string | number)[] | null | undefined, space?: string | ... 1 more ... | undefined): string; }">stringify</span><span class="punctuation">(</span><a href="jsontests.html#1135"><span data-toggle="tooltip" data-title="any">obj1</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
+            <a href="jsontests.html#1056"><span data-toggle="tooltip" data-title="Assert">t</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="ComparatorAssertionFunction">deepEqual</span><span class="punctuation">(</span><a href="jsontests.html#1175"><span data-toggle="tooltip" data-title="any">obj2</span></a><span class="punctuation">,</span> <a href="jsontests.html#1135"><span data-toggle="tooltip" data-title="any">obj1</span></a><span class="punctuation">,</span> <span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (value: any, replacer?: (this: any, key: string, value: any) =&gt; any, space?: string | number): string; (value: any, replacer?: (number | string)[] | null, space?: string | number): string; }">stringify</span><span class="punctuation">(</span><a href="jsontests.html#1175"><span data-toggle="tooltip" data-title="any">obj2</span></a><span class="punctuation">)</span> <span class="punctuation">+</span> 
+                <span class="string">&quot; should be deep equal to &quot;</span> <span class="punctuation">+</span> <span class="typename" data-toggle="tooltip" data-title="JSON">JSON</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (value: any, replacer?: (this: any, key: string, value: any) =&gt; any, space?: string | number): string; (value: any, replacer?: (number | string)[] | null, space?: string | number): string; }">stringify</span><span class="punctuation">(</span><a href="jsontests.html#1135"><span data-toggle="tooltip" data-title="any">obj1</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
         <span class="punctuation">}</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span>
 </code></pre>
 
