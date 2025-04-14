@@ -29,15 +29,16 @@ pz.parserDebug.debugging = false
  * regular expression that accepts a given token, and associate it to the 
  * member of the enumeration defined above.
  */
-const lexer = new pz.Lexer<ExprToken>(
-    [/-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/, ExprToken.Number],
-    [/\(/, ExprToken.OpenParen],
-    [/\)/, ExprToken.CloseParen],
-    [/\+/, ExprToken.Plus],
-    [/-/, ExprToken.Minus],
-    [/\*/, ExprToken.Multiply],
-    [/\//, ExprToken.Divide],
-    [/[\t\n\r ]+/, ExprToken.Whitespace]);
+const lexer = new pz.Lexer<ExprToken>({
+    "-?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?": ExprToken.Number,
+    "\\(": ExprToken.OpenParen,
+    "\\)": ExprToken.CloseParen,
+    "\\+": ExprToken.Plus,
+    "-": ExprToken.Minus,
+    "\\*": ExprToken.Multiply,
+    "\\/": ExprToken.Divide,
+    "[\\t\\n\\r ]+": ExprToken.Whitespace
+})
 /**
  * ## Parser
  * 

@@ -26,7 +26,7 @@ import * as err from "./error"
  * an enumeration is used.
  */
 interface TokenMatcher<S> {
-    regex: RegExp
+    regex: string
     token: S
 }
 /**
@@ -52,31 +52,44 @@ export class Token<S> {
  * recognizes the next token in a string.
  */
 export class Lexer<S> {
-    private matchers: TokenMatcher<S>[]
+    private tokens: TokenMatcher<S>[]
+    private matcher: RegExp
     /**
-     * The constructor adds two flags to the regular expressions given as 
-     * arguments. The `y` flag makes the search sticky so that it scans the
-     * input string from the position indicated by the `lastIndex` property.
-     * The `u` flag makes the search support unicode characters.
+     *  The constructor initializes a lexer by:
+     *  
+     *  1.  Converting a tokens object into an array of regex-token pairs.
+     *  2.  Building a combined regex pattern with named capture groups 
+     *      (`g0`, `g1`, etc.) for each token's regex.
+     *  3.  Creating a RegExp object `matcher` to match input strings against 
+     *      all token patterns. 
+     * 
+     * The constructor adds two flags to the regular expression. The `y` flag 
+     * makes the search sticky so that it scans the input string from the 
+     * position indicated by the `lastIndex` property. The `u` flag makes the 
+     * search support unicode characters.
      */
-    constructor(...tokens: [RegExp, S][]) {
-        this.matchers = tokens.map(t => ({
-            regex: new RegExp(t[0], "yu"),
-            token: t[1]
-        }))
+    constructor(tokens: Record<string, S>) {
+        this.tokens = Object.entries(tokens).map(([regex, token]) => ({
+            regex, token }))
+        let re = this.tokens.map((t, i) => `(?<g${i}>${t.regex})`).join("|")
+        this.matcher = new RegExp(re, "yu")
     }
     /**
-     * We check matchers one-by-one in the order they were given to
-     * recognize the token in the given position. If none of the matchers
-     * succeed, we return `null`.
+     * The `matchToken` method returns the next token in the input string. It 
+     * uses the `matcher` to find a token at the specified position (`pos`). If 
+     * a match is found, it checks which token group (`g0`, `g1`, ...) matched 
+     * and returns the corresponding `Token`. If no match is found, it returns 
+     * `null`.
      */
     matchToken(input: string, pos: number): Token<S> | null {
-        for (let i = 0; i < this.matchers.length; i++) {
-            let matcher = this.matchers[i]
-            matcher.regex.lastIndex = pos
-            let match = matcher.regex.exec(input)
-            if (match != null)
-                return new Token<S>(matcher.token, match[0])
+        this.matcher.lastIndex = pos
+        let match = this.matcher.exec(input)
+        if (match && match.groups) {
+            for (let i = 0; i < this.tokens.length; i++) {
+                let res = match.groups[`g${i}`]
+                if (res)
+                    return new Token<S>(this.tokens[i].token, res)
+            }
         }
         return null
     }

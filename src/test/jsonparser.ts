@@ -42,21 +42,22 @@ pz.parserDebug.debugging = false
  * Below we see how whitespace is scanned in JSON. We'll add a lexer for inline 
  * comments `//...` as well.
  */
-const lexer = new pz.Lexer<JsonToken>(
-    [/true/, JsonToken.True],
-    [/false/, JsonToken.False],
-    [/null/, JsonToken.Null],
-    [/\{/, JsonToken.LeftBrace],
-    [/\}/, JsonToken.RightBrace],
-    [/\[/, JsonToken.LeftBracket],
-    [/\]/, JsonToken.RightBracket],
-    [/,/, JsonToken.Comma],
-    [/:/, JsonToken.Colon],
-    [/-?(?:[1-9]\d+|\d(?!\d))(?:\.\d+)?(?:[eE][+-]?\d+)?/, JsonToken.Number],
-    [/"(?:(?:(?!["\\])[\u{0020}-\u{ffff}])|(?:\\(?:["\\\/bnfrt]|(?:u[0-9a-fA-F]{4}))))*"/u,
-        JsonToken.String],
-    [/[\t\n\r ]+/, JsonToken.Whitespace],
-    [/\/\/[^\n\r]*/, JsonToken.Comment]);
+const lexer = new pz.Lexer<JsonToken>({
+    "true": JsonToken.True,
+    "false": JsonToken.False,
+    "null": JsonToken.Null,
+    "\\{": JsonToken.LeftBrace,
+    "\\}": JsonToken.RightBrace,
+    "\\[": JsonToken.LeftBracket,
+    "\\]": JsonToken.RightBracket,
+    ",": JsonToken.Comma,
+    ":": JsonToken.Colon,
+    "-?(?:[1-9]\\d+|\\d(?!\\d))(?:\\.\\d+)?(?:[eE][+-]?\\d+)?": JsonToken.Number,
+    '"(?:(?:(?!["\\\\])[\\u{0020}-\\u{ffff}])|(?:\\\\(?:["\\\\\\/bnfrt]|(?:u[0-9a-fA-F]{4}))))*"':
+        JsonToken.String,
+    "[\\t\\n\\r ]+": JsonToken.Whitespace,
+    "\\/\\/[^\\n\\r]*": JsonToken.Comment
+})
 /**
  * ## Terminals
  * 
