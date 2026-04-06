@@ -26,6 +26,11 @@
                 "page": "Testing the JSON Parser",
                 "file": "src/test/jsontests.html",
                 "desc": ""
+            },
+            {
+                "page": "Run Tests in Command Line",
+                "file": "src/test/cli-tests.html",
+                "desc": ""
             }
         ]
     },

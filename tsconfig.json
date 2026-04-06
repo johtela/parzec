@@ -6,6 +6,7 @@
         "outDir": "./lib",
         "module": "commonjs",
         "target": "esnext",
+        "types": ["node"],
         "incremental": true,
         "tsBuildInfoFile": "./lib/tsconfig.tsbuildinfo",
         "allowJs": false

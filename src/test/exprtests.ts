@@ -32,7 +32,7 @@ test("Test parsing of predefined expressions", async t => {
         "(1) + (((2)) + 3)"]
     for (let i = 0; i < testset.length; i++) {
         let expr = testset[i]
-        let res = window.eval(expr)
+        let res = globalThis.eval(expr)
         let calcres = ep.evaluateExpression(expr)
         t.equal(`expression '${expr}' should evaluate to ${res}`, calcres, res)
     }
@@ -112,7 +112,7 @@ const arbExpr = fc.letrec(tie => (
 test("Test arbitrary expressions", async t =>
     fc.assert(
         fc.property(arbExpr.expr, e => {
-            let res1 = window.eval(e)
+            let res1 = globalThis.eval(e)
             let res2 = ep.evaluateExpression(e)
             t.equal(`expression '${e}' should evaluate to ${res1}`, res1, res2)
         })))

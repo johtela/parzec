@@ -6,10 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>
-            parzec - Error Reporting
+            parzec - Run Tests in Command Line
         </title>
-        <link rel="icon" type="image/icon" href="../images/favicon.svg" />
-        <link rel="stylesheet" href="../dist/normal.css" />
+        <link rel="icon" type="image/icon" href="../../images/favicon.svg" />
+        <link rel="stylesheet" href="../../dist/normal.css" />
         
     </head>
     <body data-syntax-highlight="monokai"
@@ -20,8 +20,8 @@
     <div class="navmenu ">
         
     <div class="navitem " >
-        <a class="title enabled" href="../index.html" >
-            <img src="../images/millenniumfalcon_88882.svg" />
+        <a class="title enabled" href="../../index.html" >
+            <img src="../../images/millenniumfalcon_88882.svg" />
             <span>parzec</span>
         </a>
         
@@ -292,7 +292,7 @@
     <ul>
         
     <li>
-        <a href="../README.html"><span>📔</span>Introduction</a>
+        <a href="../../README.html"><span>📔</span>Introduction</a>
     </li>
     <li>
         
@@ -307,19 +307,19 @@
     <ul>
         
     <li>
-        <a href="test/exprparser.html"><span>📔</span>Parsing Arithmetic Epressions</a>
+        <a href="exprparser.html"><span>📔</span>Parsing Arithmetic Epressions</a>
     </li>
     <li>
-        <a href="test/exprtests.html"><span>📔</span>Testing the Expression Parser</a>
+        <a href="exprtests.html"><span>📔</span>Testing the Expression Parser</a>
     </li>
     <li>
-        <a href="test/jsonparser.html"><span>📔</span>Parsing JSON</a>
+        <a href="jsonparser.html"><span>📔</span>Parsing JSON</a>
     </li>
     <li>
-        <a href="test/jsontests.html"><span>📔</span>Testing the JSON Parser</a>
+        <a href="jsontests.html"><span>📔</span>Testing the JSON Parser</a>
     </li>
     <li>
-        <a href="test/cli-tests.html"><span>📔</span>Run Tests in Command Line</a>
+        <a href="cli-tests.html" class="highlight"><span>📔</span>Run Tests in Command Line</a>
     </li>
     </ul>
     </li>
@@ -336,36 +336,36 @@
     <ul>
         
     <li>
-        <a href="index.html"><span>📔</span>Library Structure</a>
+        <a href="../index.html"><span>📔</span>Library Structure</a>
     </li>
     <li>
-        <a href="input.html"><span>📔</span>Parser Input</a>
+        <a href="../input.html"><span>📔</span>Parser Input</a>
     </li>
     <li>
-        <a href="result.html"><span>📔</span>Parser Result</a>
+        <a href="../result.html"><span>📔</span>Parser Result</a>
     </li>
     <li>
-        <a href="error.html" class="highlight"><span>📔</span>Error Reporting</a>
+        <a href="../error.html"><span>📔</span>Error Reporting</a>
     </li>
     <li>
-        <a href="ref.html"><span>📔</span>Reference Cells</a>
+        <a href="../ref.html"><span>📔</span>Reference Cells</a>
     </li>
     <li>
-        <a href="lexer.html"><span>📔</span>Lexical Analyzer</a>
+        <a href="../lexer.html"><span>📔</span>Lexical Analyzer</a>
     </li>
     <li>
-        <a href="parser.html"><span>📔</span>Parser Monad and Combinators</a>
+        <a href="../parser.html"><span>📔</span>Parser Monad and Combinators</a>
     </li>
     <li>
-        <a href="arrayparsers.html"><span>📔</span>Parsing Arrays and Expressions</a>
+        <a href="../arrayparsers.html"><span>📔</span>Parsing Arrays and Expressions</a>
     </li>
     <li>
-        <a href="utils.html"><span>📔</span>Utility Functions</a>
+        <a href="../utils.html"><span>📔</span>Utility Functions</a>
     </li>
     </ul>
     </li>
     <li>
-        <a href="../license.html"><span>📔</span>License</a>
+        <a href="../../license.html"><span>📔</span>License</a>
     </li>
     </ul>
         </div>
@@ -377,38 +377,15 @@
             </div>
             
         <div class="contentarea closepopups">
-            <h1 id="error-reporting">Error Reporting</h1>
-<p>We define a custom Error class for parsing errors.</p>
-<p>The possible sources of errors are defined in the enumeration below.</p>
-<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">enum</span> <span id="0" class="typename" data-toggle="tooltip" data-title="ErrorSource">ErrorSource</span> <span class="punctuation">{</span>
-    <span id="194" data-toggle="tooltip" data-title="ErrorSource.Input">Input</span> <span class="punctuation">=</span> <span class="string">&quot;Input&quot;</span><span class="punctuation">,</span>
-    <span id="216" data-toggle="tooltip" data-title="ErrorSource.Lexer">Lexer</span> <span class="punctuation">=</span> <span class="string">&quot;Lexer&quot;</span><span class="punctuation">,</span>
-    <span id="238" data-toggle="tooltip" data-title="ErrorSource.Parser">Parser</span> <span class="punctuation">=</span> <span class="string">&quot;Parsing&quot;</span>
-<span class="punctuation">}</span>
+            <h1 id="run-tests-in-command-line">Run Tests in Command Line</h1>
+<p>Module that allows running unit test from command line usin Node.js.</p>
+<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">import</span> <span class="punctuation">{</span> <span id="123" data-toggle="tooltip" data-title="() =&gt; Promise&lt;number&gt;">runTests</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&#039;lits-extras/lib/node-runner&#039;</span>
+<span class="keyword">import</span> <span class="string">&#039;./exprtests&#039;</span>
+<span class="keyword">import</span> <span class="string">&#039;./jsontests&#039;</span>
 </code></pre>
-<p>The ParseError class contains information about the parsing error in
-an easily accessible form.</p>
-<pre class="syntaxhighlight narrow-scrollbars"><code><span class="keyword">export</span> <span class="keyword">class</span> <span id="265" class="typename" data-toggle="tooltip" data-title="ParseError">ParseError</span> <span class="keyword">extends</span> <span class="typename" data-toggle="tooltip" data-title="ErrorConstructor">Error</span> <span class="punctuation">{</span>
-    <span class="keyword">constructor</span><span class="punctuation">(</span>
-</code></pre>
-<p>The source of the error.</p>
-<pre class="syntaxhighlight narrow-scrollbars"><code>        <span class="keyword">readonly</span> <span id="438" data-toggle="tooltip" data-title="ErrorSource">source</span><span class="punctuation">:</span> <a href="error.html#0"><span class="typename" data-toggle="tooltip" data-title="ErrorSource">ErrorSource</span></a><span class="punctuation">,</span>
-</code></pre>
-<p>The position where the error happened.</p>
-<pre class="syntaxhighlight narrow-scrollbars"><code>        <span class="keyword">readonly</span> <span id="540" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span>
-</code></pre>
-<p>Input found at <code>position</code>.</p>
-<pre class="syntaxhighlight narrow-scrollbars"><code>        <span class="keyword">readonly</span> <span id="653" data-toggle="tooltip" data-title="string">found</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">,</span>
-</code></pre>
-<p>Input expected at <code>position</code>. There can be multiple terminals.</p>
-<pre class="syntaxhighlight narrow-scrollbars"><code>        <span class="keyword">readonly</span> <span id="751" data-toggle="tooltip" data-title="string[]">expected</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">[</span><span class="punctuation">]</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">)</span> <span class="punctuation">{</span>
-</code></pre>
-<p>Constructor formats the error message using the parameters provided.</p>
-<pre class="syntaxhighlight narrow-scrollbars"><code>        <span class="keyword">super</span><span class="punctuation">(</span><span class="string">`${</span><a href="error.html#438"><span data-toggle="tooltip" data-title="ErrorSource">source</span></a><span class="string">} error at position ${</span><a href="error.html#540"><span data-toggle="tooltip" data-title="number">position</span></a> <span class="punctuation">+</span> <span class="number">1</span><span class="string">}.\n`</span> <span class="punctuation">+</span>
-            <span class="string">`\tFound: &quot;${</span><a href="error.html#653"><span data-toggle="tooltip" data-title="string">found</span></a><span class="string">}&quot;\n`</span> <span class="punctuation">+</span>
-            <span class="string">`\tExpected: ${</span><a href="error.html#751"><span data-toggle="tooltip" data-title="string[]">expected</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="&lt;U&gt;(callbackfn: (value: string, index: number, array: string[]) =&gt; U, thisArg?: any) =&gt; U[]">map</span><span class="punctuation">(</span><span id="1152" data-toggle="tooltip" data-title="string">s</span> <span class="punctuation">=&gt;</span> <span class="string">`&quot;${</span><a href="error.html#1152"><span data-toggle="tooltip" data-title="string">s</span></a><span class="string">}&quot;`</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(separator?: string) =&gt; string">join</span><span class="punctuation">(</span><span class="string">&quot;, &quot;</span><span class="punctuation">)</span><span class="string">}`</span><span class="punctuation">)</span><span class="punctuation">;</span>
-    <span class="punctuation">}</span>
-<span class="punctuation">}</span>
+<p>Tests are defined in imported modules. We need to run them with <code>runTests</code>
+function from <code>node-runner</code>.</p>
+<pre class="syntaxhighlight narrow-scrollbars"><code><a href="cli-tests.html#123"><span data-toggle="tooltip" data-title="() =&gt; Promise&lt;number&gt;">runTests</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="&lt;TResult1 = number, TResult2 = never&gt;(onfulfilled?: ((value: number) =&gt; TResult1 | PromiseLike&lt;TResult1&gt;) | null | undefined, onrejected?: ((reason: any) =&gt; TResult2 | PromiseLike&lt;...&gt;) | null | undefined) =&gt; Promise&lt;...&gt;">then</span><span class="punctuation">(</span><span id="346" data-toggle="tooltip" data-title="number">res</span> <span class="punctuation">=&gt;</span> <span data-toggle="tooltip" data-title="NodeJS.Process">process</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(code?: number | string | null) =&gt; never">exit</span><span class="punctuation">(</span><a href="cli-tests.html#346"><span data-toggle="tooltip" data-title="number">res</span></a><span class="punctuation">)</span><span class="punctuation">)</span>
 </code></pre>
 
         </div>
@@ -423,9 +400,9 @@ an easily accessible form.</p>
         </div>
         
         <div class="footer">
-            <a class="footer-button" href="result.html">
+            <a class="footer-button" href="jsontests.html">
             <p>Previous</p>
-            <p>« Parser Result</p>
+            <p>« Testing the JSON Parser</p>
         </a>
             <div class="footer-text">
                 <p>Copyright © 2020 Tommi Johtela</p>
@@ -433,12 +410,12 @@ an easily accessible form.</p>
                     <a href="https://johtela.github.io/litscript">LiTScript</a>
                 </p>
             </div>
-            <a class="footer-button" href="ref.html">
+            <a class="footer-button" href="../index.html">
             <p>Next</p>
-            <p>Reference Cells »</p>
+            <p>Library Structure »</p>
         </a>
         </div>
     
-        <script src="../dist/normal.js"></script>
+        <script src="../../dist/normal.js"></script>
     </body>
     </html>

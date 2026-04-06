@@ -93,5 +93,17 @@
             "lits-extras/lib/tester",
             "fast-check"
         ]
+    },
+    "src/test/cli-tests": {
+        "url": "src/test/cli-tests.html",
+        "dependencies": [
+            "lits-extras/lib/node-runner",
+            "src/test/exprtests",
+            "src/test/jsontests"
+        ]
+    },
+    "lits-extras/lib/node-runner": {
+        "url": "",
+        "dependencies": []
     }
 }
