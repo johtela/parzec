@@ -3,5 +3,6 @@ docs
 src
 testOut
 tsconfig.json
+litsconfig.json
 lib/test
-.travis.yml
+lib/components
