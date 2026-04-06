@@ -1,6 +1,7 @@
 .vscode/
+docs
 src
+testOut
 tsconfig.json
 lib/test
-testdata/
 .travis.yml
