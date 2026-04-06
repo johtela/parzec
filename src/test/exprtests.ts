@@ -34,7 +34,7 @@ test("Test parsing of predefined expressions", async t => {
         let expr = testset[i]
         let res = window.eval(expr)
         let calcres = ep.evaluateExpression(expr)
-        t.equal(calcres, res, `expression '${expr}' should evaluate to ${res}`)
+        t.equal(`expression '${expr}' should evaluate to ${res}`, calcres, res)
     }
 })
 /**
@@ -49,8 +49,8 @@ test("Test failing expressions", async t => {
         "a + 1"]
     for (let i = 0; i < testset.length; i++) {
         let expr = testset[i]
-        t.throws(() => ep.evaluateExpression(expr), pz.ParseError,
-            `expression '${expr}' should not parse`)
+        t.throws(`expression '${expr}' should not parse`, 
+            () => ep.evaluateExpression(expr), pz.ParseError)
     }
 })
 /**
@@ -69,7 +69,7 @@ test("Test failing expressions", async t => {
  * generate it with fast-check. It produces test cases we would very unlikely 
  * come up with ourselves. You can press `F5` to rerun the tests.
  * 
- * <test-runner name="Expression tests"></test-runner>
+ * <test-runner></test-runner>
  * 
  * ### Generating Arbitrary Expressions
  * 
@@ -77,7 +77,7 @@ test("Test failing expressions", async t => {
  * bottom-up starting from numbers and operators. Numbers we select randomly 
  * from range [-1000, 1000].
  */
-const arbNum = fc.integer(-1000, 1000).map(n => n.toString())
+const arbNum = fc.integer({ min: -1000, max: 1000 }).map(n => n.toString())
 /**
  * Operators are randomly selected from a predefined list.
  */
@@ -114,5 +114,5 @@ test("Test arbitrary expressions", async t =>
         fc.property(arbExpr.expr, e => {
             let res1 = window.eval(e)
             let res2 = ep.evaluateExpression(e)
-            t.equal(res1, res2, `expression '${e}' should evaluate to ${res1}`)
+            t.equal(`expression '${e}' should evaluate to ${res1}`, res1, res2)
         })))

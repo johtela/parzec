@@ -1,5 +1,5 @@
 import { StyledElement } from 'litscript/lib/src/custom-elem'
-import 'lits-extras/lib/test-runner'
+import 'lits-extras/lib/browser-runner'
 import * as pz from '..'
 import * as jp from '../test/jsonparser'
 import '../test/jsontests'

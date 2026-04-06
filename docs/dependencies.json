@@ -73,9 +73,11 @@
         ]
     },
     "lits-extras/lib/tester": {
+        "url": "",
         "dependencies": []
     },
     "fast-check": {
+        "url": "",
         "dependencies": []
     },
     "src/test/jsonparser": {

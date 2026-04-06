@@ -23,18 +23,6 @@
         },
         {
             "type": "npm",
-            "script": "test",
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "presentation": {
-                "focus": true,
-                "clear": true
-            }
-        },
-        {
-            "type": "npm",
             "script": "build",
             "problemMatcher": [
                 "$tsc"
@@ -43,6 +31,16 @@
                 "reveal": "always",
                 "clear": true
             }
+        },
+        {
+            "type": "npm",
+            "script": "lits-serve",
+            "problemMatcher": [
+                "$tsc-watch"
+            ],
+            "label": "npm: lits-serve",
+            "detail": "lits --serve --outDir testOut",
+            "isBackground": true
         }
     ]
 }

@@ -4,7 +4,6 @@
   "description": "Parser combinators for Typescript",
   "main": "lib/index.js",
   "scripts": {
-    "test": "node ./lib/test/exprtests.js && node ./lib/test/jsontests.js",
     "build": "tsc",
     "prepare": "npm run build",
     "prepublishOnly": "npm test",
@@ -28,9 +27,9 @@
   },
   "homepage": "https://johtela.github.io/parzec",
   "devDependencies": {
-    "@types/node": "^22.14.1",
-    "fast-check": "^2.17.0",
-    "lits-extras": "^2.0.0",
-    "litscript": "^2.2.1"
+    "@types/node": "^25.5.2",
+    "fast-check": "^4.6.0",
+    "lits-extras": "^3.0.0",
+    "litscript": "^2.4.0"
   }
 }

@@ -23,7 +23,7 @@ import * as fc from "fast-check"
 /**
  * We should get interesting test data. You can check the test cases below.
  * 
- * <test-runner name="JSON tests"></test-runner>
+ * <test-runner></test-runner>
  * 
  * Using `JSON.parse` as the baseline for our parser, we can check that it and
  * our parsing functions produce identical JavaScript objects. We use the
@@ -34,6 +34,6 @@ test("Test arbitrary JSON data", async t =>
         fc.property(fc.json(), str => {
             let obj1 = JSON.parse(str)
             let obj2 = parseJson(str)
-            t.deepEqual(obj2, obj1, JSON.stringify(obj2) + 
-                " should be deep equal to " + JSON.stringify(obj1))
+            t.equal(JSON.stringify(obj2) + " should be deep equal to " + 
+                JSON.stringify(obj1), obj2, obj1)
         })))

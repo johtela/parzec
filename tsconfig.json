@@ -1,11 +1,13 @@
 {
     "compilerOptions": {
-      "target": "es2015",
-      "module": "commonjs",
-      "declaration": true,
-      "outDir": "./lib",
-      "strict": true
-    },
-    "include": ["src"],
-    "exclude": ["node_modules"]
-  }
+        "declaration": true,
+        "sourceMap": true,
+        "rootDir": "./src",
+        "outDir": "./lib",
+        "module": "commonjs",
+        "target": "esnext",
+        "incremental": true,
+        "tsBuildInfoFile": "./lib/tsconfig.tsbuildinfo",
+        "allowJs": false
+    }
+}
